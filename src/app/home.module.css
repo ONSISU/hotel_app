@@ -1,0 +1,293 @@
+.wrapper {
+  width: 95%;
+  margin: 0 auto;
+}
+.container {
+  margin: 30px;
+
+}
+.a {
+}
+.b {
+  margin-top: 24px;
+}
+.c {
+  margin-top: 24px;
+
+}
+.d {
+  margin-top: 24px;
+
+}
+.e {
+
+}
+.f {
+
+}
+.a-profile {
+  display: inline-flex;
+  align-items: center;
+}
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 6px;
+}
+.profile-name {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 22px;
+  margin-left: 3px;
+}
+.profile-location {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+.profile-location Image {
+  color: gray;
+}  
+.profile-location p {
+  font-size: 14px;
+  color: gray;
+  margin-left: 5px;
+}
+.a-icon {
+  display: inline-flex;
+  float: right;
+  margin-top: 15px;
+}
+.a-icon .radius-01 {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #dadddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+.a-icon .radius-02 {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #dadddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wrap-notify {
+  background-color: #E8F2FF;
+  width: 100%;
+  height: 72px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrap-notify .notify-Img {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+.wrap-notify .radius-03 {
+  border-radius: 100%;
+  width: 36px;
+  height: 36px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wrap-notify span {
+  gap: 12px;
+  line-height: 22px;
+  flex: 3;
+}
+.wrap-notify .notify-arrow {
+  flex: 1;
+}
+.popular-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.popular-title .tit {
+  font-weight: bold;
+  font-size: 22px;
+}
+.popular-title .more {
+  color: #2853AF;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+.container-popular {
+  display: flex;
+  flex-direction: row;
+}
+.container-popular .popular-img {
+  position: relative;
+  width: 28vw;
+  height: 30vh;
+} 
+.container-popular .popular-img .popular-heart-radius {
+  border-radius: 100%;
+  width: 28px;
+  height: 28px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+}
+.container-popular .popular-img .img {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+}
+.container-popular .popular-img .popular-info {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  width: 85%;
+}
+.container-popular .popular-img .popular-info .name {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 2.5vw;
+  margin-bottom: 5px;
+}
+.container-popular .popular-img .popular-info .location {
+  color: #ffffff;
+  font-weight: 100;
+  font-size: 2vw;
+  margin-bottom: 5px;
+}
+.container-popular .popular-img .popular-info02 {
+  display: flex;
+  justify-content: space-between;
+}
+.container-popular .popular-img .popular-info02 .price {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 2.5vw;
+}
+.container-popular .popular-img .popular-info02 .score span {
+  color: #e0e0e0;
+  font-weight: 100;
+  font-size: 2vw;
+  margin-left: 3px;
+}
+.wrap-recommend .recommend-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.wrap-recommend .recommend-title .tit {
+  font-weight: bold;
+  font-size: 22px;
+}
+.wrap-recommend .recommend-title .more {
+  color: #2853AF;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+.wrap-recommend .recommend-choice {
+  display: flex;
+  overflow-x: scroll; /* ⭐ 필수: 가로 스크롤 가능 */
+  scroll-snap-type: x mandatory; /* ⭐ 필수: 스냅 동작 활성화 */
+  -webkit-overflow-scrolling: touch; /* iOS 부드러운 스크롤 */
+  scroll-behavior: smooth; /* 부드러운 스크롤 애니메이션 */
+  width: 100%; /* 부모 컨테이너의 너비는 100%여야 함 */
+  padding-bottom: 10px; /* 스크롤바가 콘텐츠를 가리지 않도록 여유 공간 */
+  white-space: nowrap; /* ⭐ 추가: Flex 아이템 줄바꿈 방지 */
+  
+  /* 스크롤바 숨기기 (선택 사항) */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.recommend-choice::-webkit-scrollbar {
+  display: none;
+}
+.recommend-choice .choice-all {
+  background-color: rgba(40, 83, 175, 1);
+  font-weight: bold;
+  border-radius: 12px;
+  padding: 4px 14px;
+  width: calc(100% / 5); 
+  height: 6vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+  border: 1px solid #eee;
+  cursor: pointer;
+  flex-shrink: 0; /* ⭐ 필수: 공간이 부족해도 아이템이 줄어들지 않도록 */
+  scroll-snap-align: center; /* ⭐ 필수: 스크롤 정지 시 중앙에 맞춤 */
+}
+.recommend-choice .choice-all span {
+  color: #ffffff;
+}
+.recommend-choice 
+.choice-villas,
+.choice-hotels,
+.choice-apartment {
+  border: 1px rgba(233, 235, 237, 1) solid;
+  font-weight: bold;
+  border-radius: 12px;
+  padding: 4px 14px;
+  width: calc(100% / 4); 
+  height: 6vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px; /* 아이템 간 간격 */
+  box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+  border: 1px solid #eee;
+  cursor: pointer;
+  flex-shrink: 0; /* ⭐ 필수: 공간이 부족해도 아이템이 줄어들지 않도록 */
+  scroll-snap-align: center; /* ⭐ 필수: 스크롤 정지 시 중앙에 맞춤 */
+} 
+.recommend-choice .choice-apartment {
+  border: 1px rgba(233, 235, 237, 1) solid;
+  font-weight: bold;
+  border-radius: 12px;
+  padding: 4px 14px;
+  width: calc(100% / 3); 
+  height: 6vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px; /* 아이템 간 간격 */
+  box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+  border: 1px solid #eee;
+  cursor: pointer;
+  flex-shrink: 0; /* ⭐ 필수: 공간이 부족해도 아이템이 줄어들지 않도록 */
+  scroll-snap-align: center; /* ⭐ 필수: 스크롤 정지 시 중앙에 맞춤 */
+} 
+.recommend-choice 
+.choice-villas,
+.choice-hotels span {
+  margin-left: 10px;
+  color: rgba(120, 130, 138, 1);
+  font-weight: 100;
+}
+.recommend-choice .choice-apartment span {
+  margin-left: 10px;
+  color: rgba(120, 130, 138, 1);
+  font-weight: 100;
+  margin-right: 0;
+}
