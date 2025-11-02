@@ -2,22 +2,6 @@
   .container {
     padding: 10px 24px 28px 24px;
 
-    & label {
-      display: flex;
-      flex-direction: column;
-    }
-
-    & .titleWrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 10px 0;
-    }
-    & .title,
-    .subtitle {
-      text-align: center;
-    }
-
     .loginSection {
       display: flex;
       flex-direction: column;
@@ -76,17 +60,6 @@
     .forgetPassword {
       color: #f41f52;
       font-weight: 400;
-    }
-
-    .signInButton {
-      width: 327px;
-      height: 56px;
-      color: white;
-      border-radius: 12px;
-      background-color: #2853af;
-      text-align: center;
-      font-size: 16px;
-      font-weight: 600;
     }
 
     .moreOptions {

@@ -1,25 +1,39 @@
-import styles from "@/style/login/Login.module.scss";
-import Image from "next/image";
+"use client";
 
-export default function NewPage() {
+import styles from "@/style/page/login/Login.module.scss";
+import Image from "next/image";
+import LoginTitle from "@/components/login/LoginTitle";
+import LoginButton from "@/components/login/LoginButton";
+import {useUser} from "../UserContext";
+
+export default function SignUp() {
+  const {user, setUser} = useUser();
+
   return (
     <div className={styles.container}>
       <div>
         <Image src="/icons/arrowLeft.png" width={17} height={14} alt="test" />
       </div>
 
-      <div className={styles.titleWrapper}>
-        <h1 className={styles.title}>Let's Sign you in</h1>
-        <p className={styles.subtitle}>We provide Special Memory</p>
-      </div>
+      <LoginTitle mainTitle="Let's Sign you In" subTitle="We provide variety Comfort" />
 
-      <section className={styles.loginSection}>
+      <section className={styles.loginSection} style={{marginBottom: "32px"}}>
+        <label htmlFor="email">Full Name</label>
+        <input
+          type="text"
+          name="fullName"
+          className={styles.inputBox}
+          placeholder="Enter your Name"
+          onChange={(e) => setUser({fullName: e.target.value})}
+        />
+
         <label htmlFor="email">Email Address</label>
         <input
           type="email"
           name="email"
           className={styles.inputBox}
           placeholder="Enter your email address"
+          onChange={(e) => setUser({email: e.target.value})}
         />
 
         <label htmlFor="password">Password</label>
@@ -28,28 +42,13 @@ export default function NewPage() {
           name="password"
           className={styles.inputBox}
           placeholder="Enter your password"
+          onChange={(e) => setUser({password: e.target.value})}
         />
       </section>
 
-      <section className={styles.loginSubOptions}>
-        <div className={styles.remembermeWrapper}>
-          <input type="checkbox" name="rememberme" />
-          <span className={styles.rememberme}></span>Remember Me
-        </div>
-
-        <div>
-          <button className={styles.forgetPassword}>Forgot Password</button>
-        </div>
-      </section>
-
-      <button className={styles.signInButton}>Sign In</button>
+      <LoginButton buttonName="Create An Account" />
 
       <section className={styles.moreOptions}>
-        <div className={styles.joinOption}>
-          <span className={styles.joinGuide}>Don't have an account?</span>
-          <button className={styles.joinButton}>Sign Up</button>
-        </div>
-
         <div className={styles.moreOptionsDivider}>
           <span className={styles.divider}>Or Sign in with</span>
         </div>
