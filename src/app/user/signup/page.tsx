@@ -4,7 +4,8 @@ import styles from "@/style/page/login/Login.module.scss";
 import Image from "next/image";
 import LoginTitle from "@/components/login/LoginTitle";
 import LoginButton from "@/components/login/LoginButton";
-import {useUser} from "../UserContext";
+import {useUser} from "@/app/user/UserContext";
+import Link from "next/link";
 
 export default function SignUp() {
   const {user, setUser} = useUser();
@@ -46,7 +47,10 @@ export default function SignUp() {
         />
       </section>
 
-      <LoginButton buttonName="Create An Account" />
+      {/* 👉 회원가입버튼 */}
+      <Link href="/user/verify-email">
+        <LoginButton buttonName="Create An Account" />
+      </Link>
 
       <section className={styles.moreOptions}>
         <div className={styles.moreOptionsDivider}>

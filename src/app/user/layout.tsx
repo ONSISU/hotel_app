@@ -1,4 +1,4 @@
-import {UserProvider} from "./UserContext";
+import {UserProvider} from "@/app/user/UserContext";
 
 export default function UserLayout({
   children,

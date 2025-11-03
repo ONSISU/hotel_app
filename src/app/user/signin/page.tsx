@@ -1,10 +1,46 @@
+"use client";
+
 import styles from "@/style/page/login/Login.module.scss";
 import Image from "next/image";
 import LoginButton from "@/components/login/LoginButton";
 import LoginTitle from "@/components/login/LoginTitle";
+import Loading from "@/components/Loading";
 import Link from "next/link";
+import {useState} from "react";
+import {useRouter} from "next/navigation";
+
+type loginInfoType = {
+  email: string;
+  password: string;
+};
 
 export default function NewPage() {
+  const router = useRouter();
+  const [loginInfo, setLoginInfo] = useState<loginInfoType>({email: "", password: ""});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const goLogin = async () => {
+    setIsLoading(true);
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({...loginInfo}),
+    });
+
+    const json = await res.json();
+
+    if (json.statusCode == 200) {
+      router.push("/");
+    } else {
+      alert("로그인에 실패하였습니다.");
+    }
+
+    setIsLoading(false);
+  };
+
   return (
     <div className={styles.container}>
       <div>
@@ -20,6 +56,7 @@ export default function NewPage() {
           name="email"
           className={styles.inputBox}
           placeholder="Enter your email address"
+          onChange={(e) => setLoginInfo({...loginInfo, email: e.target.value})}
         />
 
         <label htmlFor="password">Password</label>
@@ -28,6 +65,7 @@ export default function NewPage() {
           name="password"
           className={styles.inputBox}
           placeholder="Enter your password"
+          onChange={(e) => setLoginInfo({...loginInfo, password: e.target.value})}
         />
       </section>
 
@@ -42,7 +80,7 @@ export default function NewPage() {
         </div>
       </section>
 
-      <LoginButton buttonName="Sign In" />
+      <LoginButton buttonName="Sign In" clickedButton={goLogin} />
 
       <section className={styles.moreOptions}>
         <div className={styles.joinOption}>
@@ -75,6 +113,8 @@ export default function NewPage() {
       <p className={styles.guide1}>
         and <a href="">Conditions of Use</a>
       </p>
+
+      {isLoading && <Loading />}
     </div>
   );
 }
