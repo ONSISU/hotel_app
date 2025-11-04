@@ -1,0 +1,29 @@
+@media (max-width: 378px) {
+  .titleWrapper {
+    padding: 24px 0 32px 0;
+    & label {
+      display: flex;
+      flex-direction: column;
+    }
+    & .title,
+    .subtitle {
+      text-align: center;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      font-weight: 400;
+      color: #434e58;
+    }
+    .emphasizeTitle {
+      color: #171725;
+    }
+  }
+
+  // & .titleWrapper {
+  //   display: flex;
+  //   flex-direction: column;
+  //   gap: 10px;
+  //   padding: 10px 0;
+  // }
+}
