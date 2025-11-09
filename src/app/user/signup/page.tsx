@@ -49,7 +49,9 @@ export default function SignUp() {
 
       {/* 👉 회원가입버튼 */}
       <Link href="/user/verify-email">
-        <LoginButton buttonName="Create An Account" />
+        <div className={styles.buttonWrapper}>
+          <LoginButton buttonName="Create An Account" />
+        </div>
       </Link>
 
       <section className={styles.moreOptions}>

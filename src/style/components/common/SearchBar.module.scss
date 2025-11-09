@@ -1,0 +1,44 @@
+@media (max-width: 426px) {
+  .container {
+    margin: 0 auto;
+    width: 100%;
+    position: absolute;
+    z-index: 10;
+    top: 84px;
+    padding: 16px 24px;
+  }
+  .subContainer {
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+    gap: 8px;
+    background-color: #fefefe;
+    border-radius: 100px;
+  }
+  .searchText {
+    width: 235px;
+    & ::placeholder {
+      color: #9ca4ab;
+      font-weight: 600;
+      font-size: 14px;
+    }
+  }
+  .searchIconWrapper {
+    padding: 15px 12px;
+  }
+  .combinedWrapper {
+    padding: 15px 12px;
+    position: relative;
+    margin-left: auto;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 1px;
+      height: 18px;
+      background-color: #e9ebed;
+      left: 2px;
+      top: 10px;
+    }
+  }
+}

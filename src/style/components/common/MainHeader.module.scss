@@ -1,0 +1,30 @@
+@media (max-width: 426px) {
+  .container {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    z-index: 10;
+    top: 0;
+  }
+  .subContainer {
+    display: flex;
+    justify-content: space-around;
+    background-color: transparent;
+    padding: 16px 24px;
+    align-items: center;
+    gap: 66px;
+  }
+  .backButton {
+    background-color: #fefefe;
+    padding: 15px 12px;
+    border-radius: 50px;
+  }
+  .title {
+    font-weight: 600;
+    font-size: 18px;
+    color: #171725;
+  }
+  .backButtonTransparent {
+    background-color: #fefefe20;
+  }
+}

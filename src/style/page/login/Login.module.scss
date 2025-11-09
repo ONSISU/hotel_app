@@ -1,4 +1,4 @@
-@media (max-width: 378px) {
+@media (max-width: 426px) {
   .container {
     padding: 10px 24px 28px 24px;
 
@@ -61,7 +61,10 @@
       color: #f41f52;
       font-weight: 400;
     }
-
+    .buttonWrapper {
+      display: flex;
+      justify-content: center;
+    }
     .moreOptions {
       padding: 24px 0;
     }
