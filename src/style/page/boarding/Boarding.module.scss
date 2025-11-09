@@ -1,0 +1,96 @@
+@media (max-width: 426px) {
+  .boardingContainer {
+    display: flex;
+    position: relative;
+  }
+  .container {
+    flex-shrink: 0;
+    width: 100%;
+    position: absolute;
+    padding: 0 24px 55px 24px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    object-fit: contain;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100vh;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.4s ease;
+
+    & p {
+      text-align: center;
+    }
+
+    .boardingTitle {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fefefe;
+    }
+
+    .boardingSubTitle {
+      font-size: 14px;
+      font-weight: 400;
+      color: #e3e9ed;
+      margin-bottom: 16px;
+    }
+
+    &.next {
+      transform: translateX(100%);
+    }
+
+    &.active {
+      transform: translateX(0);
+    }
+
+    &.prev {
+      transform: translateX(-100%);
+    }
+  }
+  .boarding1 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 50%),
+      url("/images/boarding/boarding1.jpg");
+  }
+  .boarding2 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 50%),
+      url("/images/boarding/boarding2.jpg");
+  }
+
+  .boarding3 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 50%),
+      url("/images/boarding/boarding3.jpg");
+  }
+
+  .statusCircles {
+    margin-bottom: 32px;
+    position: relative;
+    display: flex;
+    gap: 8px;
+
+    & .circle {
+      display: inline-block;
+      height: 8px;
+      width: 8px;
+      background-color: #bfc6cc;
+      border-radius: 8px;
+      transition: width 0.2s ease;
+    }
+
+    & .active {
+      background-color: #2853af;
+      width: 24px;
+      height: 8px;
+    }
+  }
+  .registerGuide {
+    color: #fefefe;
+    font-weight: 400;
+    font-size: 16px;
+
+    .highlight {
+      color: #2853af;
+    }
+  }
+}

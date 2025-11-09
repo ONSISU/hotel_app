@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Onboarding</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .boarding-wrapper {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .boarding-page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      text-align: center;
+      color: white;
+
+      /* Transition */
+      transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+
+      /* Background setup */
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Gradient overlay (black at bottom) */
+    .boarding-page::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 50%);
+      z-index: 0;
+    }
+
+    /* Content above gradient */
+    .boarding-page h1,
+    .boarding-page p,
+    .boarding-page button {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Background images */
+    .boarding1 {
+      background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800');
+    }
+
+    .boarding2 {
+      background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800');
+    }
+
+    .boarding3 {
+      background-image: url('https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800');
+    }
+
+    /* Positions */
+    .prev {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    .active {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .next {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    /* Typography */
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+
+    /* Button */
+    button {
+      padding: 15px 50px;
+      font-size: 16px;
+      background-color: white;
+      color: #333;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="boarding-wrapper">
+    <!-- Page 1 -->
+    <div class="boarding-page active boarding1">
+      <h1>Luxury and Comfort,<br>Just a Tap Away</h1>
+      <p>Find your perfect hotel with ease</p>
+      <button onclick="nextPage()">Continue</button>
+    </div>
+
+    <!-- Page 2 -->
+    <div class="boarding-page next boarding2">
+      <h1>Discover Amazing Deals</h1>
+      <p>Save up to 50% on luxury stays</p>
+      <button onclick="nextPage()">Continue</button>
+    </div>
+
+    <!-- Page 3 -->
+    <div class="boarding-page next boarding3">
+      <h1>Book in Seconds</h1>
+      <p>Fast, secure, and simple booking</p>
+      <button onclick="nextPage()">Get Started</button>
+    </div>
+  </div>
+
+  <script>
+    let currentIndex = 0;
+    const pages = document.querySelectorAll('.boarding-page');
+    const totalPages = pages.length;
+
+    function nextPage() {
+      if (currentIndex < totalPages - 1) {
+        // Current page moves left
+        pages[currentIndex].classList.remove('active');
+        pages[currentIndex].classList.add('prev');
+
+        currentIndex++;
+
+        // Next page becomes active
+        pages[currentIndex].classList.remove('next');
+        pages[currentIndex].classList.add('active');
+      } else {
+        // Last page - redirect or finish
+        alert('Onboarding complete!');
+      }
+    }
+  </script>
+</body>
+
+</html>

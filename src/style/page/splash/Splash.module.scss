@@ -1,0 +1,47 @@
+.container {
+  background-color: #2853AF;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.landingWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+}
+.logo {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .logoWrapper {
+    width: 90px;
+    height: 90px;
+    background-color: #5A7BC1;
+    border-radius: 50%;
+
+  }
+
+  & img {
+    position: absolute;
+    top: 37px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.hotelName p{
+  text-align: center;
+  font-size: 40px;
+  font-weight: 700;
+  color: #FDFDFD;
+}
+
+.hotelSub p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #ffffff;
+}

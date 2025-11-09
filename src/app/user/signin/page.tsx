@@ -80,7 +80,9 @@ export default function NewPage() {
         </div>
       </section>
 
-      <LoginButton buttonName="Sign In" clickedButton={goLogin} />
+      <div className={styles.buttonWrapper}>
+        <LoginButton buttonName="Sign In" clickedButton={goLogin} />
+      </div>
 
       <section className={styles.moreOptions}>
         <div className={styles.joinOption}>
