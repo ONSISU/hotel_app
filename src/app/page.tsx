@@ -2,10 +2,7 @@
 import Image from 'next/image';
 import styles from "./home.module.css";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
-// import 'swiper/css/navigation';
-// import 'swiper/css/pagination';
-// import 'swiper/css/scrollbar';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -17,7 +14,7 @@ export default function Home() {
               <div className={styles["profile-info"]}>
                 <div className={styles["profile-name"]}>Nam bang</div>
                 <div className={styles["profile-location"]}>
-                  <Image src="/icons/location.svg" alt='위치' width={18} height={18}/>
+                  <Image src="/icons/location01.svg" alt='위치' width={18} height={18}/>
                   <p>서울 여의도동</p>
                 </div>
               </div>
@@ -32,15 +29,15 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.b}>
-          <div className={styles["wrap-notify"]}>
-            <div className={styles["notify-Img"]}>
-              <div className={styles["radius-03"]}>
-                <Image src="/icons/notify-location.svg" alt='위치' width={21} height={21}/>
+            <div className={styles["wrap-notify"]}>
+              <div className={styles["notify-Img"]}>
+                <div className={styles["radius-03"]}>
+                  <Image src="/icons/notify-location.svg" alt='위치' width={21} height={21}/>
+                </div>
               </div>
+              <span>근처 장소를 표시하려면 위치를 변경할 수 있습니다.</span>
+              <Image src="/icons/notify-arrow.svg" alt='버튼' width={24} height={24} className={styles["notify-arrow"]}/>
             </div>
-            <span>근처 장소를 표시하려면 위치를 변경할 수 있습니다.</span>
-            <Image src="/icons/notify-arrow.svg" alt='버튼' width={24} height={24} className={styles["notify-arrow"]}/>
-          </div>
         </div>
         <div className={styles.c}>
           <div className={styles["wrap-popular"]}>
@@ -54,23 +51,25 @@ export default function Home() {
               slidesPerView={3}
               >
                 <SwiperSlide>
-                  <div className={styles["popular-img"]}>
-                    <div className={styles["popular-heart-radius"]}>
-                      <Image src="/icons/popular-fullHeart.png" alt='찜' width={16} height={16} className={styles["heart"]}/>
-                    </div>
-                    <div className={styles["popular-info"]}>
-                      <div className={styles["name"]}>그랜드 하얏테 호텔</div>
-                      <div className={styles["location"]}>서울</div>
-                      <div className={styles["popular-info02"]}>
-                        <div className={styles["price"]}>550,000원~</div>
-                        <div className={styles["score"]}>
-                          <Image src="/images/popular-star.png" alt='popular' width={14} height={14}/>
-                          <span>4.6</span>
+                  <Link href="/hotel/DetailHotel">
+                    <div className={styles["popular-img"]}>
+                      <div className={styles["popular-heart-radius"]}>
+                        <Image src="/icons/popular-fullHeart.png" alt='찜' width={16} height={16} className={styles["heart"]}/>
+                      </div>
+                      <div className={styles["popular-info"]}>
+                        <div className={styles["name"]}>그랜드 하얏테 호텔</div>
+                        <div className={styles["location"]}>서울</div>
+                        <div className={styles["popular-info02"]}>
+                          <div className={styles["price"]}>550,000원~</div>
+                          <div className={styles["score"]}>
+                            <Image src="/images/popular-star.png" alt='popular' width={14} height={14}/>
+                            <span>4.6</span>
+                          </div>
                         </div>
                       </div>
+                      <Image src="/images/popularImg01.jpg" alt='popular' width={100} height={100} className={styles["img"]} />
                     </div>
-                    <Image src="/images/popularImg01.jpg" alt='popular' width={100} height={100} className={styles["img"]} />
-                  </div>
+                  </Link>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className={styles["popular-img"]}>
@@ -206,7 +205,7 @@ export default function Home() {
                   <div className={styles["hotels-list-info1"]}>
                     <div className={styles["name"]}>롯데 시그니엘</div>
                     <div className={styles["location"]}>
-                      <Image src="/icons/location.svg" alt='위치' width={18} height={18}/>
+                      <Image src="/icons/location01.svg" alt='위치' width={18} height={18}/>
                       <p>서울 송파구</p>
                     </div>
                     <div className={styles["hotels-list-info2"]}>
@@ -224,7 +223,7 @@ export default function Home() {
                   <div className={styles["hotels-list-info1"]}>
                     <div className={styles["name"]}>신라스테이</div>
                     <div className={styles["location"]}>
-                      <Image src="/icons/location.svg" alt='위치' width={18} height={18}/>
+                      <Image src="/icons/location01.svg" alt='위치' width={18} height={18}/>
                       <p>서울 강남</p>
                     </div>
                     <div className={styles["hotels-list-info2"]}>
@@ -242,7 +241,7 @@ export default function Home() {
                   <div className={styles["hotels-list-info1"]}>
                     <div className={styles["name"]}>글래드 여의도</div>
                     <div className={styles["location"]}>
-                      <Image src="/icons/location.svg" alt='위치' width={18} height={18}/>
+                      <Image src="/icons/location01.svg" alt='위치' width={18} height={18}/>
                       <p>서울 여의도</p>
                     </div>
                     <div className={styles["hotels-list-info2"]}>
@@ -286,7 +285,7 @@ export default function Home() {
                 <div className={styles["best-list-info"]}>
                   <div className={styles["name"]}>우리집 앞마당</div>
                   <div className={styles["location"]}>
-                    <Image src="/icons/location.svg" alt='위치' width={16} height={16}/>
+                    <Image src="/icons/location01.svg" alt='위치' width={16} height={16}/>
                     <p>서울 은평구</p>
                   </div>
                   <div className={styles["best-list-info2"]}>
@@ -307,7 +306,7 @@ export default function Home() {
                 <div className={styles["best-list-info"]}>
                   <div className={styles["name"]}>힐스테이트 제주</div>
                   <div className={styles["location"]}>
-                    <Image src="/icons/location.svg" alt='위치' width={16} height={16}/>
+                    <Image src="/icons/location01.svg" alt='위치' width={16} height={16}/>
                     <p>제주 제주시</p>
                   </div>
                   <div className={styles["best-list-info2"]}>
@@ -328,7 +327,7 @@ export default function Home() {
                 <div className={styles["best-list-info"]}>
                   <div className={styles["name"]}>앵봉산 가족캠핑장</div>
                   <div className={styles["location"]}>
-                    <Image src="/icons/location.svg" alt='위치' width={16} height={16}/>
+                    <Image src="/icons/location01.svg" alt='위치' width={16} height={16}/>
                     <p>서울 은평구</p>
                   </div>
                   <div className={styles["best-list-info2"]}>

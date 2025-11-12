@@ -1,0 +1,366 @@
+@media (max-width: 426px) {
+  .detailWrap {
+  }
+  .titleContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 8px 0;
+  }
+  .back {
+    transform: translateX(20px);
+  }
+  .title01 {
+    font-size: 24px;
+    color: #ffffff;
+  }
+  .title02 {
+    font-size: 24px;
+    color: #333333;
+  }
+  .more {
+    margin-right: 10px;
+  }
+  .detailContainer {
+    transform: translate(-8px, -8px);
+  }
+  .detailImg {
+  }
+  .mainImg{
+    width: 100vw;
+    height: 40vh;
+  }
+  .infoContainer {
+    width: 100vw;
+    transform: translateY(-40px);
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 20px 24px;
+  }
+  .infoContainer .info01, .info02, .info03, .info04, .info05, .info06, .info07, .info08 {
+    margin-bottom: 20px;
+  }
+  .info01 .title {
+    font-size: 18px;
+  }
+  .info01 .info {
+    display: flex;
+    align-items: center;
+  }
+  .info .locationInfo {
+    display: flex;
+    align-items: center;
+  }
+  .info .locationInfo p {
+    font-size: 12px;
+    color: #9CA4AB;
+    margin-left: 5px;
+  }
+  .info .locationToggle {
+    width: 50%;
+    position: absolute;
+    transform: translate(20px ,40px);
+    border-radius: 8px;
+    padding: 8px 10px;
+    background-color: #e1e4eb;
+  }
+  .info .locationToggle div {
+    font-size: 12px;
+    color: #635d5d;
+  }
+  .info01 .info .detailLocation {
+    margin-left: 2px;
+    padding-top: 2px;
+  }
+  .info01 .info .scoreInfo {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+  }
+  .info01 .scoreInfo .score {
+    font-size: 14px;
+    margin-left: 2px;
+  }
+  .info02 .subTitle {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  .info02 .subInfo {
+    font-size: 12px;
+    padding-right: 4px;
+    word-spacing: 2px;
+  }
+  .info03 .mainTitle {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .info03 .roomDate {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .info03 .subDate {
+    border: 1px solid #cacfdb;
+    border-radius: 8px;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 2;
+    margin: 0 2px;
+  }
+  .info03 .subPeople {
+    border: 1px solid #cacfdb;
+    border-radius: 8px;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    margin: 0 3px;
+  }
+  .subDate .dateDay {
+    font-size: 14px;
+    padding: 0 3px 2px 3px;
+    font-weight: bold;
+  }
+  .subPeople .datePeople {
+    font-size: 14px;
+    padding: 0 3px 2px 3px;
+    font-weight: bold;
+  }
+  .info03 .roomContainer {
+    border: 1px solid #cacfdb;
+    border-radius: 16px;
+    margin-bottom: 20px;
+  }
+  .roomContainer .roomImg {
+    width: 100%;
+    height: 160px;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    image-rendering: -webkit-optimize-contrast;
+    object-fit: cover;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    overflow: hidden;
+
+  }
+  .roomContainer .roomInfo01 {
+    padding: 5px 12px;
+  }
+  .roomInfo01 .title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  .roomInfo01 .people {
+    font-size: 14px;
+    color: #616265;
+  }
+  .roomInfo01 .bed {
+    font-size: 14px;
+    color: #616265;
+  }
+  .roomContainer .roomInfo02 {
+    margin-top: 10px;
+    padding: 5px 12px;
+    overflow: hidden;
+  }
+  .roomInfo02 .type {
+    font-size: 12px;
+  }
+  .roomInfo02 .time {
+    font-size: 12px;
+    color: #909298;
+  }
+  .roomInfo02 .time span {
+    font-size: 13px;
+    color: #515255;
+  }
+  .roomInfo02 .roomPrice {
+    float: right;
+  }
+  .roomPrice .price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #515255;
+    padding: 2px;
+  }
+  .roomPrice .end {
+    font-size: 18px;
+    font-weight: bold;
+    color: #909298;
+    padding: 2px;
+  }
+  .roomPrice .reserve {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 14px;
+    margin-right: 3px;
+    color: #909298;
+  }
+  .roomPrice .roomDetail {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 5px 3px;
+  }
+  .roomDetail .title {
+    font-size: 14px;
+    color: #2853AF;
+    font-weight: bold;
+  }
+  .roomDetail .detailImg {
+    margin-left: 3px;
+    margin-top: 2px;
+  }
+  .info04 .subTitle {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  .info04 .subInfo {
+    font-size: 13px;
+    padding-right: 4px;
+    word-spacing: 2px;
+    color: #555;
+    transition: max-height 0.3s ease-out; // 부드러운 전환 효과
+    // overflow: hidden; // 기본적으로 overflow는 숨김 (collapsed 클래스가 없어도 적용)
+    position: relative; // ::after 가상 요소의 기준점을 위해 추가
+    padding-bottom: 15px; // 더보기 버튼과의 간격 및 그라데이션 여유 공간
+
+    // 가려진 상태일 때 적용될 스타일 (React에서 .collapsed 클래스가 추가될 때)
+    &.collapsed {
+      max-height: 100px; 
+      overflow: hidden;
+
+      // 내용 하단에 반투명 그라데이션 오버레이 추가
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px; /* 그라데이션의 높이 */
+        background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+        pointer-events: none; /* 그라데이션이 클릭을 방해하지 않도록 */
+      }
+    }
+  }
+  .moreButton {
+    display: block; // 블록 요소로 만들어 하단 중앙에 배치 용이
+    width: 100%;
+    padding: 10px 0;
+    margin-top: 10px; // 내용과의 간격
+    background-color: #f0f0f0; // 버튼 배경색
+    border: none;
+    border-radius: 8px;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #e0e0e0;
+    }
+  }
+  .info05 .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .info05 .subTitle {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  .info05 .more {
+    color: #2853AF;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .info05 .map {
+    border: 1px solid gray;
+    height: 10em;
+    border-radius: 8px;
+  }
+  .info06 .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .info06 .subTitle {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  .info06 .more {
+    color: #2853AF;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .info06 .reviewLine {
+    width: 98%;
+    border: 0.7px rgba(233, 235, 237, 1) solid;
+    margin: 8px 0;
+  }
+  .reviewInfo {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .reviewInfo .profileImg {
+    margin-right: 5px;
+  }
+  .reviewInfo .profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1; 
+  }
+  .reviewInfo .profile .name {
+    font-size: 12px;
+    color: #333333;
+  }
+  .reviewInfo .profile .date {
+    font-size: 12px;
+    color: #999ba0;
+  }
+  .reviewInfo .profile .score {
+    margin-right: 10px;
+  }
+  .info06 .content {
+    font-size: 14px;
+    color: #616265;
+    padding: 10px 5px;
+  }
+  .info07 .title {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  .info07 .content {
+    font-size: 14px;
+    padding: 10px 3px;
+  }
+  .info08 .title {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  .info08 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
