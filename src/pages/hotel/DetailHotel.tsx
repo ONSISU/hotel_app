@@ -1,7 +1,35 @@
 import styles from "@/style/components/hotel/DetailHotel.module.scss";
+import '@/style/components/common/Calendar.css'; // css import
 import Image from 'next/image';
+import Link from 'next/link';
+import Calendar, {Value} from 'react-calendar'; 
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 
-import React, { useState, useEffect, useCallback, useRef  } from 'react';
+const getFormattedDateRange = (startDate: Date, endDate: Date): string => {
+  const formatSingleDate = (date: Date): string => {
+    let formatted = date.toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit' });
+    formatted = formatted.replace('. ', '.');
+    if (formatted.endsWith('.')) {
+      formatted = formatted.slice(0, -1);
+    }
+    return formatted;
+  };
+  const formattedStart = formatSingleDate(startDate);
+  const formattedEnd = formatSingleDate(endDate);
+
+  return `${formattedStart} ~ ${formattedEnd}`;
+};
+
+const getDurationString = (startDate: Date, endDate: Date) => {
+  const start = new Date(startDate);
+  start.setHours(0, 0, 0, 0);
+  const end = new Date(endDate);
+  end.setHours(0, 0, 0, 0);
+  const diffTime = Math.abs(end.getTime() - start.getTime());
+  const nights = Math.floor(diffTime / (1000 * 60 * 60 * 24)); // 밀리초를 일수로 변환하여 '박' 수 계산
+
+  return `${nights}박`;
+};
 
 export default function DetailHotel() {
 
@@ -9,6 +37,49 @@ export default function DetailHotel() {
   const [hasMoreFacilities, setHasMoreFacilities] = useState(false); 
   const facilitiesRef = useRef<HTMLDivElement>(null);
   const [isLocation, setIsLocation] = useState(false);
+  const [isPeopleInfo, setIsPeopleInfo] = useState<boolean>(false); 
+  const [selectedAttendeesForDisplay, setSelectedAttendeesForDisplay] = useState<number>(2);
+  const [tempAttendeesValue, setTempAttendeesValue] = useState<number>(2);
+  // 캘린더
+  const [isCalendar, setIsCalendar] = useState(false);
+  // const today = new Date();
+  // today.setHours(0, 0, 0, 0); 
+  // const tomorrow = new Date(today);
+  // tomorrow.setDate(today.getDate() + 1);
+  // tomorrow.setHours(0, 0, 0, 0);
+  // const sixMonthsLater = new Date(today);
+  // sixMonthsLater.setMonth(today.getMonth() + 6);
+  // sixMonthsLater.setHours(23, 59, 59, 999); // 6개월째 마지막 날의 끝 시간까지 포함
+
+    const today = useMemo(() => {
+    const date = new Date();
+    date.setHours(0, 0, 0, 0);
+    return date;
+  }, []); 
+
+  const tomorrow = useMemo(() => {
+    const date = new Date(today);
+    date.setDate(today.getDate() + 1);
+    date.setHours(0, 0, 0, 0);
+    return date;
+  }, [today]); 
+
+  const sixMonthsLater = useMemo(() => {
+    const date = new Date(today);
+    date.setMonth(today.getMonth() + 6);
+    date.setHours(23, 59, 59, 999);
+    return date;
+  }, [today]);
+
+  const [selectedDatesForDisplay, setSelectedDatesForDisplay] = useState<[Date, Date]>(
+    () => [today, tomorrow] 
+  );
+  const [tempCalendarValue, setTempCalendarValue] = useState<Value>(null);
+  const [popupSelectedRangeText, setPopupSelectedRangeText] = useState<string>('');
+  const [popupStayDurationText, setPopupStayDurationText] = useState<string>('');
+  const [mainPageRangeText, setMainPageRangeText] = useState<string>('');
+  const [mainPageDurationText, setMainPageDurationText] = useState<string>('');
+  const [mainPageAttendeesText, setMainPageAttendeesText] = useState<string>('');
 
   useEffect(() => {
     if (facilitiesRef.current) {
@@ -19,15 +90,106 @@ export default function DetailHotel() {
       }
     }
   }, []);
-  const DetailLocationToggle = () => {
+  useEffect(() => {
+    if (isCalendar) {
+      document.body.style.overflow = 'hidden'; 
+    } else {
+      document.body.style.overflow = 'unset'; 
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isCalendar]); 
+
+  useEffect(() => {
+    let startDispDate: Date = today;
+    let endDispDate: Date = tomorrow;
+
+    if (Array.isArray(tempCalendarValue) && tempCalendarValue[0] instanceof Date) {
+      startDispDate = tempCalendarValue[0];
+      if (tempCalendarValue[1] instanceof Date) {
+        endDispDate = tempCalendarValue[1];
+      } else { 
+        endDispDate = new Date(startDispDate);
+        endDispDate.setDate(startDispDate.getDate() + 1);
+        endDispDate.setHours(0,0,0,0);
+      }
+    } else if (tempCalendarValue instanceof Date) { 
+      startDispDate = tempCalendarValue;
+      endDispDate = new Date(startDispDate);
+      endDispDate.setDate(startDispDate.getDate() + 1);
+      endDispDate.setHours(0,0,0,0);
+    }
+    
+    setPopupSelectedRangeText(getFormattedDateRange(startDispDate, endDispDate));
+    setPopupStayDurationText(getDurationString(startDispDate, endDispDate));
+    
+  }, [tempCalendarValue, today, tomorrow]);
+
+  useEffect(() => {
+    const [start, end] = selectedDatesForDisplay;
+    setMainPageRangeText(getFormattedDateRange(start, end));
+    setMainPageDurationText(getDurationString(start, end));
+    setMainPageAttendeesText(`${selectedAttendeesForDisplay}`);
+  }, [selectedDatesForDisplay, selectedAttendeesForDisplay]);
+
+  const detailLocationToggle = () => {
     setIsLocation(!isLocation);
+  };
+  const peopleInfoToggle = () => {
+    setIsPeopleInfo(!isPeopleInfo);
+  };
+  const peopleCountDown = () => {
+    setTempAttendeesValue(prevCount => Math.max(1, prevCount - 1));
+  };
+  const peopleCountUp = () => {
+    setTempAttendeesValue(prevCount => Math.min(30, prevCount + 1));
+  };
+  const fnCalendar = () => {
+    setTempCalendarValue(selectedDatesForDisplay);
+    setTempAttendeesValue(selectedAttendeesForDisplay); 
+    setIsPeopleInfo(false); 
+    setIsCalendar(true);
+  };
+  const cancelButton = () => {
+    setIsCalendar(false);
+  };
+
+  const handleCalendarChange = (nextValue: Value) => {
+    setTempCalendarValue(nextValue);
+  };
+
+  const applyButton = () => {
+  let finalSelectedRange: [Date, Date];
+  if (Array.isArray(tempCalendarValue) && tempCalendarValue[0] instanceof Date && tempCalendarValue[1] instanceof Date) {
+    finalSelectedRange = [tempCalendarValue[0], tempCalendarValue[1]];
+  } else if (tempCalendarValue instanceof Date) { 
+    const start = tempCalendarValue;
+    const end = new Date(start);
+    end.setDate(start.getDate() + 1);
+    finalSelectedRange = [start, end];
+  } else { 
+    finalSelectedRange = [today, tomorrow]; 
+  }
+    setSelectedDatesForDisplay(finalSelectedRange); 
+    setSelectedAttendeesForDisplay(tempAttendeesValue); 
+    setIsCalendar(false);
+  };
+
+  const handleDayClick = (clickedDate: Date) => {
+    const selectedStart = clickedDate;
+    const selectedEnd = new Date(selectedStart);
+    selectedEnd.setDate(selectedStart.getDate() + 1);
+    selectedEnd.setHours(0,0,0,0);
+
+    setTempCalendarValue([selectedStart, selectedEnd]);
   };
 
   return (
     <div className={styles.detailWrap}>
       <div className={styles.titleContainer}>
         <Image src="/icons/backBlack.svg" alt='뒤로가기' width={25} height={25} className={styles.back}/>
-        <div className={styles.title02}>그랜드 하얏트 호텔</div>
+        <div className={styles.title01}>그랜드 하얏트 호텔</div>
         <Image src="/icons/moreIconBlack.svg" alt='더보기' width={25} height={25} className={styles.more}/>
       </div>
       <div className={styles.detailContainer}>
@@ -39,7 +201,7 @@ export default function DetailHotel() {
             <div className={styles.title}>그랜드 하얏트 호텔</div>
             <div className={styles.info}>
               <Image src="/icons/location02.svg" alt='위치' width={18} height={18}/>
-              <div className={styles.locationInfo} onClick={DetailLocationToggle}>
+              <div className={styles.locationInfo} onClick={detailLocationToggle}>
                 <p>서울 용산구</p>
                 <Image src="/icons/notify-arrow.svg" alt='버튼' width={10} height={10} className={styles.detailLocation}/>
               </div>
@@ -66,13 +228,13 @@ export default function DetailHotel() {
           <div className={styles.info03}>
             <div className={styles.mainTitle}>객실 선택</div>
             <div className={styles.roomDate}>
-              <div className={styles.subDate}>
+              <div className={styles.subDate} onClick={fnCalendar}>
                 <Image src="/icons/date.svg" alt='날짜' width={14} height={14} className={styles.dateImg}/>
-                <div className={styles.dateDay}>11.11~11.13 (2박)</div>
+                <div className={styles.dateDay}>{mainPageRangeText} ({mainPageDurationText})</div>
               </div>
-              <div className={styles.subPeople}>
+              <div className={styles.subPeople} onClick={fnCalendar}>
                 <Image src="/icons/people.svg" alt='날짜' width={14} height={14} className={styles.peopleImg}/>
-                <div className={styles.datePeople}>인원 2</div>
+                <div className={styles.datePeople}>인원 {mainPageAttendeesText}</div>
               </div>
             </div>
             <div className={styles.roomContainer}>
@@ -88,12 +250,15 @@ export default function DetailHotel() {
                   체크인 <span>15:00</span> - 체크아웃 <span>11:00</span>
                 </div>
                 <div className={styles.roomPrice}>
+                  <div className={styles.discount}></div>
                   <div className={styles.price}>1,200,000원</div>
                   <div className={styles.reserve}></div>
-                  <div className={styles.roomDetail}>
-                    <div className={styles.title}>상세보기</div>
-                    <Image src="/icons/notify-arrow.svg" alt='버튼' width={10} height={10} className={styles.detailImg}/>
-                  </div>
+                  <Link href="/hotel/DetailRoom" style={{textDecorationLine: "none"}}>
+                    <div className={styles.roomDetail}>
+                      <div className={styles.title}>상세보기</div>
+                      <Image src="/icons/notify-arrow.svg" alt='버튼' width={10} height={10} className={styles.detailImg}/>
+                    </div>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -110,7 +275,11 @@ export default function DetailHotel() {
                   체크인 <span>15:00</span> - 체크아웃 <span>11:00</span>
                 </div>
                 <div className={styles.roomPrice}>
-                  <div className={styles.price}>1,500,000원</div>
+                  <div className={styles.discount}>
+                    <span>15%</span>
+                    <span>1,700,000</span>
+                  </div>
+                  <div className={styles.price}>1,445,000원</div>
                   <div className={styles.reserve}></div>
                   <div className={styles.roomDetail}>
                     <div className={styles.title}>상세보기</div>
@@ -132,6 +301,7 @@ export default function DetailHotel() {
                   체크인 <span>15:00</span> - 체크아웃 <span>11:00</span>
                 </div>
                 <div className={styles.roomPrice}>
+                  <div className={styles.discount}></div>
                   <div className={[styles.price, styles.end].join(" ")}>900,000원</div>
                   <div className={styles.reserve}>예약마감</div>
                   <div className={styles.roomDetail}>
@@ -240,6 +410,46 @@ export default function DetailHotel() {
         </div>
         <div className={styles.priceContainer}></div>
       </div>
+      {isCalendar &&
+      <div className={styles.popupCalendar}>
+        <div className={styles.popupContent}>
+          <div className={styles.popupTitle}>날짜 선택</div>
+          <Calendar 
+          onClickDay={handleDayClick}
+          onChange={handleCalendarChange} 
+          value={tempCalendarValue} 
+          selectRange ={true} 
+          calendarType="gregory" 
+          prev2Label={null} 
+          next2Label={null} 
+          minDate={today} 
+          maxDate={sixMonthsLater}
+          formatDay={(locale, date) => date.toLocaleString('en', { day: 'numeric' })}
+          />
+          <div className={styles.dateValue}>{popupSelectedRangeText} ({popupStayDurationText})</div>
+          <div className={styles.peopleValue}>
+            <div className={styles.peopleTitle}>
+              <div>인원수</div>
+              <Image src="/icons/info.svg" alt='info' width={20} height={20} className={styles.info} onClick={peopleInfoToggle}/>
+            </div>
+            {isPeopleInfo &&
+              <div className={styles.peopleInfoToggle}>
+                <div>유아 및 아동도 인원수에 포함해주세요.</div>
+              </div>
+              }
+            <div className={styles.peopleCount}>
+              <Image src="/icons/minus.svg" alt='minus' width={24} height={24} className={styles.minus} onClick={peopleCountDown}/>
+              <div className={styles.countTxt}>{tempAttendeesValue}</div>
+              <Image src="/icons/add.svg" alt='add' width={24} height={24} className={styles.add} onClick={peopleCountUp}/>
+            </div>
+          </div>
+          <div className={styles.popupButton}>
+            <div className={styles.cancelButton} onClick={cancelButton}>취소</div>
+            <div className={styles.applyButton} onClick={applyButton}>적용</div>
+          </div>
+        </div>
+      </div>
+      }
     </div>
 
   );

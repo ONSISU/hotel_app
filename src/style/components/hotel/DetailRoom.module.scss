@@ -1,0 +1,140 @@
+@media (max-width: 426px) {
+  .titleContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 8px 0;
+  }
+  .back {
+    transform: translateX(20px);
+  }
+  .titleContainer .title01 {
+    font-size: 24px;
+    color: #333333;
+  }
+  .titleContainer .more {
+    margin-right: 10px;
+  }
+  .roomContainer {
+    transform: translate(-8px, -8px);
+  }
+  .mainImg{
+    width: 100vw;
+    height: 40vh;
+  }
+  .infoContainer {
+    padding: 16px;
+  }
+  .room01 .roomTitle {
+    font-size: 24px;  
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .room01 .roomPeople {
+    color: #9CA4AB;
+    font-size: 14px;
+  }
+  .room01 .roomTime {
+    color: #9CA4AB;
+    font-size: 14px;
+    line-height: 25px;
+  }
+  .infoContainer .icon {
+    display: flex;
+    align-items: center;
+  }
+  .infoContainer .icon div {
+    margin-left: 5px;
+  }
+  .infoContainer .roomLine {
+    width: 98%;
+    border: 0.7px rgba(233, 235, 237, 1) solid;
+    margin: 12px 0;
+  }
+  .infoContainer .room02 {
+    margin-top: 5px;
+    line-height: 25px;
+  }
+  .room02 .roomInfo01, .roomInfo02, .roomInfo03 {
+    color: #9CA4AB;
+    font-size: 13px;
+  }
+  .room03 .subtitle {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .room03 .serviceContainer {
+    padding: 8px 3px;
+    display: grid;
+    grid-template-columns: 200px 160px;
+    grid-template-rows: 24px 30px;
+  }
+  .serviceContainer .service {
+    display: flex;
+    align-items: center;
+  }
+  .service div {
+    margin-left: 5px;
+    font-size: 14px;
+    padding-bottom: 2px;
+  }
+  .roomWrap .roomPriceContainer {
+    box-sizing: border-box;
+    box-shadow: 0 -2px 2px #cacfd3;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 99999;
+    padding: 3px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+  }
+  .roomPriceContainer .date {
+    font-size: 12px;
+  }
+  .roomPriceContainer .price {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .roomPriceContainer .reverseBtn {
+    font-size: 16px;
+    background-color: #2853AF;
+    color: #ffffff;
+    width: 80px;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .room04 {
+    margin-bottom: 100px;
+  }
+  .room04 .subtitle {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px; 
+  }
+  .room04 .cancelContainer {
+    font-size: 14px;
+    word-spacing: 1.5px;
+  }
+  .cancelContainer .cancelList {
+    display: flex;
+    margin-bottom: 5px;
+  }
+  .cancelContainer .cancelList div:nth-child(2) {
+    width: 340px;
+    margin-left: 10px;
+  }
+}
