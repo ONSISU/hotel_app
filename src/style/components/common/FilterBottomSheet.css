@@ -1,0 +1,69 @@
+/* src/components/BottomSheet.module.css */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999; /* 바텀시트보다 아래에 있어야 함 */
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+}
+
+.bottomSheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: #fff;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%); /* 기본적으로 화면 아래로 숨김 */
+  transition: transform 0.3s ease-out; /* 열림/닫힘 애니메이션 */
+  z-index: 1000;
+  touch-action: none; /* iOS Safari에서 스크롤 버그 방지 */
+  -webkit-overflow-scrolling: touch; /* 부드러운 스크롤 */
+  overflow: hidden; /* 내용이 넘치면 숨김 */
+}
+
+.bottomSheet.open {
+  /* maxHeight에 따라 transform 계산은 JS에서 함 */
+  /* transform: translateY(0); */ /* JS에서 계산된 값이 적용됨 */
+}
+
+/* 드래그 중에는 transition을 없애 부드럽게 따라오게 함 */
+.bottomSheet.dragging {
+  transition: none !important; 
+}
+
+.handle {
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+  /* background-color: #f0f0f0;  핸들을 눈에 띄게 하고 싶다면 */
+}
+
+.handleBar {
+  width: 40px;
+  height: 4px;
+  background-color: #ccc;
+  border-radius: 2px;
+}
+
+.content {
+  flex-grow: 1; /* 남은 공간을 차지 */
+  overflow-y: auto; /* 내용이 길면 스크롤 가능하게 */
+  padding: 10px 15px; /* 내용 패딩 */
+}
+
+/* 바텀 시트 열렸을 때 오버레이가 사라지게 하려면 (선택 사항) */
+/* .bottomSheet.open + .overlay { opacity: 0; pointer-events: none; } */ 

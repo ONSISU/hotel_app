@@ -35,7 +35,7 @@ export default function RootLayout({
         <Script
           src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=6kilhlwyk3"
           strategy="beforeInteractive"
-        />
+          />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>{children}</body>
     </html>

@@ -1,0 +1,144 @@
+@media (max-width: 426px) {
+  .wrap {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;  
+  }
+  .titleContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .titleContainer .back {
+    transform: translateX(20px);
+  }
+  .titleContainer .title01 {
+    transform: translateX(-16px);
+    font-size: 20px;
+    color: #333333;
+  }
+  .favoriteContainer {
+    margin-top: 80px;
+  }
+  .favoriteContainer .search {
+    width: 84%;
+    display: flex;
+    align-items: center;
+    border: 1px solid #b3b6b8;
+    border-radius: 24px;
+    padding: 12px 10px;
+    margin: 0 auto;
+  }
+  .search .searchImg {
+    margin-left: 5px;
+  }
+  .search .searchInput {
+    width: 80%;
+    border: none;
+    outline: none;
+    padding : 0 12px;
+    font-size: 18px;
+    color: #6a6767;
+  }
+  .search .searchInput::placeholder {
+    font-size: 15px;
+  }
+  .favoriteContainer .favoriteList {
+    padding: 20px;
+    margin-top: 20px;
+  }
+  .favoriteList .popular-link {
+    color: #333; 
+    text-decoration: none; 
+  }
+  .popular-link:link,
+  .popular-link:visited,
+  .popular-link:hover,
+  .popular-link:active,
+  .popular-link:focus {
+    color: #333; 
+    text-decoration: none;
+  }
+  .favoriteList .favoriteContent {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #cfc9c9;
+    padding: 20px 0;
+  }
+  .favoriteContent .favoriteInfo {
+    display: flex;
+    justify-content: space-between;
+  }
+  .favoriteContent .popularHeartRadius {
+    border-radius: 100%;
+    width: 28px;
+    height: 28px;
+    background-color: #e6e4e4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    margin: 5px;
+    z-index: 999;
+  }
+  .favoriteContent .favoritePrice {
+    margin-top: auto;
+    text-align: right;
+  }
+  .favoriteInfo .favoriteImage {
+    border-radius: 8px;
+    z-index: 99;
+  }
+  .favoriteInfo .favoriteInfoDetail {
+    margin-left: 12px;
+
+  }
+  .favoriteInfoDetail .favoriteName {
+    // font-size: 16px;
+    font-weight: bold;
+  }
+  .favoriteInfoDetail .favoriteLocation {
+    font-size: 12px;
+    color: #9a9595;
+  }
+  .favoriteInfoDetail .ScoreContainer {
+    display: flex;
+    align-items: center;
+  }
+  .ScoreContainer .favoriteScore {
+    font-size: 12px;
+    margin-left: 2px;
+  }
+  .ScoreContainer .favoriteReview {
+    font-size: 12px;
+    margin-left: 2px;
+    color: #9a9595;
+    font-weight: 300;
+  }
+  .favoritePrice .discount  {
+    font-size: 13px;
+  }
+  .favoritePrice .discount span:nth-child(1) {
+    color: #515255;
+    margin-right: 3px;
+  }
+  .favoritePrice .discount span:nth-child(2) {
+    text-decoration: line-through;
+  }
+  .favoritePrice .price {
+    font-weight: bold;
+  }
+  .favoritePrice .reserve {
+    font-size: 12px;
+    color: #6a6767;
+  }
+}
