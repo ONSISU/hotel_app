@@ -1,13 +1,20 @@
-import styles from "@/style/components/hotel/DetailRoom.module.scss";
+'use client';
+import styles from "@/style/page/hotel/DetailRoom.module.scss";
 import Image from 'next/image';
-
 import React, { useState, useEffect, useCallback, useRef  } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function DetailRoom() {
+  
+  const router = useRouter();
+  const backPage=  () =>  {
+    router.back(); 
+  }
+
   return (
     <div className={styles.roomWrap}>
         <div className={styles.titleContainer}>
-          <Image src="/icons/backBlack.svg" alt='뒤로가기' width={25} height={25} className={styles.back}/>
+          <Image src="/icons/backBlack.svg" alt='뒤로가기' width={25} height={25} className={styles.back} onClick={backPage}/>
           <div className={styles.title01}>그랜드 하얏트 호텔</div>
           <Image src="/icons/moreIconBlack.svg" alt='더보기' width={25} height={25} className={styles.more}/>
         </div>

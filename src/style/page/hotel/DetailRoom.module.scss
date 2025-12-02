@@ -1,4 +1,10 @@
 @media (max-width: 426px) {
+  .roomWrap {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;  
+  }
   .titleContainer {
     position: fixed;
     top: 0;
@@ -16,7 +22,7 @@
     transform: translateX(20px);
   }
   .titleContainer .title01 {
-    font-size: 24px;
+    font-size: 20px;
     color: #333333;
   }
   .titleContainer .more {

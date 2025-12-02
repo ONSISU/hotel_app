@@ -1,0 +1,231 @@
+@media (max-width: 426px) {
+  .reviewWrap {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  }
+.titleContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 8px 0;
+  }
+  .back {
+    transform: translateX(20px);
+  }
+  .titleContainer .title01 {
+    font-size: 20px;
+    color: #333333;
+  }
+  .titleContainer .more {
+    margin-right: 10px;
+  }
+  .scoreContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 56px 0 56px;
+    height: 240px;
+  }
+  .scoreContent .score {
+    text-align: center;
+    font-weight: bold;
+    font-size: 32px;
+    margin-bottom: 6px;
+  }
+  .scoreContent .scoreAssessment {
+    color: #9CA4AB;
+    font-size: 14px;
+    margin-top: 6px;
+  }
+  .scoreGrade {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 12px;
+  }
+  .scoreGrade .grade {
+    display: flex;
+    align-items: center;
+  }
+  .grade .rating {
+    width: 20px;
+    text-align: right;
+    margin-right: 8px;
+    color: #bbb9b9;
+    font-size: 14px;
+  }
+  .grade .gradeBar {
+    width: 120px;
+    height: 4px;
+    background-color: #e0e6ed;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .grade .gradeBarFill {
+    height: 100%;
+    background-color: #2853AF;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+  }
+  .reviewContent {
+    padding: 0 27px;
+  }
+  .reviewContent .subTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .subTitle .title {
+    font-size: 18px;
+    color: #171725;
+    font-weight: bold;
+  }
+  .reviewContent .subTitle .sort {
+    padding: 4px 8px;
+    cursor: pointer;
+    user-select: none;
+    text-align: right;
+    font-size: 13px;
+    color: #444;
+  }
+  .subTitle .bottomSheetBackDrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 999;
+    transition: 'opacity 0.3s ease-in-out',
+  }
+  .subTitle .bottomSheetModal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    padding: 8px 24px;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+
+  }
+  .bottomSheetModal .bottomSheetHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .bottomSheetModal .bottomSheetTitle {
+    font-weight: 700;
+    font-size: 18px;
+    flex-grow: 1;
+  }
+  .bottomSheetModal .optionList {
+    padding: 12px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+  }
+  .optionList .check {
+    color: #3366ff;
+    margin-left: 8px;
+  }
+  .bottomSheetModal .close {
+    padding: 8px 0;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #666;
+  }
+  .reviewContent .subContent {
+    margin-top: 24px;
+    overflow: hidden;
+  }
+  .subContent .userInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .userInfo .subInfo{
+    display: flex;
+    align-items: center;
+  }
+  .subInfo .info {
+    margin-left: 5px;
+  }
+  .info .name {
+    color: #404243;
+    font-size: 15px;
+    margin-bottom: 3px;
+  }
+  .info .date {
+    color: #75787a;
+    font-size: 14px;
+  }
+  .reviewInfo .score {
+    margin: 4px 0;
+  }
+  .reviewInfo .roomName {
+    color: #75787a;
+    font-size: 13px;
+    font-weight: bold;
+  }
+  .subContent .content {
+    font-size: 14px;
+    margin-top: 5px;
+    transition: max-height 0.3s ease-out; // 부드러운 전환 효과
+    position: relative; // ::after 가상 요소의 기준점을 위해 추가
+    padding-bottom: 15px; // 더보기 버튼과의 간격 및 그라데이션 여유 공간
+    // 가려진 상태일 때 적용될 스타일 (React에서 .collapsed 클래스가 추가될 때)
+    &.collapsed {
+      max-height: 100px; 
+      overflow: hidden;
+      // 내용 하단에 반투명 그라데이션 오버레이 추가
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px; /* 그라데이션의 높이 */
+        pointer-events: none; /* 그라데이션이 클릭을 방해하지 않도록 */
+      }
+    }
+  }
+  .subContent .moreButton {
+    margin-top: 10px;
+    margin-right: 5px;
+    border: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    float: right;
+  }
+  .scrollBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #2853AF;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 998;
+    color: #ffffff;
+    padding-bottom: 5px;
+    transition: opacity 0.3s ease-in-out;
+  }
+}

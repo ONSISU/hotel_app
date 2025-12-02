@@ -1,10 +1,11 @@
 .wrapper {
-  width: 95%;
-  margin: 0 auto;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  margin: 30px 24px;
 }
 .container {
-  margin: 30px;
-
 }
 .a {
 }
@@ -25,7 +26,31 @@
 }
 .f {
   margin-top: 24px;
-
+  padding-bottom: 72px;
+}
+.fixedSearchContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff; /* 배경색 */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 그림자 효과 */
+  z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
+  transition: transform 0.3s ease-in-out; /* 부드러운 애니메이션 효과 */
+  display: flex; /* 내부 요소 정렬을 위해 flex 사용 */
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 (검색창이 가운데 오도록) */
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+}
+/* 검색 입력 필드 스타일 */
+.fixedSearchContainer .fixedSearch {
+  width: 88%;
+  margin-right: auto;
+}
+.fixedSearchContainer .fixedSearchContent {
+  color: #989b9b;
 }
 .a-profile {
   display: inline-flex;
@@ -111,9 +136,12 @@
 }
 .wrap-notify .notify-arrow {
   flex: 1;
+  width: auto;
+  height: 24px;
 }
 .popular-title {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 16px;
 }
@@ -126,16 +154,55 @@
   font-size: 15px;
   display: flex;
   align-items: center;
+  font-weight: bold;
 }
 .container-popular {
   display: flex;
-  flex-direction: row;
+  flex-direction: row; /* 제공해주신 그대로. 항목들이 가로로 나열됩니다. */
+  overflow-x: scroll; /* 가로 스크롤 가능 */
+  scroll-snap-type: x mandatory; /* 스크롤 정지 시 아이템에 맞춤 */
+  -webkit-overflow-scrolling: touch; /* iOS 부드러운 스크롤 */
+  scroll-behavior: smooth; /* 부드러운 스크롤 애니메이션 */
+  width: 100%; /* 부모 컨테이너의 너비는 100%여야 함 */
+  padding-bottom: 10px; /* 스크롤바가 콘텐츠를 가리지 않도록 여유 공간 */
+  white-space: nowrap; /* flex 아이템 줄바꿈 방지 */
+  
+  /* 스크롤바 숨기기 (선택 사항) */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.container-popular::-webkit-scrollbar {
+  display: none;
+}
+.container-popular .popular-link {
+  display: block; 
+  height: auto; 
+  text-decoration: none; 
+  color: inherit; 
+  flex-shrink: 0; /* 공간이 부족해도 아이템이 줄어들지 않도록 */
+  width: auto; /* ⭐ 제공해주신 .popular-img의 너비와 일치시킵니다. */
+  scroll-snap-align: start; /* 스크롤 정지 시 아이템 시작점에 맞춤 */
+  margin-right: 15px; /* 아이템 간 간격 */
+}
+.container-popular .popular-link:last-child {
+  margin-right: 0;
 }
 .container-popular .popular-img {
   position: relative;
-  width: 115px;
-  height: 200px;
+  width: 155px;
+  height: 220px;
+  border-radius: 12px; /* ⭐ 카드 자체의 둥근 모서리 */
+  overflow: hidden;
 } 
+.container-popular .popular-img .bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지가 부모(popular-img)를 채우고 잘리도록 */
+  z-index: 1; /* 다른 내용보다 아래에 배치 */
+}
 .container-popular .popular-img .popular-heart-radius {
   border-radius: 100%;
   width: 28px;
@@ -147,32 +214,29 @@
   position: absolute;
   top: 10px;
   right: 10px;
-
-}
-.container-popular .popular-img .img {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 12px;
+  z-index: 2; 
 }
 .container-popular .popular-img .popular-info {
   position: absolute;
   left: 12px;
   bottom: 12px;
-  width: 85%;
+  width: calc(100% - 24px);
+  z-index: 2; 
 }
 .container-popular .popular-img .popular-info .name {
   color: #ffffff;
   font-weight: bold;
   font-size: 15px;
   margin-bottom: 2px;
+  white-space: normal; /* 이름은 줄바꿈 허용 */
+  line-height: 1.2;
 }
 .container-popular .popular-img .popular-info .location {
-  color: #fff7f7;
-  font-weight: 100;
+  color: #ffffff;
+  font-weight: 500;
   font-size: 12px;
   margin-bottom: 5px;
+  white-space: normal; /* 이름은 줄바꿈 허용 */
 }
 .container-popular .popular-img .popular-info02 {
   display: flex;
@@ -189,7 +253,7 @@
   align-items: center;
 }
 .container-popular .popular-img .popular-info02 .score span {
-  color: #b0b2b0;
+  color: #ffffff;
   font-weight: 300;
   font-size: 12px;
   margin-left: 3px;
@@ -228,12 +292,12 @@
   display: none;
 }
 .recommend-choice .choice-all {
-  background-color: rgba(40, 83, 175, 1);
+  /* background-color: rgba(40, 83, 175, 1); */
   font-weight: bold;
   border-radius: 12px;
   padding: 4px 14px;
   width: calc(100% / 5); 
-  height: 6vh;
+  height: 5.5vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -244,45 +308,53 @@
   flex-shrink: 0; /* ⭐ 필수: 공간이 부족해도 아이템이 줄어들지 않도록 */
   scroll-snap-align: center; /* ⭐ 필수: 스크롤 정지 시 중앙에 맞춤 */
   margin-right: 15px; /* 아이템 간 간격 */
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 .recommend-choice .choice-all span {
-  color: #ffffff;
+  color: rgba(40, 83, 175, 1); /* ✨ 변경: 다른 항목 선택 시 이 글자색이 됩니다. */
+  font-weight: bold;
 }
-.recommend-choice 
-.choice-villas, 
-.choice-hotels, 
-.choice-camping, 
-.choice-motel {
-  border: 1px rgba(233, 235, 237, 1) solid;
+.recommend-choice .choice-villas, 
+.recommend-choice .choice-hotels, 
+.recommend-choice .choice-camping, 
+.recommend-choice .choice-motel {
+  border: 1px rgba(233, 235, 237, 1) solid; /* 제공해주신 테두리 */
   font-weight: bold;
   border-radius: 12px;
   padding: 4px 14px;
-  width: calc(100% / 4); 
-  height: 6vh;
+  width: calc(100% / 4.3); 
+  height: 5.5vh;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   margin-right: 15px; /* 아이템 간 간격 */
   box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
-  border: 1px solid #eee;
   cursor: pointer;
   flex-shrink: 0; /* ⭐ 필수: 공간이 부족해도 아이템이 줄어들지 않도록 */
   scroll-snap-align: center; /* ⭐ 필수: 스크롤 정지 시 중앙에 맞춤 */
+  background-color: #ffffff; /* 기본 배경색 (선택되지 않았을 때) */
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 } 
-.recommend-choice 
-.choice-villas span, 
-.choice-hotels span, 
-.choice-camping span, 
-.choice-motel span {
+.recommend-choice .choice-villas span, 
+.recommend-choice .choice-hotels span, 
+.recommend-choice .choice-camping span, 
+.recommend-choice .choice-motel span {
   margin-left: 10px;
   color: rgba(120, 130, 138, 1);
-  font-weight: 100;
+  font-weight: bold;
   font-size: 12px;
 }
 .recommend-list .hotels-list-content {
   display: flex;
   justify-content: space-between;
+}
+.selected {
+  background-color: rgba(40, 83, 175, 1) !important; /* 클릭 시 파란색 배경으로 고정 */
+  border-color: rgba(40, 83, 175, 1) !important; /* 테두리도 같은 색으로 */
+}
+.selected span {
+  color: #ffffff !important;
 }
 .hotels-list-content .hotels-list-img {
   border-radius: 8px;
@@ -299,7 +371,6 @@
 .hotels-list-info1 .location {
   display: flex;
   align-items: center;
-  margin-left: 3px;
   color: rgba(102, 112, 122, 1);
 }
 .hotels-list-info1 .location p {
@@ -322,6 +393,7 @@
 .hotels-list-score .score {
   margin-left: 3px;
   font-size: 15px;
+  transform: translateY(-3px);
 }
 .recommend-hr {
   border: 0.7px rgba(233, 235, 237, 1) solid;
@@ -413,6 +485,7 @@
   margin-top: 5px;
 }
 .best-list-info .name {
+  width: 120px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -424,13 +497,15 @@
   margin-top: 5px;
 }
 .best-list-info .location p {
-  font-size: 14px;
+  font-size: 12px;
   color: gray;
   margin-left: 2px;
+  padding-bottom: 2px;
 }
 .best-list-info .best-list-info2 {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: space-between;
   margin-top: 5px;
 }
 .best-list-info2 .best-list-score {
@@ -440,20 +515,20 @@
 .best-list-score .score {
   color: rgba(237, 185, 0, 1);
   font-size: 12px;
-  margin-top: 2px;
+  margin-left: 2px;
 }
 .best-list-score .review {
   color: rgba(156, 164, 171, 1);
   font-size: 12px;
-  margin-top: 2px;
+  margin-left: 2px;
 }
 .best-list-info2 .best-list-price {
-  display: flex;
-  align-items: center;
   margin-left: 10px;
   font-size: 13px;
+  text-align: right;
 }
 .best-list-price .discount-price {
+  display: block;
   font-weight: bold;
 }
 .best-list-price .discount-rate {
@@ -461,4 +536,41 @@
   color: rgba(244, 31, 82, 1);
   margin-left: 5px;
   margin-top: 2px;
+}
+.plus-jakarta-sans-plusFont {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+.bottomAppBar {
+  position: fixed;
+  width: 100%;
+  height: 64px;
+  bottom: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  box-shadow: 0px -2px 8px 2px #d1cbcb;
+  padding: 2px 10px;
+}
+.bottomAppBar .AppBar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.AppBar .item01 {
+  width: 100%;
+}
+.item01 .link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.item01 .title {
+  font-size: 12px;
 }

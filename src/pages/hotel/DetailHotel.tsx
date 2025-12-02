@@ -1,10 +1,15 @@
-import styles from "@/style/components/hotel/DetailHotel.module.scss";
+'use client';
+import styles from "@/style/page/hotel/DetailHotel.module.scss";
 import '@/style/components/common/Calendar.css'; // css import
 import Image from 'next/image';
 import Link from 'next/link';
 import Calendar, {Value} from 'react-calendar'; 
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-
+import React, { useState, useEffect, useRef, useMemo, FC, useCallback } from 'react';
+import BottomSheet from '@/components/common/HotelInfoBottomSheet';
+import { useRouter } from 'next/router';
+import {HotelDetail, HotelDetailApiResponse} from '@/app/type/hotelDetail';
+import axios from "axios";
+  
 const getFormattedDateRange = (startDate: Date, endDate: Date): string => {
   const formatSingleDate = (date: Date): string => {
     let formatted = date.toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit' });
@@ -31,46 +36,34 @@ const getDurationString = (startDate: Date, endDate: Date) => {
   return `${nights}박`;
 };
 
-export default function DetailHotel() {
-
-  const [showMoreFacilities, setShowMoreFacilities] = useState(false); 
-  const [hasMoreFacilities, setHasMoreFacilities] = useState(false); 
+const DetailHotel: FC = () => {
+  const router = useRouter();
+  const [showMoreFacilities, setShowMoreFacilities] = useState<boolean>(false); 
+  const [hasMoreFacilities, setHasMoreFacilities] = useState<boolean>(false); 
   const facilitiesRef = useRef<HTMLDivElement>(null);
-  const [isLocation, setIsLocation] = useState(false);
+  const [isLocation, setIsLocation] = useState<boolean>(false);
   const [isPeopleInfo, setIsPeopleInfo] = useState<boolean>(false); 
   const [selectedAttendeesForDisplay, setSelectedAttendeesForDisplay] = useState<number>(2);
   const [tempAttendeesValue, setTempAttendeesValue] = useState<number>(2);
   // 캘린더
-  const [isCalendar, setIsCalendar] = useState(false);
-  // const today = new Date();
-  // today.setHours(0, 0, 0, 0); 
-  // const tomorrow = new Date(today);
-  // tomorrow.setDate(today.getDate() + 1);
-  // tomorrow.setHours(0, 0, 0, 0);
-  // const sixMonthsLater = new Date(today);
-  // sixMonthsLater.setMonth(today.getMonth() + 6);
-  // sixMonthsLater.setHours(23, 59, 59, 999); // 6개월째 마지막 날의 끝 시간까지 포함
-
-    const today = useMemo(() => {
+  const [isCalendar, setIsCalendar] = useState<boolean>(false);
+  const today = useMemo(() => {
     const date = new Date();
     date.setHours(0, 0, 0, 0);
     return date;
   }, []); 
-
   const tomorrow = useMemo(() => {
     const date = new Date(today);
     date.setDate(today.getDate() + 1);
     date.setHours(0, 0, 0, 0);
     return date;
   }, [today]); 
-
   const sixMonthsLater = useMemo(() => {
     const date = new Date(today);
     date.setMonth(today.getMonth() + 6);
     date.setHours(23, 59, 59, 999);
     return date;
   }, [today]);
-
   const [selectedDatesForDisplay, setSelectedDatesForDisplay] = useState<[Date, Date]>(
     () => [today, tomorrow] 
   );
@@ -80,6 +73,15 @@ export default function DetailHotel() {
   const [mainPageRangeText, setMainPageRangeText] = useState<string>('');
   const [mainPageDurationText, setMainPageDurationText] = useState<string>('');
   const [mainPageAttendeesText, setMainPageAttendeesText] = useState<string>('');
+
+  // 바텀시트
+  const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false); // 바텀 시트 열림/닫힘 상태
+  const openSheet = () => setIsSheetOpen(true);
+  const closeSheet = () => setIsSheetOpen(false);
+
+  //detail정보
+  //const [hotelId, setHotelId] = useState<string | null>(null); 
+  const [hotelDetail, setHotelDetail] = useState<HotelDetail | null>(null); 
 
   useEffect(() => {
     if (facilitiesRef.current) {
@@ -120,10 +122,8 @@ export default function DetailHotel() {
       endDispDate.setDate(startDispDate.getDate() + 1);
       endDispDate.setHours(0,0,0,0);
     }
-    
     setPopupSelectedRangeText(getFormattedDateRange(startDispDate, endDispDate));
     setPopupStayDurationText(getDurationString(startDispDate, endDispDate));
-    
   }, [tempCalendarValue, today, tomorrow]);
 
   useEffect(() => {
@@ -132,25 +132,30 @@ export default function DetailHotel() {
     setMainPageDurationText(getDurationString(start, end));
     setMainPageAttendeesText(`${selectedAttendeesForDisplay}`);
   }, [selectedDatesForDisplay, selectedAttendeesForDisplay]);
-
+  
   const detailLocationToggle = () => {
     setIsLocation(!isLocation);
   };
+
   const peopleInfoToggle = () => {
     setIsPeopleInfo(!isPeopleInfo);
   };
+
   const peopleCountDown = () => {
     setTempAttendeesValue(prevCount => Math.max(1, prevCount - 1));
   };
+
   const peopleCountUp = () => {
     setTempAttendeesValue(prevCount => Math.min(30, prevCount + 1));
   };
+
   const fnCalendar = () => {
     setTempCalendarValue(selectedDatesForDisplay);
     setTempAttendeesValue(selectedAttendeesForDisplay); 
     setIsPeopleInfo(false); 
     setIsCalendar(true);
   };
+
   const cancelButton = () => {
     setIsCalendar(false);
   };
@@ -160,17 +165,17 @@ export default function DetailHotel() {
   };
 
   const applyButton = () => {
-  let finalSelectedRange: [Date, Date];
-  if (Array.isArray(tempCalendarValue) && tempCalendarValue[0] instanceof Date && tempCalendarValue[1] instanceof Date) {
-    finalSelectedRange = [tempCalendarValue[0], tempCalendarValue[1]];
-  } else if (tempCalendarValue instanceof Date) { 
-    const start = tempCalendarValue;
-    const end = new Date(start);
-    end.setDate(start.getDate() + 1);
-    finalSelectedRange = [start, end];
-  } else { 
-    finalSelectedRange = [today, tomorrow]; 
-  }
+    let finalSelectedRange: [Date, Date];
+    if (Array.isArray(tempCalendarValue) && tempCalendarValue[0] instanceof Date && tempCalendarValue[1] instanceof Date) {
+      finalSelectedRange = [tempCalendarValue[0], tempCalendarValue[1]];
+    } else if (tempCalendarValue instanceof Date) { 
+      const start = tempCalendarValue;
+      const end = new Date(start);
+      end.setDate(start.getDate() + 1);
+      finalSelectedRange = [start, end];
+    } else { 
+      finalSelectedRange = [today, tomorrow]; 
+    }
     setSelectedDatesForDisplay(finalSelectedRange); 
     setSelectedAttendeesForDisplay(tempAttendeesValue); 
     setIsCalendar(false);
@@ -181,14 +186,49 @@ export default function DetailHotel() {
     const selectedEnd = new Date(selectedStart);
     selectedEnd.setDate(selectedStart.getDate() + 1);
     selectedEnd.setHours(0,0,0,0);
-
     setTempCalendarValue([selectedStart, selectedEnd]);
   };
+  const backPage=  () =>  {
+    router.back(); 
+  }
+  const fetchHotelDetails = useCallback(async (id: string) => {
+    try {
+      const response = await axios.get<HotelDetailApiResponse>(`http://tomhoon.my:33000/api/v1/hotel/detail?hotelId=${id}`);
+      const hotelDetailDate: HotelDetail = response.data.data; 
+      setHotelDetail(hotelDetailDate); // 성공적으로 가져온 데이터 저장
+    } catch {
+      setHotelDetail(null); // 에러 발생 시 데이터 초기화
+    }
+  }, []);
 
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
+    const idFromUrl = Array.isArray(router.query.hotelId)
+      ? router.query.hotelId[0]
+      : (router.query.hotelId || null); // null도 처리 가능하게
+
+    // 2. hotelId가 유효하면 상세 정보를 가져오는 함수 호출
+    if (idFromUrl) {
+      fetchHotelDetails(idFromUrl);
+    } 
+  }, [router.isReady, router.query, fetchHotelDetails]); // searchParams가 변경될 때마다 이 useEffect가 다시 실행돼
+
+  // 3. hotelId를 이용해서 API에서 상세 정보를 가져오는 비동기 함수
+
+  if (!hotelDetail) {
+    return (
+      <div style={{ padding: '20px', textAlign: 'center' }}>
+        <p>선택된 호텔의 정보를 찾을 수 없습니다.</p>
+        <button onClick={() => router.back()} style={{ marginTop: '20px', padding: '8px 15px' }}>뒤로 가기</button>
+      </div>
+    );
+  }
   return (
     <div className={styles.detailWrap}>
-      <div className={styles.titleContainer}>
-        <Image src="/icons/backBlack.svg" alt='뒤로가기' width={25} height={25} className={styles.back}/>
+      <div className={styles.titleContainer} >
+        <Image src="/icons/backBlack.svg" alt='뒤로가기' width={25} height={25} className={styles.back} onClick={backPage}/>
         <div className={styles.title01}>그랜드 하얏트 호텔</div>
         <Image src="/icons/moreIconBlack.svg" alt='더보기' width={25} height={25} className={styles.more}/>
       </div>
@@ -202,7 +242,7 @@ export default function DetailHotel() {
             <div className={styles.info}>
               <Image src="/icons/location02.svg" alt='위치' width={18} height={18}/>
               <div className={styles.locationInfo} onClick={detailLocationToggle}>
-                <p>서울 용산구</p>
+                <p>{hotelDetail?.location}</p>
                 <Image src="/icons/notify-arrow.svg" alt='버튼' width={10} height={10} className={styles.detailLocation}/>
               </div>
               {isLocation &&
@@ -233,37 +273,44 @@ export default function DetailHotel() {
                 <div className={styles.dateDay}>{mainPageRangeText} ({mainPageDurationText})</div>
               </div>
               <div className={styles.subPeople} onClick={fnCalendar}>
-                <Image src="/icons/people.svg" alt='날짜' width={14} height={14} className={styles.peopleImg}/>
+                <Image src="/icons/people.svg" alt='인원' width={14} height={14} className={styles.peopleImg}/>
                 <div className={styles.datePeople}>인원 {mainPageAttendeesText}</div>
               </div>
             </div>
-            <div className={styles.roomContainer}>
-              <Image src="/images/room3.jpg" alt='객실' width={400} height={200} className={styles.roomImg}/>
-              <div className={styles.roomInfo01}>
-                <div className={styles.title}>프리미엄 스위트룸</div>
-                <div className={styles.people}>기준 2인 / 최대 2인</div>
-                <div className={styles.bed}>더블침대 1개</div>
-              </div>
-              <div className={styles.roomInfo02}>
-                <div className={styles.type}>숙박</div>
-                <div className={styles.time}>
-                  체크인 <span>15:00</span> - 체크아웃 <span>11:00</span>
-                </div>
-                <div className={styles.roomPrice}>
-                  <div className={styles.discount}></div>
-                  <div className={styles.price}>1,200,000원</div>
-                  <div className={styles.reserve}></div>
-                  <Link href="/hotel/DetailRoom" style={{textDecorationLine: "none"}}>
-                    <div className={styles.roomDetail}>
-                      <div className={styles.title}>상세보기</div>
-                      <Image src="/icons/notify-arrow.svg" alt='버튼' width={10} height={10} className={styles.detailImg}/>
+            {hotelDetail.ownHotelList && hotelDetail.ownHotelList.length > 0 && (
+            <div className={styles.roomList}>
+              {hotelDetail.ownHotelList.map(room => (
+                <div className={styles.roomContainer} key={room.ownHotelId} >
+                  <Image src="/images/room3.jpg" alt='객실' width={400} height={160} className={styles.roomImg}/>
+                  <div className={styles.roomInfo01}>
+                    <div className={styles.title}>{room.roomType} {room.roomName}</div>
+                    <div className={styles.people}>기준 {room.maxPerson} / 최대 {room.maxPerson}</div>
+                    <div className={styles.bed}>더블침대 1개</div>
+                  </div>
+                  <div className={styles.roomInfo02}>
+                    <div className={styles.type}>숙박</div>
+                    <div className={styles.time}>
+                      체크인 <span>{room.checkInTime.slice(0,5)}</span> - 체크아웃 <span>{room.checkOutTime.slice(0,5)}</span>
                     </div>
-                  </Link>
+                    <div className={styles.countRoom}>남은객실 {room.countRoom}개</div>
+                    <div className={styles.roomPrice}>
+                      <div className={styles.discount}></div>
+                      <div className={styles.price}>{room.price.toLocaleString()}원</div>
+                      <div className={styles.reserve}></div>
+                      <Link href="/hotel/DetailRoom" style={{textDecorationLine: "none"}}>
+                        <div className={styles.roomDetail}>
+                          <div className={styles.title}>상세보기</div>
+                          <Image src="/icons/notify-arrow.svg" alt='버튼' width={10} height={10} className={styles.detailImg}/>
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-              </div>
+                ))}
             </div>
-            <div className={styles.roomContainer}>
-              <Image src="/images/room3.jpg" alt='객실' width={400} height={200} className={styles.roomImg}/>
+          )}
+            {/* <div className={styles.roomContainer}>
+            <Image src="/images/room3.jpg" alt='객실' width={400} height={160} className={styles.roomImg}/>
               <div className={styles.roomInfo01}>
                 <div className={styles.title}>프리미엄 패밀리룸</div>
                 <div className={styles.people}>기준 2인 / 최대 4인</div>
@@ -310,7 +357,7 @@ export default function DetailHotel() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className={styles.info04}>
             <div className={styles.subTitle}>시설 및 서비스</div>
@@ -353,59 +400,65 @@ export default function DetailHotel() {
           <div className={styles.info06}>
             <div className={styles.title}>
               <span className={styles.subTitle}>리뷰</span>
-              <span className={styles.more}>더보기</span>
+              <Link href="/hotel/Reviews" style={{textDecorationLine: "none"}}>
+                <span className={styles.more}>더보기</span>
+              </Link>
             </div>
             <hr className={styles.reviewLine}/>
-            <div className={styles.reviewBest}>
-              <div className={styles.reviewInfo}>
-                <Image src="/images/profileImg.png" alt='호텔' width={44} height={44} className={styles.profileImg}/>
-                <div className={styles.profile}>
-                  <div>
-                    <div className={styles.name}>NamBang</div>
-                    <div className={styles.date}>25.11.11</div>
-                  </div>
-                  <div className={styles.score}>
-                    <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
-                    <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
-                    <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
-                    <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
-                    <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.content}>
-                음식이 친절하고 사장님이 맛있어요.
-              </div>
-            </div>
-            <div className={styles.reviewBest}>
-              <div className={styles.reviewInfo}>
-                <Image src="/images/profileImg.png" alt='호텔' width={44} height={44} className={styles.profileImg}/>
-                <div className={styles.profile}>
-                  <div>
-                    <div className={styles.name}>낭만가 남대리</div>
-                    <div className={styles.date}>25.11.12</div>
-                  </div>
-                  <div className={styles.score}>
-                    <Image src="/images/bin-star.png" alt='score' width={16} height={16}/>
-                    <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
-                    <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
-                    <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
-                    <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
+            <Link href="/hotel/Reviews" style={{textDecorationLine: "none"}}>
+              <div className={styles.reviewBest}>
+                <div className={styles.reviewInfo}>
+                  <Image src="/images/profileImg.png" alt='프로필' width={44} height={44} className={styles.profileImg}/>
+                  <div className={styles.profile}>
+                    <div>
+                      <div className={styles.name}>NamBang</div>
+                      <div className={styles.date}>25.11.11</div>
+                    </div>
+                    <div className={styles.score}>
+                      <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
+                      <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
+                      <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
+                      <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
+                      <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
+                    </div>
                   </div>
                 </div>
+                <div className={styles.content}>
+                  음식이 친절하고 사장님이 맛있어요.
+                </div>
               </div>
-              <div className={styles.content}>
-                길 가다가 넘어져서 1점 뺐어요...
+            </Link>
+            <Link href="/hotel/Reviews" style={{textDecorationLine: "none"}}>
+              <div className={styles.reviewBest}>
+                <div className={styles.reviewInfo}>
+                  <Image src="/images/profileImg.png" alt='프로필' width={44} height={44} className={styles.profileImg}/>
+                  <div className={styles.profile}>
+                    <div>
+                      <div className={styles.name}>낭만가 남대리</div>
+                      <div className={styles.date}>25.11.12</div>
+                    </div>
+                    <div className={styles.score}>
+                      <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
+                      <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
+                      <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
+                      <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
+                      <Image src="/images/bin-star.png" alt='score' width={16} height={16}/>
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.content}>
+                  길 가다가 넘어져서 1점 뺐어요...
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
           <div className={styles.info07}>
             <div className={styles.title}>취소 문의</div>
             <div className={styles.content}>예약 취소시 수수료가 발생 될 수 있습니다.</div>
           </div>
-          <div className={styles.info08}>
+          <div className={styles.info08} onClick={openSheet}>
             <div className={styles.title}>판매자 정보</div>
-            <Image src="/icons/notify-arrow.svg" alt='버튼' width={16} height={16} className={styles.sellingInfo}/>
+            <Image src="/icons/notify-arrow.svg" alt='버튼' width={16} height={16} className={styles.sellingInfo} />
           </div>
         </div>
         <div className={styles.priceContainer}></div>
@@ -450,7 +503,10 @@ export default function DetailHotel() {
         </div>
       </div>
       }
+      <BottomSheet isOpen={isSheetOpen} onClose={closeSheet}>
+        <></>
+      </BottomSheet>
     </div>
-
   );
 }
+export default DetailHotel;

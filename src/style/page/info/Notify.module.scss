@@ -1,0 +1,124 @@
+@media (max-width: 426px) {
+  .roomWrap {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;  
+  }
+  .titleContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    padding: 8px 0;
+    // overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .titleContainer .back {
+    transform: translateX(20px);
+  }
+  .titleContainer .title01 {
+    transform: translateX(-16px);
+    font-size: 20px;
+    color: #333333;
+  }
+  .notifyContainer .contentContainer {
+    margin-top: 60px;
+  }
+  .contentContainer .info {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+  }
+  .info .infoContent {
+    font-size: 12px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    color: #a2a2a2;
+  } 
+  .contentContainer .contentList {
+    position: relative;
+    margin-top: 24px;
+    display: inline-block;
+  }
+  .contentBubble {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #a7a2a2;
+    border-radius: 10px;
+    padding: 4px 8px 8px 16px;
+    word-wrap: break-word;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 78%;
+    min-height: 48px;
+    margin: 18px auto 0 auto;
+
+  }
+  /* 말풍선 꼬리 (왼쪽 중앙) */
+  .contentBubble::after,
+  .contentBubble::before {
+    content: '';
+    position: absolute;
+    top: 60%; /* 세로 중앙 정렬 */
+    transform: translateY(-50%); /* 정확한 세로 중앙 정렬 */
+    border-style: solid;
+    display: block;
+    width: 0;
+    height: 0; /* width/height 대신 border-width로 크기 조절 */
+    z-index: 1; 
+  }
+  /* 꼬리의 테두리 */
+  .contentBubble::after {
+    left: -31px; /* 말풍선 왼쪽 밖으로 튀어나오도록 위치 조정 (border-width + 1px) */
+    border-width: 12px 30px 12px 0; /* 위, 오른쪽, 아래, 왼쪽 - 오른쪽으로 갈수록 삼각형 넓어지게 */
+    border-color: transparent #a7a2a2 transparent transparent; /* 오른쪽만 테두리색 */
+    z-index: 1; 
+  }
+  /* 꼬리의 내부 채우기 */
+  .contentBubble::before {
+    left: -30px; /* ::after보다 1px 안쪽으로 */
+    border-width: 11px 29px 11px 1px; /* ::after보다 1px 작게 */
+    border-color: transparent #ffffff transparent transparent; /* 오른쪽만 배경색 */
+    z-index: 2; /* 배경 꼬리가 테두리 꼬리 위에 오도록 */
+  }
+  .contentBubble .notifyContent {
+    display: inline-block;
+    width: 90%;
+  }
+  .notifyContent>div {
+    display: flex;
+    align-items: center;
+  }
+  .notifyContent .user {
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+  }
+  .notifyContent .line {
+    font-size: 14px;
+    color: #a2a2a2;
+  }
+  .notifyContent .tit {
+    font-size: 14px;
+  }
+  .notifyContent .date {
+    font-size: 12px;
+    color: #a2a2a2;
+  }
+  .contentBubble .down,
+  .contentBubble .up {
+    position: absolute;
+    transform: translateX(5px);
+  }
+  .contentBubble .txt {
+    width: 95%;
+    font-size: 14px;
+    letter-spacing: 0.7px;
+  }
+
+}
