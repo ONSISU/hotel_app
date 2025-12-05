@@ -5,15 +5,15 @@ import axios from 'axios';
 import styles from "./home.module.css";
 import Link from 'next/link';
 import {PopularHotel, PopularHotelApiResponse, FavoriteHotel, FavoriteHotelApiResponse, BestHotel, BestHotelApiResponse} from '../app/type/home';
+import {SearchType, SearchTypeApiResponse} from '../app/type/searchType';
+
 
 export default function Home() {
   const [isRecommend, setIsRecommend] = useState('all');
-  const [popularHotelData, setPopularHotelData] = useState<PopularHotel[]>([]);
+  //const [popularHotelData, setPopularHotelData] = useState<PopularHotel[]>([]);
   const [favoriteHotelData, setFavoriteHotelData] = useState<FavoriteHotel[]>([]);
   const [bestHotelData, setBestHotelData] = useState<BestHotel[]>([]);
-  const recommendItem = (itemKey:string) => {
-    setIsRecommend(itemKey);
-  };
+  const [typeList, setTypeList] = useState<SearchType[]>([]);
   const pageAddress = "http://tomhoon.my:33000";
   const [isScrolled, setIsScrolled] = useState(false); 
 
@@ -32,16 +32,16 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const popularHotel = async () => {
-      try {
-        const response = await axios.get<PopularHotelApiResponse>('http://tomhoon.my:33000/api/v1/hotel/popular');
-        const popularHotelList: PopularHotel[] = response.data.data; 
-        setPopularHotelData(popularHotelList);
-      } catch (error) {
-        console.error('데이터 가져오기 에러:', error);
-        setPopularHotelData([]);
-      }
-    }
+    // const popularHotel = async () => {
+    //   try {
+    //     const response = await axios.get<PopularHotelApiResponse>('http://tomhoon.my:33000/api/v1/hotel/popular');
+    //     const popularHotelList: PopularHotel[] = response.data.data; 
+    //     setPopularHotelData(popularHotelList);
+    //   } catch (error) {
+    //     console.error('데이터 가져오기 에러:', error);
+    //     setPopularHotelData([]);
+    //   }
+    // }
     const favoriteHotel = async () => {
       try {
         const response = await axios.get<FavoriteHotelApiResponse>('http://tomhoon.my:33000/api/v1/hotel/popular');
@@ -62,11 +62,27 @@ export default function Home() {
         setBestHotelData([]);
       }
     }
-      popularHotel();
+      // popularHotel();
       favoriteHotel();
       bestHotel();
   }, []);
-
+  const recommendItem = async (type:string) => {
+    setIsRecommend(type);
+    try {
+      const response = await axios.get<SearchTypeApiResponse>(`http://tomhoon.my:33000/api/v1/hotel/search`
+      , {
+          params: {
+              type: type // 클릭한 항목(hotels, villas, apt)을 type 파라미터로 전달
+            }
+          });
+            // const SearchTypeList: SearchType[] = response.data.data; 
+            setTypeList(response.data.data.content); 
+            console.log(`${type} 데이터:`, response.data);
+    } catch (error) {
+      console.error(`Error fetching ${type} data:`, error);
+      // 에러 발생 시 사용자에게 알리는 로직 추가 (예: alert('데이터를 불러오는데 실패했습니다.'))
+    }
+  };
   return (
     <>
       {isScrolled &&
@@ -159,58 +175,58 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.d}>
-            <div className={styles["wrap-recommend"]}>
-              <div className={styles["recommend-title"]}>
-                <span className={styles["tit"]}>추천</span>
-                <span className={styles["more"]}>더보기</span>
-              </div>
-              <div className={styles["recommend-choice"]}>
-                <div className={`${styles["choice-all"]} ${isRecommend === 'all' ? styles.selected : ''}`} onClick={() => recommendItem('all')} >
-                  <div></div>
-                  <span>All</span>
+              <div className={styles["wrap-recommend"]} >
+                <div className={styles["recommend-title"]}>
+                  <span className={styles["tit"]}>추천</span>
+                  <span className={styles["more"]}>더보기</span>
                 </div>
-                <div className={`${styles["choice-hotels"]} ${isRecommend === 'hotels' ? styles.selected : ''}`} onClick={() => recommendItem('hotels')}>
-                  <Image src="/icons/hotels.svg" alt='choice' width={28} height={28} priority={true}/>
-                  <span>호텔</span>
-                </div>
-                <div className={`${styles["choice-villas"]} ${isRecommend === 'villas' ? styles.selected : ''}`} onClick={() => recommendItem('villas')}>
-                  <Image src="/icons/villas.svg" alt='choice' width={28} height={28} priority={true}/>
-                  <span>펜션</span>
-                </div>
-                <div className={`${styles["choice-camping"]} ${isRecommend === 'camping' ? styles.selected : ''}`} onClick={() => recommendItem('camping')}>
-                  <Image src="/icons/apartment.svg" alt='choice' width={28} height={28} priority={true}/>
-                  <span>캠핑</span>
-                </div>
-                <div className={`${styles["choice-motel"]} ${isRecommend === 'motel' ? styles.selected : ''}`} onClick={() => recommendItem('motel')}>
-                  <Image src="/icons/apartment.svg" alt='choice' width={28} height={28} priority={true}/>
-                  <span>모텔</span>
-                </div>
-              </div>
-              <div className={styles["recommend-list"]}>
-                {popularHotelData.slice(0, 3).map(popular => (
-                  <div key={popular.hotelId}>
-                  <div className={styles["hotels-list-content"]} >
-                    <Image src={`${pageAddress}${popular.imagePath}`} alt='리스트' width={84} height={84} className={styles["hotels-list-img"]} priority={true} />
-                    <div className={styles["hotels-list-info1"]}>
-                      <div className={styles["name"]}>{popular.name}</div>
-                      <div className={styles["location"]}>
-                        <Image src="/icons/location01.svg" alt='위치' width={18} height={18} priority={true}/>
-                        <p>{popular.location}</p>
-                      </div>
-                      <div className={styles["hotels-list-info2"]}>
-                        <span className={styles["price"]}>1,270,000원 ~</span>
-                      </div>
-                    </div>
-                    <div className={styles["hotels-list-score"]}>
-                      <Image src="/images/popular-star.png" alt='score' width={16} height={16} priority={true}/>
-                      <span className={styles["score"]}>4.9</span>
-                    </div>
+                <div className={styles["recommend-choice"]}>
+                  <div className={`${styles["choice-all"]} ${isRecommend === 'all' ? styles.selected : ''}`} onClick={() => recommendItem('all')} >
+                    <div></div>
+                    <span>All</span>
                   </div>
-                    <hr className={styles["recommend-hr"]}/>
+                  <div className={`${styles["choice-hotels"]} ${isRecommend === 'HOTEL' ? styles.selected : ''}`} onClick={() => recommendItem('HOTEL')}>
+                    <Image src="/icons/hotels.svg" alt='choice' width={28} height={28} priority={true}/>
+                    <span>호텔</span>
                   </div>
-                ))}
+                  <div className={`${styles["choice-villas"]} ${isRecommend === 'VILLA' ? styles.selected : ''}`} onClick={() => recommendItem('VILLA')}>
+                    <Image src="/icons/villas.svg" alt='choice' width={28} height={28} priority={true}/>
+                    <span>펜션</span>
+                  </div>
+                  <div className={`${styles["choice-apt"]} ${isRecommend === 'APT' ? styles.selected : ''}`} onClick={() => recommendItem('APT')}>
+                    <Image src="/icons/apartment.svg" alt='choice' width={28} height={28} priority={true}/>
+                    <span>아파트</span>
+                  </div>
+                  <div className={`${styles["choice-motel"]} ${isRecommend === 'motel' ? styles.selected : ''}`} onClick={() => recommendItem('motel')}>
+                    <Image src="/icons/apartment.svg" alt='choice' width={28} height={28} priority={true}/>
+                    <span>모텔</span>
+                  </div>
+                </div>
+                <div className={styles["recommend-list"]}>
+                  {typeList.slice(0,5).map((type) => (
+                    <div key={type.hotelId}>
+                      <Link href={`/hotel/DetailHotel?hotelId=${type.hotelId}`} className={styles["hotels-list-content"]}>
+                        <Image src={`${pageAddress}${type.hotelPictureList}`} alt='리스트' width={84} height={84} className={styles["hotels-list-img"]} priority={true} />
+                        <div className={styles["hotels-list-info1"]}>
+                          <div className={styles["name"]}>{type.hotelName}</div>
+                          <div className={styles["location"]}>
+                            <Image src="/icons/location01.svg" alt='위치' width={18} height={18} priority={true}/>
+                            <p>{type.location}</p>
+                          </div>
+                          <div className={styles["hotels-list-info2"]}>
+                            <span className={styles["price"]}>1,270,000원 ~</span>
+                          </div>
+                        </div>
+                        <div className={styles["hotels-list-score"]}>
+                          <Image src="/images/popular-star.png" alt='score' width={16} height={16} priority={true}/>
+                          <span className={styles["score"]}>4.9</span>
+                        </div>
+                        </Link>
+                      <hr className={styles["recommend-hr"]}/>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
           </div>
           <div className={styles.e}>
             <div className={styles["wrap-map"]}>

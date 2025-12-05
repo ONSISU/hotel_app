@@ -82,10 +82,11 @@ const DetailHotel: FC = () => {
   //detail정보
   //const [hotelId, setHotelId] = useState<string | null>(null); 
   const [hotelDetail, setHotelDetail] = useState<HotelDetail | null>(null); 
+  const pageAddress = "http://tomhoon.my:33000";
 
   useEffect(() => {
     if (facilitiesRef.current) {
-      if (facilitiesRef.current.scrollHeight > 150) {
+      if (facilitiesRef.current.scrollHeight > 120) {
         setHasMoreFacilities(true);
       } else {
         setHasMoreFacilities(false);
@@ -225,24 +226,25 @@ const DetailHotel: FC = () => {
       </div>
     );
   }
+  
   return (
     <div className={styles.detailWrap}>
       <div className={styles.titleContainer} >
         <Image src="/icons/backBlack.svg" alt='뒤로가기' width={25} height={25} className={styles.back} onClick={backPage}/>
-        <div className={styles.title01}>그랜드 하얏트 호텔</div>
+        <div className={styles.title01}>{hotelDetail.hotelName}</div>
         <Image src="/icons/moreIconBlack.svg" alt='더보기' width={25} height={25} className={styles.more}/>
       </div>
       <div className={styles.detailContainer}>
         <div className={styles.detailImg}>
-          <Image src="/images/popularImg01.jpg" alt='호텔' width={50} height={50} className={styles.mainImg}/>
+          <Image src={`${pageAddress}${hotelDetail.pictureUrl}`} alt='호텔' width={400} height={300} className={styles.mainImg}/>
         </div>
         <div className={styles.infoContainer}>
           <div className={styles.info01}>
-            <div className={styles.title}>그랜드 하얏트 호텔</div>
+            <div className={styles.title}>{hotelDetail.hotelName}</div>
             <div className={styles.info}>
               <Image src="/icons/location02.svg" alt='위치' width={18} height={18}/>
               <div className={styles.locationInfo} onClick={detailLocationToggle}>
-                <p>{hotelDetail?.location}</p>
+                <p>{hotelDetail.location}</p>
                 <Image src="/icons/notify-arrow.svg" alt='버튼' width={10} height={10} className={styles.detailLocation}/>
               </div>
               {isLocation &&
@@ -281,7 +283,7 @@ const DetailHotel: FC = () => {
             <div className={styles.roomList}>
               {hotelDetail.ownHotelList.map(room => (
                 <div className={styles.roomContainer} key={room.ownHotelId} >
-                  <Image src="/images/room3.jpg" alt='객실' width={400} height={160} className={styles.roomImg}/>
+                  <Image src={`${pageAddress}${room.pictureList}`} alt='객실' width={400} height={230} className={styles.roomImg}/>
                   <div className={styles.roomInfo01}>
                     <div className={styles.title}>{room.roomType} {room.roomName}</div>
                     <div className={styles.people}>기준 {room.maxPerson} / 최대 {room.maxPerson}</div>
@@ -357,7 +359,7 @@ const DetailHotel: FC = () => {
                   </div>
                 </div>
               </div>
-            </div> */}
+              </div> */}
           </div>
           <div className={styles.info04}>
             <div className={styles.subTitle}>시설 및 서비스</div>
@@ -380,11 +382,11 @@ const DetailHotel: FC = () => {
               - 렌터카 서비스
             </div>
             {hasMoreFacilities && (
-            <button className={styles.moreButton}
-              onClick={() => setShowMoreFacilities(!showMoreFacilities)}>
-              {showMoreFacilities ? '닫기' : '더보기'}
-            </button>
-          )}
+              <button className={styles.moreButton}
+                onClick={() => setShowMoreFacilities(!showMoreFacilities)}>
+                {showMoreFacilities ? '닫기' : '더보기'}
+              </button>
+            )}
           </div>
           <div className={styles.info05}>
             <div className={styles.title}>
@@ -504,7 +506,40 @@ const DetailHotel: FC = () => {
       </div>
       }
       <BottomSheet isOpen={isSheetOpen} onClose={closeSheet}>
-        <></>
+        <>
+        <table>
+              <tbody>
+                <tr>
+                  <td className="title">대표자명</td>
+                  <td className="text">남대리</td>
+                </tr>
+                <tr>
+                  <td className="title">상호명</td>
+                  <td className="text">(주)식은엔비디아</td>
+                </tr>
+                <tr>
+                  <td className="title">사업자주소</td>
+                  <td className="text">{hotelDetail.location}</td>
+                </tr>
+                <tr>
+                  <td className="title">이메일</td>
+                  <td className="text">nam0001@naver.com</td>
+                </tr>
+                <tr>
+                  <td className="title">연락처</td>
+                  <td className="text">{hotelDetail.tel}</td>
+                </tr>
+                <tr>
+                  <td className="title">사업자등록번호</td>
+                  <td className="text">{hotelDetail.businessNumber}</td>
+                </tr>
+                <tr>
+                  <td className="title">판매업자신고번호</td>
+                  <td className="text">{hotelDetail.registNumber}</td>
+                </tr>
+              </tbody>
+          </table>
+        </>
       </BottomSheet>
     </div>
   );
