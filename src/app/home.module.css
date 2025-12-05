@@ -316,7 +316,7 @@
 }
 .recommend-choice .choice-villas, 
 .recommend-choice .choice-hotels, 
-.recommend-choice .choice-camping, 
+.recommend-choice .choice-apt, 
 .recommend-choice .choice-motel {
   border: 1px rgba(233, 235, 237, 1) solid; /* 제공해주신 테두리 */
   font-weight: bold;
@@ -338,7 +338,7 @@
 } 
 .recommend-choice .choice-villas span, 
 .recommend-choice .choice-hotels span, 
-.recommend-choice .choice-camping span, 
+.recommend-choice .choice-apt span, 
 .recommend-choice .choice-motel span {
   margin-left: 10px;
   color: rgba(120, 130, 138, 1);

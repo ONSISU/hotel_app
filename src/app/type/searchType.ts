@@ -1,15 +1,15 @@
-export interface HotelDetail {
+export interface SearchType {
   hotelId: number;
+  hotelType: string;
   hotelName: string;
   businessNumber: number;
   registNumber: number;
-  pictureUrl: string | null; 
-  tel: number;
+  price: number;
+  maxPrice: number;
+  hotelPictureList: string[] | null;
+  minPrice: number;
   location: string;
-  latitude: number;
-  longitude: number;
   ownHotelList: OwnHotel[];
-  roomCounts : number;
 }
 export interface OwnHotel {
   ownHotelId: number;
@@ -27,8 +27,10 @@ export interface OwnHotel {
   platform_discount: number;
   owner_discount: number;
 }
-export interface HotelDetailApiResponse {
-  data: HotelDetail;
+export interface SearchTypeApiResponse {
+  data: {
+    content: SearchType[]; 
+  }
   message: string;
   statusCode: number;
 }

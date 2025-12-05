@@ -34,8 +34,12 @@
   .detailImg {
   }
   .mainImg{
-    width: 100vw;
+    width:100vw;
     height: 40vh;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    image-rendering: -webkit-optimize-contrast;
+    object-fit: cover;
   }
   .infoContainer {
     width: 100vw;
@@ -147,7 +151,7 @@
   }
   .roomContainer .roomImg {
     width: 100%;
-    height: auto;
+    // height: auto;
     backface-visibility: hidden;
     transform: translateZ(0);
     image-rendering: -webkit-optimize-contrast;
