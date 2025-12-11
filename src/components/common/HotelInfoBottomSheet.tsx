@@ -25,10 +25,6 @@ const BottomSheet : FC<props> = ({ isOpen, onClose, children }) => {
     <>
       {isOpen && <div className="overlay" onClick={onClose}></div>}
       <div className={sheetClass}>
-        <div className="bottomSheetHeader">
-          <h3>판매자 정보</h3>
-          <button className="closeButton" onClick={onClose}>×</button>
-        </div>
         <div className="bottomSheetContent">
           {children} 
           {}

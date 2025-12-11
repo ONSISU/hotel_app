@@ -22,7 +22,8 @@ export default function NewPage() {
   const goLogin = async () => {
     setIsLoading(true);
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/auth/login`, {
+    // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/auth/login`, {
+    const res = await fetch(`http://tomhoon.my:33000/api/v1/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
