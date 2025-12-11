@@ -29,20 +29,24 @@
     margin-right: 10px;
   }
   .detailContainer {
-    transform: translate(-8px, -8px);
+    transform: translate(-8px,-8px);
+    position: absolute;
   }
-  .detailImg {
-  }
-  .mainImg{
-    width:100vw;
-    height: 40vh;
+  .detailMainImg {
+    width: 100%;
+    height: auto;
     backface-visibility: hidden;
     transform: translateZ(0);
     image-rendering: -webkit-optimize-contrast;
     object-fit: cover;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    overflow: hidden;
+  }
+  .detailMainImg .mainImg{    
   }
   .infoContainer {
-    width: 100vw;
+    width: 100%;
     transform: translateY(-40px);
     box-sizing: border-box;
     background-color: #ffffff;
@@ -151,7 +155,7 @@
   }
   .roomContainer .roomImg {
     width: 100%;
-    // height: auto;
+    height: auto;
     backface-visibility: hidden;
     transform: translateZ(0);
     image-rendering: -webkit-optimize-contrast;

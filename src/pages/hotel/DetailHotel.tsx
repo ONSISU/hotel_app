@@ -230,22 +230,22 @@ const DetailHotel: FC = () => {
   return (
     <div className={styles.detailWrap}>
       <div className={styles.titleContainer} >
-        <Image src="/icons/backBlack.svg" alt='뒤로가기' width={25} height={25} className={styles.back} onClick={backPage}/>
+        <Image src="/icons/backBlack.svg" alt='뒤로가기' width={25} height={25} className={styles.back} onClick={backPage} priority={true}/>
         <div className={styles.title01}>{hotelDetail.hotelName}</div>
-        <Image src="/icons/moreIconBlack.svg" alt='더보기' width={25} height={25} className={styles.more}/>
+        <Image src="/icons/moreIconBlack.svg" alt='더보기' width={25} height={25} className={styles.more} priority={true}/>
       </div>
       <div className={styles.detailContainer}>
-        <div className={styles.detailImg}>
-          <Image src={`${pageAddress}${hotelDetail.pictureUrl}`} alt='호텔' width={400} height={300} className={styles.mainImg}/>
+        <div className={styles.detailMainImg}>
+          <Image src={`${pageAddress}${hotelDetail.pictureUrl}`} alt='호텔' width={500} height={360} className={styles.mainImg} priority={true}/>
         </div>
         <div className={styles.infoContainer}>
           <div className={styles.info01}>
             <div className={styles.title}>{hotelDetail.hotelName}</div>
             <div className={styles.info}>
-              <Image src="/icons/location02.svg" alt='위치' width={18} height={18}/>
+              <Image src="/icons/location02.svg" alt='위치' width={18} height={18} priority={true}/>
               <div className={styles.locationInfo} onClick={detailLocationToggle}>
                 <p>{hotelDetail.location}</p>
-                <Image src="/icons/notify-arrow.svg" alt='버튼' width={10} height={10} className={styles.detailLocation}/>
+                <Image src="/icons/notify-arrow.svg" alt='버튼' width={10} height={10} className={styles.detailLocation} priority={true}/>
               </div>
               {isLocation &&
               <div className={styles.locationToggle}>
@@ -254,7 +254,7 @@ const DetailHotel: FC = () => {
               </div>
               }
               <div className={styles.scoreInfo}>
-                <Image src="/images/popular-star.png" alt='score' width={16} height={16}/>
+                <Image src="/images/popular-star.png" alt='score' width={16} height={16} priority={true}/>
                 <span className={styles.score}>4.1</span>
               </div>
             </div>
@@ -271,11 +271,11 @@ const DetailHotel: FC = () => {
             <div className={styles.mainTitle}>객실 선택</div>
             <div className={styles.roomDate}>
               <div className={styles.subDate} onClick={fnCalendar}>
-                <Image src="/icons/date.svg" alt='날짜' width={14} height={14} className={styles.dateImg}/>
+                <Image src="/icons/date.svg" alt='날짜' width={14} height={14} className={styles.dateImg} priority={true}/>
                 <div className={styles.dateDay}>{mainPageRangeText} ({mainPageDurationText})</div>
               </div>
               <div className={styles.subPeople} onClick={fnCalendar}>
-                <Image src="/icons/people.svg" alt='인원' width={14} height={14} className={styles.peopleImg}/>
+                <Image src="/icons/people.svg" alt='인원' width={14} height={14} className={styles.peopleImg} priority={true}/>
                 <div className={styles.datePeople}>인원 {mainPageAttendeesText}</div>
               </div>
             </div>
@@ -283,7 +283,9 @@ const DetailHotel: FC = () => {
             <div className={styles.roomList}>
               {hotelDetail.ownHotelList.map(room => (
                 <div className={styles.roomContainer} key={room.ownHotelId} >
-                  <Image src={`${pageAddress}${room.pictureList}`} alt='객실' width={400} height={230} className={styles.roomImg}/>
+                  <div className={styles.roomImg}>
+                    <Image src={`${pageAddress}${room.pictureList}`} alt='객실' width={450} height={260} className={styles.img} priority={true}/>
+                  </div>
                   <div className={styles.roomInfo01}>
                     <div className={styles.title}>{room.roomType} {room.roomName}</div>
                     <div className={styles.people}>기준 {room.maxPerson} / 최대 {room.maxPerson}</div>
@@ -302,7 +304,7 @@ const DetailHotel: FC = () => {
                       <Link href="/hotel/DetailRoom" style={{textDecorationLine: "none"}}>
                         <div className={styles.roomDetail}>
                           <div className={styles.title}>상세보기</div>
-                          <Image src="/icons/notify-arrow.svg" alt='버튼' width={10} height={10} className={styles.detailImg}/>
+                          <Image src="/icons/notify-arrow.svg" alt='버튼' width={10} height={10} className={styles.detailImg} priority={true}/>
                         </div>
                       </Link>
                     </div>
@@ -460,7 +462,7 @@ const DetailHotel: FC = () => {
           </div>
           <div className={styles.info08} onClick={openSheet}>
             <div className={styles.title}>판매자 정보</div>
-            <Image src="/icons/notify-arrow.svg" alt='버튼' width={16} height={16} className={styles.sellingInfo} />
+            <Image src="/icons/notify-arrow.svg" alt='버튼' width={16} height={16} className={styles.sellingInfo} priority={true} />
           </div>
         </div>
         <div className={styles.priceContainer}></div>
@@ -485,7 +487,7 @@ const DetailHotel: FC = () => {
           <div className={styles.peopleValue}>
             <div className={styles.peopleTitle}>
               <div>인원수</div>
-              <Image src="/icons/info.svg" alt='info' width={20} height={20} className={styles.info} onClick={peopleInfoToggle}/>
+              <Image src="/icons/info.svg" alt='info' width={20} height={20} className={styles.info} onClick={peopleInfoToggle} priority={true}/>
             </div>
             {isPeopleInfo &&
               <div className={styles.peopleInfoToggle}>
@@ -493,9 +495,9 @@ const DetailHotel: FC = () => {
               </div>
               }
             <div className={styles.peopleCount}>
-              <Image src="/icons/minus.svg" alt='minus' width={24} height={24} className={styles.minus} onClick={peopleCountDown}/>
+              <Image src="/icons/minus.svg" alt='minus' width={24} height={24} className={styles.minus} onClick={peopleCountDown} priority={true}/>
               <div className={styles.countTxt}>{tempAttendeesValue}</div>
-              <Image src="/icons/add.svg" alt='add' width={24} height={24} className={styles.add} onClick={peopleCountUp}/>
+              <Image src="/icons/add.svg" alt='add' width={24} height={24} className={styles.add} onClick={peopleCountUp} priority={true}/>
             </div>
           </div>
           <div className={styles.popupButton}>
@@ -507,6 +509,10 @@ const DetailHotel: FC = () => {
       }
       <BottomSheet isOpen={isSheetOpen} onClose={closeSheet}>
         <>
+        <div className="bottomSheetHeader">
+          <h3>판매자 정보</h3>
+          <button className="closeButton" onClick={closeSheet}>×</button>
+        </div>
         <table>
               <tbody>
                 <tr>

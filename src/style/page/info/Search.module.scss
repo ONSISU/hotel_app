@@ -30,13 +30,18 @@
     width: 90%;
     margin: 80px auto 0 auto;
   }
+  .searchContainer .searchHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   .searchContainer .search {
     display: flex;
     align-items: center;
+    width: 86%;
     border: 1px solid #b3b6b8;
     border-radius: 24px;
-    padding: 12px 10px;
-    margin: 0 auto;
+    padding: 12px 10px 12px 0;
   }
   .search .searchImg {
     margin-left: 5px;

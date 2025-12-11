@@ -3,6 +3,7 @@ import styles from "@/style/page/hotel/DetailRoom.module.scss";
 import Image from 'next/image';
 import React, { useState, useEffect, useCallback, useRef  } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function DetailRoom() {
   
@@ -104,7 +105,9 @@ export default function DetailRoom() {
           <div className={styles.date}>11.11~11.12</div>
           <div className={styles.price}>1,200,000원</div>
         </div>
-        <div className={styles.reverseBtn}>예약하기</div>
+        <Link href="/hotel/Reserve">
+          <div className={styles.reserveBtn}>예약하기</div>
+        </Link>
       </div>
     </div>
   );

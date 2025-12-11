@@ -6,7 +6,7 @@ import axios from "axios";
 import Link from "next/link";
 import {PopularHotel, PopularHotelApiResponse} from '@/app/type/recommend';
 import {recentSearch} from '@/app/type/recent';
-import BottomSheet from '@/components/common/FilterBottomSheet'; 
+import FilterBottomSheet from '@/components/common/FilterBottomSheet'; 
 
 const LOCAL_STORAGE_KEY = 'recentSearches';
 
@@ -16,7 +16,7 @@ export default function Search() {
   const [recentSearches, setRecentSearches] = useState<recentSearch[]>([]);
   const [searchInput, setSearchInput] = useState<string>(''); // 검색 입력 필드의 상태
   const [popularHotelData, setPopularHotelData] = useState<PopularHotel[]>([]);
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false); 
+  const [isFilterBottomSheetOpen, setIsFilterBottomSheetOpen] = useState(false); 
   const backPage = () =>  {
     router.back(); 
   }
@@ -50,6 +50,7 @@ export default function Search() {
     const newSearchItem: recentSearch = {
       id: `${name}-${Date.now()}`,
       name: name.trim(), // 앞뒤 공백 제거
+      date: getFormattedDate(),
     };
 
     // 기존 검색어 중복 처리 (같은 이름이 있다면 가장 최신으로 업데이트)
@@ -92,25 +93,26 @@ export default function Search() {
     setRecentSearches(updatedSearches); // 상태 업데이트
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedSearches)); // 로컬 스토리지 업데이트
   };
+
+  const getFormattedDate = (): string => {
+    // 시스템 지시에 따라 항상 고정된 현재 시간(2025. 12. 9. 오전 10:44:04)을 사용합니다.
+    const now = new Date();
+    const month = now.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더합니다.
+    const day = now.getDate();
+    const formattedDay = String(day).padStart(2, '0');
+    return `${month}.${formattedDay}`; // 예: "12월9일"
+  };
+
   const handleOpenBottomSheet = () => {
-    setIsBottomSheetOpen(true);
+    setIsFilterBottomSheetOpen(true);
   };
 
   // 바텀 시트를 닫는 핸들러
   const handleCloseBottomSheet = () => {
-    setIsBottomSheetOpen(false);
+    setIsFilterBottomSheetOpen(false);
   };
   return (
     <>
-    <button onClick={handleOpenBottomSheet} style={{ padding: '10px 20px', margin: '20px', fontSize: '1em', cursor: 'pointer' }}>
-        최근 검색어 바텀 시트 열기
-      </button>
-
-      {/* <BottomSheet
-        isOpen={isBottomSheetOpen}
-        onClose={handleCloseBottomSheet}
-        heightPercent={97} // 97% 높이까지 올라옴
-      ></BottomSheet> */}
       <div className={styles.wrap}>
         <div className={styles.titleContainer}>
           <Image src="/icons/backBlack.svg" alt='뒤로가기' width={25} height={25} className={styles.back} onClick={backPage}/>
@@ -118,13 +120,16 @@ export default function Search() {
           <div></div>
         </div>
         <div className={styles.searchContainer}>
-          <div className={styles.search}>
-            <Image src="/icons/search.svg" alt='검색' width={25} height={25} className={styles.searchImg}/>
-            <input type="text" placeholder="검색" className={styles.searchInput} 
-            value={searchInput} onChange={handleInputChange} onKeyDown={handleKeyDown}/>
-            {searchInput.length > 0 && (
-              <Image src="/icons/close.svg" alt='지우기' width={25} height={25} onClick={handleClearSearchInput} className={styles.deleteImg}/>
-            )}
+          <div className={styles.searchHeader}>
+            <div className={styles.search}>
+              <Image src="/icons/search.svg" alt='검색' width={25} height={25} className={styles.searchImg}/>
+              <input type="text" placeholder="검색" className={styles.searchInput} 
+              value={searchInput} onChange={handleInputChange} onKeyDown={handleKeyDown}/>
+              {searchInput.length > 0 && (
+                <Image src="/icons/close.svg" alt='지우기' width={25} height={25} onClick={handleClearSearchInput} className={styles.deleteImg}/>
+              )}
+            </div>
+            <Image src="/icons/filter.svg" alt='필터' width={25} height={25} className={styles.filter} onClick={handleOpenBottomSheet}/>
           </div>
           <div className={styles.recentContainer}>
             <div className={styles.recentHeader}>
@@ -141,7 +146,7 @@ export default function Search() {
                   <Image src="/icons/clock.svg" alt='최근검색' width={25} height={25} />
                   <div className={styles.recentInfo}>
                     <div className={styles.title}>{item.name}</div>
-                    <div className={styles.content}>11.12</div>
+                    <div className={styles.content}>{item.date}</div>
                   </div>
                   <Image src="/icons/close02.svg" alt='지우기' width={20} height={20} onClick={(e) => {e.stopPropagation(); handleDeleteItem(item.id)}} className={styles.deleteImg}/>
                 </div>
@@ -155,7 +160,7 @@ export default function Search() {
             </div>
           <div className={styles.popularList}>
             {popularHotelData.map(popular => (
-              <Link href="/hotel/DetailHotel" key={popular.hotelId} className={styles.link}>
+              <Link href={`/hotel/DetailHotel?hotelId=${popular.hotelId}`} key={popular.hotelId} className={styles.link}>
                 <div className={styles.popularContent}>
                   <Image src={`${imagePathAddress}${popular.imagePath}`} alt='리스트' width={84} height={84} className={styles["hotelsListImg"]} priority={true} />
                   <div className={styles.popularInfo}>
@@ -178,6 +183,14 @@ export default function Search() {
           </div>
         </div>
       </div>
+      <FilterBottomSheet
+        isOpen={isFilterBottomSheetOpen}
+        onClose={handleCloseBottomSheet}
+        heightPercent={90} // 97% 높이까지 올라옴
+        draggable= {true} // 드래그 기능 활성화 여부
+      >
+        <div>{}</div>
+      </FilterBottomSheet>
     </>
   )
 }

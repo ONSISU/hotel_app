@@ -24,17 +24,12 @@
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  transform: translateY(100%); /* 기본적으로 화면 아래로 숨김 */
-  transition: transform 0.3s ease-out; /* 열림/닫힘 애니메이션 */
+  /* transform: translateY(100%); 기본적으로 화면 아래로 숨김 */
+  /* transition: transform 0.8s ease-out; 열림/닫힘 애니메이션 */
   z-index: 1000;
   touch-action: none; /* iOS Safari에서 스크롤 버그 방지 */
   -webkit-overflow-scrolling: touch; /* 부드러운 스크롤 */
   overflow: hidden; /* 내용이 넘치면 숨김 */
-}
-
-.bottomSheet.open {
-  /* maxHeight에 따라 transform 계산은 JS에서 함 */
-  /* transform: translateY(0); */ /* JS에서 계산된 값이 적용됨 */
 }
 
 /* 드래그 중에는 transition을 없애 부드럽게 따라오게 함 */

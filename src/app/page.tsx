@@ -298,7 +298,7 @@ export default function Home() {
           </div>
           <div className={styles.item01}>
             <Link href="/" className={styles["link"]}>
-              <Image src="/icons/people.svg" alt='내정보' width={20} height={20} title='내정보' priority={true}/>
+              <Image src="/icons/binPeople.svg" alt='내정보' width={20} height={20} title='내정보' priority={true}/>
               <div className={styles.title}>내정보</div>
             </Link>
           </div>
