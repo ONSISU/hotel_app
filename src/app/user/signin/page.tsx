@@ -32,7 +32,7 @@ export default function NewPage() {
     });
 
     const json = await res.json();
-
+    console.log(json);
     if (json.statusCode == 200) {
       router.push("/");
     } else {

@@ -52,6 +52,24 @@ export default function Reserve() {
   const backPage=  () =>  {
     router.back(); 
   }
+  const payBtn = async () => {
+    const res = await fetch(`http://tomhoon.my:33000/api/v1/reservation/room`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": ""
+      },
+      body: JSON.stringify({
+        "userId" : 1,
+        "ownHotelId" : 1,
+        "startDate" : "2025-12-12",
+        "endDate" : "2025-12-12" 
+      }),
+    });
+
+    const json = await res.json();
+    console.log(json);
+  }
   return (
     <div className={styles.roomWrap}>
       <div className={styles.titleContainer}>
@@ -212,33 +230,33 @@ export default function Reserve() {
       </BottomSheet>
       <BottomSheet isOpen={isSheetOpenTerms01} onClose={closeSheetTerms01}>
         <>
-        <div className="bottomSheetHeader">
-          <h3>이용규칙</h3>
-          <button className="closeButton" onClick={closeSheetTerms01}>×</button>
-        </div>
-        <div>
-              각 숙박시설의 규정(규칙 및 약관 등)을 준수해야 합니다. 숙박시설 규정을 위반 시 입실 불가, 퇴실 조치, 추가요금 등이 발생할 수 있으며, 이에 대한 모든 책임은 예약 및 이용 고객님에게 있으므로 숙박시설의 이용규칙과 시설 현황을 반드시 확인하시기 바랍니다.
-규정 내 이용 가능 인원을 초과할 경우, 이용 불가 통보 또는 초과 인원에 대한 추가 요금이 발생할 수 있으며, 이에 대한 모든 책임은 예약 및 이용 고객님에게 있습니다.
-모든 숙박시설의 예약은 실시간으로 이루어지기 때문에, "예약과 동시에 확정"이 되더라도 over booking(오버부킹)을 비롯한 숙박시설 사정에 따라 “예약 대기” 또는 “예약취소” 상태로 변경될 수 있으며, 결제하신 금액은 자동 환불 처리됩니다.
-미성년자 투숙 시 청소년보호법 등 관계 법령에 따라 미성년자(만 19세 미만 청소년)의 경우 혼숙이 금지되며, 법정대리인 동행 없이 혼숙이 불가한 점 반드시 유의하여 주시길 바랍니다. 또한 해당 사유로 인하여 현장에서 입실이 불가할 경우 취소 및 환불이 불가합니다.
-각 숙박시설 정보는 예약을 위한 참고 자료로 숙박시설 내 자체 변동이나 기타 사유로 인해 실제와 차이가 있을 수 있습니다. 이와 관련하여 ㈜놀유니버스는 제휴판매자가 전달한 숙박시설의 사진, 정보 등을 NOL에 제대로 반영하지 않는 등 ㈜놀유니버스의 귀책이 있지 않는 한 책임을 지지 않습니다.
-            </div>
+          <div className="bottomSheetHeader">
+            <h3>이용규칙</h3>
+            <button className="closeButton" onClick={closeSheetTerms01}>×</button>
+          </div>
+          <div>
+            각 숙박시설의 규정(규칙 및 약관 등)을 준수해야 합니다. 숙박시설 규정을 위반 시 입실 불가, 퇴실 조치, 추가요금 등이 발생할 수 있으며, 이에 대한 모든 책임은 예약 및 이용 고객님에게 있으므로 숙박시설의 이용규칙과 시설 현황을 반드시 확인하시기 바랍니다.
+            규정 내 이용 가능 인원을 초과할 경우, 이용 불가 통보 또는 초과 인원에 대한 추가 요금이 발생할 수 있으며, 이에 대한 모든 책임은 예약 및 이용 고객님에게 있습니다.
+            모든 숙박시설의 예약은 실시간으로 이루어지기 때문에, "예약과 동시에 확정"이 되더라도 over booking(오버부킹)을 비롯한 숙박시설 사정에 따라 “예약 대기” 또는 “예약취소” 상태로 변경될 수 있으며, 결제하신 금액은 자동 환불 처리됩니다.
+            미성년자 투숙 시 청소년보호법 등 관계 법령에 따라 미성년자(만 19세 미만 청소년)의 경우 혼숙이 금지되며, 법정대리인 동행 없이 혼숙이 불가한 점 반드시 유의하여 주시길 바랍니다. 또한 해당 사유로 인하여 현장에서 입실이 불가할 경우 취소 및 환불이 불가합니다.
+            각 숙박시설 정보는 예약을 위한 참고 자료로 숙박시설 내 자체 변동이나 기타 사유로 인해 실제와 차이가 있을 수 있습니다. 
+          </div>
         </>
       </BottomSheet>
       <BottomSheet isOpen={isSheetOpenTerms02} onClose={closeSheetTerms02}>
         <>
-        <div className="bottomSheetHeader">
-          <h3>취소 및 환불 규칙</h3>
-          <button className="closeButton" onClick={closeSheetTerms02}>×</button>
-        </div>
-        <div>
-          결제수단 환불 정책
-취소완료 후 원결제수단으로 취소되는 시점은 영업일 기준 3~7일이 소요됩니다.
-예약 시 선택하신 결제수단에 따라 환불이 불가능한 경우, 고객센터를 통해 계좌환불로 대체 처리 될 수 있습니다.
-계좌환불 진행 시, 고객님의 계좌로 환불금액이 입금완료까지 영업일 기준 2~3일이 소요될 수 있습니다.
-'휴대폰 결제' 예약 건은 결제 당월에 한해 원 거래 취소 및 환불 처리가 가능합니다.
-환불은 고객이 예약 시 결제한 결제수단과 동일한 방법으로 진행되며, 동일한 결제수단으로 환불이 어려운 경우(ex. 익월 이후 취소 등)에는 계좌를 통한 현금 지급 방식으로 환불됩니다
-            </div>
+          <div className="bottomSheetHeader">
+            <h3>취소 및 환불 규칙</h3>
+            <button className="closeButton" onClick={closeSheetTerms02}>×</button>
+          </div>
+          <div>
+            결제수단 환불 정책
+            취소완료 후 원결제수단으로 취소되는 시점은 영업일 기준 3~7일이 소요됩니다.
+            예약 시 선택하신 결제수단에 따라 환불이 불가능한 경우, 고객센터를 통해 계좌환불로 대체 처리 될 수 있습니다.
+            계좌환불 진행 시, 고객님의 계좌로 환불금액이 입금완료까지 영업일 기준 2~3일이 소요될 수 있습니다.
+            '휴대폰 결제' 예약 건은 결제 당월에 한해 원 거래 취소 및 환불 처리가 가능합니다.
+            환불은 고객이 예약 시 결제한 결제수단과 동일한 방법으로 진행됩니다.
+          </div>
         </>
       </BottomSheet>
     </div>
