@@ -9,6 +9,7 @@ import BottomSheet from '@/components/common/HotelInfoBottomSheet';
 import { useRouter } from 'next/router';
 import {HotelDetail, HotelDetailApiResponse} from '@/app/type/hotelDetail';
 import axios from "axios";
+import Loading from "@/components/Loading";
   
 const getFormattedDateRange = (startDate: Date, endDate: Date): string => {
   const formatSingleDate = (date: Date): string => {
@@ -39,8 +40,6 @@ const getDurationString = (startDate: Date, endDate: Date) => {
 const DetailHotel: FC = () => {
   const router = useRouter();
   const [showMoreFacilities, setShowMoreFacilities] = useState<boolean>(false); 
-  const [hasMoreFacilities, setHasMoreFacilities] = useState<boolean>(false); 
-  const facilitiesRef = useRef<HTMLDivElement>(null);
   const [isLocation, setIsLocation] = useState<boolean>(false);
   const [isPeopleInfo, setIsPeopleInfo] = useState<boolean>(false); 
   const [selectedAttendeesForDisplay, setSelectedAttendeesForDisplay] = useState<number>(2);
@@ -84,15 +83,9 @@ const DetailHotel: FC = () => {
   const [hotelDetail, setHotelDetail] = useState<HotelDetail | null>(null); 
   const pageAddress = "http://tomhoon.my:33000";
 
-  useEffect(() => {
-    if (facilitiesRef.current) {
-      if (facilitiesRef.current.scrollHeight > 120) {
-        setHasMoreFacilities(true);
-      } else {
-        setHasMoreFacilities(false);
-      }
-    }
-  }, []);
+  // 로딩
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   useEffect(() => {
     if (isCalendar) {
       document.body.style.overflow = 'hidden'; 
@@ -194,12 +187,14 @@ const DetailHotel: FC = () => {
   }
   const fetchHotelDetails = useCallback(async (id: string) => {
     try {
+    setIsLoading(true);
       const response = await axios.get<HotelDetailApiResponse>(`http://tomhoon.my:33000/api/v1/hotel/detail?hotelId=${id}`);
       const hotelDetailDate: HotelDetail = response.data.data; 
       setHotelDetail(hotelDetailDate); // 성공적으로 가져온 데이터 저장
     } catch {
       setHotelDetail(null); // 에러 발생 시 데이터 초기화
     }
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -220,10 +215,9 @@ const DetailHotel: FC = () => {
 
   if (!hotelDetail) {
     return (
-      <div style={{ padding: '20px', textAlign: 'center' }}>
-        <p>선택된 호텔의 정보를 찾을 수 없습니다.</p>
-        <button onClick={() => router.back()} style={{ marginTop: '20px', padding: '8px 15px' }}>뒤로 가기</button>
-      </div>
+      <>
+        {isLoading && <Loading />}
+      </>
     );
   }
   
@@ -255,7 +249,7 @@ const DetailHotel: FC = () => {
               }
               <div className={styles.scoreInfo}>
                 <Image src="/images/popular-star.png" alt='score' width={16} height={16} priority={true}/>
-                <span className={styles.score}>4.1</span>
+                <span className={styles.score}> </span>
               </div>
             </div>
           </div>
@@ -365,8 +359,8 @@ const DetailHotel: FC = () => {
           </div>
           <div className={styles.info04}>
             <div className={styles.subTitle}>시설 및 서비스</div>
-            <div ref={facilitiesRef} 
-            className={`${styles.subInfo} ${!showMoreFacilities && hasMoreFacilities ? styles.collapsed : ''}`}>
+            <div 
+            className={`${styles.subInfo} ${!showMoreFacilities ? styles.collapsed : ''}`}>
               - 실내수영장<br></br>
               - 와이파이<br></br>
               - 24시간 데스크<br></br>
@@ -383,12 +377,13 @@ const DetailHotel: FC = () => {
               - 어린이 돌봄 서비스<br></br>
               - 렌터카 서비스
             </div>
-            {hasMoreFacilities && (
-              <button className={styles.moreButton}
-                onClick={() => setShowMoreFacilities(!showMoreFacilities)}>
-                {showMoreFacilities ? '닫기' : '더보기'}
-              </button>
-            )}
+            {!showMoreFacilities ? (
+              <div className={styles.moreButton}
+                onClick={() => setShowMoreFacilities(true)}>
+                {!showMoreFacilities &&  '더보기'}
+              </div>
+              ) : null
+            }
           </div>
           <div className={styles.info05}>
             <div className={styles.title}>

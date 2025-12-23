@@ -290,7 +290,6 @@
     }
   }
   .moreButton {
-    display: block; // 블록 요소로 만들어 하단 중앙에 배치 용이
     width: 100%;
     padding: 10px 0;
     margin-top: 10px; // 내용과의 간격
@@ -300,8 +299,8 @@
     color: #333;
     font-size: 16px;
     font-weight: 500;
-    cursor: pointer;
     transition: background-color 0.2s ease;
+    text-align: center;
 
     &:hover {
       background-color: #e0e0e0;

@@ -6,16 +6,20 @@ import styles from "./home.module.css";
 import Link from 'next/link';
 import {PopularHotel, PopularHotelApiResponse, FavoriteHotel, FavoriteHotelApiResponse, BestHotel, BestHotelApiResponse} from '../app/type/home';
 import {SearchType, SearchTypeApiResponse} from '../app/type/searchType';
-
+import UserStates from '@/states/UserStates'; 
+import Loading from "@/components/Loading";
 
 export default function Home() {
-  const [isRecommend, setIsRecommend] = useState('all');
+  const [isRecommend, setIsRecommend] = useState('ALL');
   //const [popularHotelData, setPopularHotelData] = useState<PopularHotel[]>([]);
   const [favoriteHotelData, setFavoriteHotelData] = useState<FavoriteHotel[]>([]);
   const [bestHotelData, setBestHotelData] = useState<BestHotel[]>([]);
   const [typeList, setTypeList] = useState<SearchType[]>([]);
+  const availableTypes: string[] = ['HOTEL', 'VILLA', 'APT', 'MOTEL'];
   const pageAddress = "http://tomhoon.my:33000";
   const [isScrolled, setIsScrolled] = useState(false); 
+  // 로딩
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,9 +48,11 @@ export default function Home() {
     // }
     const favoriteHotel = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get<FavoriteHotelApiResponse>('http://tomhoon.my:33000/api/v1/hotel/popular');
         const favoriteHotelList: FavoriteHotel[] = response.data.data; 
         setFavoriteHotelData(favoriteHotelList);
+        setIsLoading(false);
       } catch (error) {
         console.error('데이터 가져오기 에러:', error);
         setFavoriteHotelData([]);
@@ -54,9 +60,11 @@ export default function Home() {
     }
     const bestHotel = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get<BestHotelApiResponse>('http://tomhoon.my:33000/api/v1/hotel/popular');
         const bestHotelList: BestHotel[] = response.data.data; 
         setBestHotelData(bestHotelList);
+        setIsLoading(false);
       } catch (error) {
         console.error('데이터 가져오기 에러:', error);
         setBestHotelData([]);
@@ -65,24 +73,31 @@ export default function Home() {
       // popularHotel();
       favoriteHotel();
       bestHotel();
+      recommendItem("ALL");
   }, []);
   const recommendItem = async (type:string) => {
     setIsRecommend(type);
     try {
+      setIsLoading(true);
+      if (type === 'ALL') {
+        const randomIndex = Math.floor(Math.random() * availableTypes.length);
+        type = availableTypes[randomIndex]; // 랜덤으로 타입 선택
+      }
       const response = await axios.get<SearchTypeApiResponse>(`http://tomhoon.my:33000/api/v1/hotel/search`
       , {
           params: {
-              type: type // 클릭한 항목(hotels, villas, apt)을 type 파라미터로 전달
-            }
-          });
-            // const SearchTypeList: SearchType[] = response.data.data; 
-            setTypeList(response.data.data.content); 
-            console.log(`${type} 데이터:`, response.data);
+            type: type
+          }
+        });
+      setTypeList(response.data.data.content); 
+      console.log(`${type} 데이터:`, response.data);
+      setIsLoading(false);
     } catch (error) {
       console.error(`Error fetching ${type} data:`, error);
-      // 에러 발생 시 사용자에게 알리는 로직 추가 (예: alert('데이터를 불러오는데 실패했습니다.'))
+      setTypeList([])
     }
   };
+  
   return (
     <>
       {isScrolled &&
@@ -181,7 +196,7 @@ export default function Home() {
                   <span className={styles["more"]}>더보기</span>
                 </div>
                 <div className={styles["recommend-choice"]}>
-                  <div className={`${styles["choice-all"]} ${isRecommend === 'all' ? styles.selected : ''}`} onClick={() => recommendItem('all')} >
+                  <div className={`${styles["choice-all"]} ${isRecommend === 'ALL' ? styles.selected : ''}`} onClick={() => recommendItem('ALL')} >
                     <div></div>
                     <span>All</span>
                   </div>
@@ -203,7 +218,8 @@ export default function Home() {
                   </div>
                 </div>
                 <div className={styles["recommend-list"]}>
-                  {typeList.slice(0,5).map((type) => (
+                  {typeList && typeList.length > 0 ? (
+                  typeList.slice(0,5).map((type) => (
                     <div key={type.hotelId}>
                       <Link href={`/hotel/DetailHotel?hotelId=${type.hotelId}`} className={styles["hotels-list-content"]}>
                         <Image src={`${pageAddress}${type.hotelPictureList}`} alt='리스트' width={84} height={84} className={styles["hotels-list-img"]} priority={true} />
@@ -224,7 +240,8 @@ export default function Home() {
                         </Link>
                       <hr className={styles["recommend-hr"]}/>
                     </div>
-                  ))}
+                  ))
+                ):(<div className={styles["recommend-null"]}>추천 리스트가 없습니다.</div>)}
                 </div>
               </div>
           </div>

@@ -8,6 +8,7 @@ import Loading from "@/components/Loading";
 import Link from "next/link";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
+import UserStates from '@/states/UserStates'; 
 
 type loginInfoType = {
   email: string;
@@ -18,6 +19,7 @@ export default function NewPage() {
   const router = useRouter();
   const [loginInfo, setLoginInfo] = useState<loginInfoType>({email: "", password: ""});
   const [isLoading, setIsLoading] = useState(false);
+  const setUser = UserStates((state) => state.setUser);
 
   const goLogin = async () => {
     setIsLoading(true);
@@ -32,8 +34,18 @@ export default function NewPage() {
     });
 
     const json = await res.json();
-    console.log(json);
     if (json.statusCode == 200) {
+      const userData = {
+        userId : json.data.userId,
+        email : json.data.email, // API 응답에서 사용자 이메일
+        fullName : json.data.fullName, // API 응답에서 사용자 이름
+        phone : json.data.phone,
+        accessToken : json.data.accessToken,
+        refreshToken :json.data.refreshToken
+      };
+      console.log(userData);
+      localStorage.setItem("accessToken" ,json.data.accessToken);
+      setUser(userData); // Zustand 스토어에 사용자 정보 저장
       router.push("/");
     } else {
       alert("로그인에 실패하였습니다.");
