@@ -5,7 +5,7 @@ import React, { useState, useEffect, useCallback, useRef  } from 'react';
 import { useRouter } from 'next/navigation';
 import BottomSheet from '@/components/common/HotelInfoBottomSheet';
 
-export default function Reserve() {
+function Reserve() {
   const [isChecked, setIsChecked] = useState(true);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked); 
@@ -24,10 +24,10 @@ export default function Reserve() {
   const closeSheet = () => setIsSheetOpen(false);
   const closeSheetTerms01 = () => setIsSheetOpenTerms01(false);
   const closeSheetTerms02 = () => setIsSheetOpenTerms02(false);
-  
   const router = useRouter();
+  const accessToken = localStorage.getItem("accessToken");
 
-    useEffect(() => {
+  useEffect(() => {
     setAllChecked(termsChecked && refundChecked);
   }, [termsChecked, refundChecked]); 
 
@@ -57,13 +57,13 @@ export default function Reserve() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": ""
+        "Authorization": accessToken || ""
       },
       body: JSON.stringify({
-        "userId" : 1,
-        "ownHotelId" : 1,
-        "startDate" : "2025-12-12",
-        "endDate" : "2025-12-12" 
+        "userId" : 3,
+        "ownHotelId" : 2,
+        "startDate" : "2025-12-15",
+        "endDate" : "2025-12-15" 
       }),
     });
 
@@ -106,8 +106,8 @@ export default function Reserve() {
           <div className={styles.reserver}>
             <div className={styles.title}>예약자 정보</div>
             <div className={styles.info}>
-              <div className={styles.name}>남대리</div> /
-              <div className={styles.phone}>010-1234-5678</div>
+                <div className={styles.name}>남대리</div> 
+              <div className={styles.phone}>010-1111-2222</div>
             </div>
           </div>
           <div className={styles.user}>
@@ -262,3 +262,4 @@ export default function Reserve() {
     </div>
   )
 }
+export default Reserve;

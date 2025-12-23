@@ -4,6 +4,7 @@ import Image from 'next/image';
 import React, { useState, useEffect, useCallback, useRef  } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Loading from "@/components/Loading";
 
 export default function DetailRoom() {
   
@@ -11,7 +12,16 @@ export default function DetailRoom() {
   const backPage=  () =>  {
     router.back(); 
   }
+  // 로딩
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  // if (!roomDetail) {
+  //   return (
+  //     <>
+  //       {isLoading && <Loading />}
+  //     </>
+  //   );
+  // }
   return (
     <div className={styles.roomWrap}>
         <div className={styles.titleContainer}>
@@ -111,4 +121,4 @@ export default function DetailRoom() {
       </div>
     </div>
   );
-}
+}                                                                                
