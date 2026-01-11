@@ -51,4 +51,6 @@ const UserStates = create(
   )
 );
 
+const useSetUser = useUserStore();
+
 export default UserStates;
