@@ -19,7 +19,7 @@ export default function AuthProvider({children}:{children: ReactNode}) {
         const json: BaseResponse<UserInfo> = await res.json();
         claerUser();
         
-        toast.error('(테스트 확인용)사용자 정보 갱신 실패: ' + json.message, {position: 'top-center'})
+        // toast.error('(테스트 확인용)사용자 정보 갱신 실패: ' + json.message, {position: 'top-center'})
       }
 
       const json = await res.json();
@@ -28,7 +28,7 @@ export default function AuthProvider({children}:{children: ReactNode}) {
 
     fetchUserMe().then(res => {
       setUser(res.data);
-      toast('쿠키 토큰으로 사용자 정보 갱신 성공(테스트 확인용) 쿠키 제거하면 로그아웃됨');
+      // toast('쿠키 토큰으로 사용자 정보 갱신 성공(테스트 확인용) 쿠키 제거하면 로그아웃됨');
 
     });
 
