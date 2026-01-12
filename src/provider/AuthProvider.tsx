@@ -23,6 +23,9 @@ export default function AuthProvider({children}:{children: ReactNode}) {
       });
       if (!res.ok) {
         const json: BaseResponse<UserInfo> = await res.json();
+
+        toast('토큰 만료로 인해 재로그인 필요. zustand 제거함(테스트 토스트)')
+
         claerUser();
         
         // toast.error('(테스트 확인용)사용자 정보 갱신 실패: ' + json.message, {position: 'top-center'})
