@@ -14,7 +14,13 @@ export default function AuthProvider({children}:{children: ReactNode}) {
     if (userId) return;
 
     const fetchUserMe = async ():Promise<BaseResponse<UserInfo>> => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/auth/me`, {method: 'POST', credentials: 'include'});
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/auth/me`, {
+        headers: {
+          'Authorization': localStorage.getItem('accessToken') || ''
+        },
+        method: 'POST', 
+        credentials: 'include'
+      });
       if (!res.ok) {
         const json: BaseResponse<UserInfo> = await res.json();
         claerUser();
@@ -22,8 +28,9 @@ export default function AuthProvider({children}:{children: ReactNode}) {
         // toast.error('(테스트 확인용)사용자 정보 갱신 실패: ' + json.message, {position: 'top-center'})
       }
 
-      const json = await res.json();
-      return json;
+      const data = await res.json();
+      
+      return data;
     }
 
     fetchUserMe().then(res => {
