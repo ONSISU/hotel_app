@@ -1,7 +1,7 @@
 import styles from "@/style/page/info/Search.module.scss";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState  } from "react";
+import { useEffect, useState, useRef, useCallback, useLayoutEffect  } from "react";
 import axios from "axios";
 import Link from "next/link";
 import {PopularHotel, PopularHotelApiResponse} from '@/app/type/recommend';
@@ -10,6 +10,9 @@ import FilterBottomSheet from '@/components/common/FilterBottomSheet';
 
 const LOCAL_STORAGE_KEY = 'recentSearches';
 
+const OVERALL_MIN_PRICE = 20000;
+const OVERALL_MAX_PRICE = 2000000;
+
 export default function Search() {
   const router = useRouter();
   const imagePathAddress = "http://tomhoon.my:33000";
@@ -17,6 +20,44 @@ export default function Search() {
   const [searchInput, setSearchInput] = useState<string>(''); // 검색 입력 필드의 상태
   const [popularHotelData, setPopularHotelData] = useState<PopularHotel[]>([]);
   const [isFilterBottomSheetOpen, setIsFilterBottomSheetOpen] = useState(false); 
+  const sliderRef = useRef<HTMLDivElement | null>(null);
+  // useEffect(() => {
+  //   if (sliderRef.current) {
+  //     console.log('slider DOM:', sliderRef.current);
+  //     // 예: sliderRef.current.getBoundingClientRect()
+  //   }
+  // }, [isFilterBottomSheetOpen]);
+    const [initialPixel, setInitialPixel] = useState<number | null>(null);
+
+  const priceToPixel = useCallback((price: number) => {
+    if (!sliderRef.current) return 0;
+    const sliderWidth = sliderRef.current.offsetWidth;
+    const priceRange = OVERALL_MAX_PRICE - OVERALL_MIN_PRICE;
+    return ((price - OVERALL_MIN_PRICE) / priceRange) * sliderWidth;
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!sliderRef.current) return;
+
+    const update = () => {
+      const px = priceToPixel(300000);
+      setInitialPixel(px);
+      console.log('updated pixel:', px);
+    };
+
+    // 초기 실행
+    update();
+
+    // ResizeObserver로 사이즈 변화 감지
+    const ro = new ResizeObserver(() => {
+      update();
+    });
+    ro.observe(sliderRef.current);
+
+    return () => {
+      ro.disconnect();
+    };
+  }, [priceToPixel]);
   const backPage = () =>  {
     router.back(); 
   }
@@ -184,12 +225,13 @@ export default function Search() {
         </div>
       </div>
       <FilterBottomSheet
+        sliderRef={sliderRef}
         isOpen={isFilterBottomSheetOpen}
         onClose={handleCloseBottomSheet}
         heightPercent={90} // 97% 높이까지 올라옴
         draggable= {true} // 드래그 기능 활성화 여부
       >
-        <div>{}</div>
+        <div></div>
       </FilterBottomSheet>
     </>
   )

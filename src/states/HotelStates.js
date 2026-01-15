@@ -3,7 +3,6 @@ import { create } from 'zustand';
 const HotelStates = create(
   persist(
     (set) => ({ // get은 현재 setUser에서 사용하지 않으므로 제거했습니다. 필요하면 다시 추가하세요.
-      // ⭐️ 상태 (State) - 이 부분은 동일합니다.
       userId: null,
       email: null,
       fullName: null,
@@ -11,7 +10,6 @@ const HotelStates = create(
       accessToken: null,
       refreshToken: null, 
 
-      // ⭐️ 액션 (Actions) - 이 부분은 동일합니다.
       setUser: (userData) => {
         // userData가 null 또는 undefined인 경우를 처리하여, 모든 상태를 null로 초기화
         if (!userData) {
