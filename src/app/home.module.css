@@ -180,7 +180,7 @@
   text-decoration: none; 
   color: inherit; 
   flex-shrink: 0; /* 공간이 부족해도 아이템이 줄어들지 않도록 */
-  width: auto; /* ⭐ 제공해주신 .popular-img의 너비와 일치시킵니다. */
+  width: auto; /*  제공해주신 .popular-img의 너비와 일치시킵니다. */
   scroll-snap-align: start; /* 스크롤 정지 시 아이템 시작점에 맞춤 */
   margin-right: 15px; /* 아이템 간 간격 */
 }
@@ -191,7 +191,7 @@
   position: relative;
   width: 155px;
   height: 220px;
-  border-radius: 12px; /* ⭐ 카드 자체의 둥근 모서리 */
+  border-radius: 12px; /*  카드 자체의 둥근 모서리 */
   overflow: hidden;
 } 
 .container-popular .popular-img .bg-image {
@@ -276,13 +276,13 @@
 }
 .wrap-recommend .recommend-choice {
   display: flex;
-  overflow-x: scroll; /* ⭐ 필수: 가로 스크롤 가능 */
-  scroll-snap-type: x mandatory; /* ⭐ 필수: 스냅 동작 활성화 */
+  overflow-x: scroll; /*  필수: 가로 스크롤 가능 */
+  scroll-snap-type: x mandatory; /*  필수: 스냅 동작 활성화 */
   -webkit-overflow-scrolling: touch; /* iOS 부드러운 스크롤 */
   scroll-behavior: smooth; /* 부드러운 스크롤 애니메이션 */
   width: 100%; /* 부모 컨테이너의 너비는 100%여야 함 */
   padding-bottom: 10px; /* 스크롤바가 콘텐츠를 가리지 않도록 여유 공간 */
-  white-space: nowrap; /* ⭐ 추가: Flex 아이템 줄바꿈 방지 */
+  white-space: nowrap; /*  추가: Flex 아이템 줄바꿈 방지 */
   
   /* 스크롤바 숨기기 (선택 사항) */
   scrollbar-width: none; /* Firefox */
@@ -305,8 +305,8 @@
   box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
   border: 1px solid #eee;
   cursor: pointer;
-  flex-shrink: 0; /* ⭐ 필수: 공간이 부족해도 아이템이 줄어들지 않도록 */
-  scroll-snap-align: center; /* ⭐ 필수: 스크롤 정지 시 중앙에 맞춤 */
+  flex-shrink: 0; /*  필수: 공간이 부족해도 아이템이 줄어들지 않도록 */
+  scroll-snap-align: center; /*  필수: 스크롤 정지 시 중앙에 맞춤 */
   margin-right: 15px; /* 아이템 간 간격 */
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
@@ -331,8 +331,8 @@
   margin-right: 15px; /* 아이템 간 간격 */
   box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
   cursor: pointer;
-  flex-shrink: 0; /* ⭐ 필수: 공간이 부족해도 아이템이 줄어들지 않도록 */
-  scroll-snap-align: center; /* ⭐ 필수: 스크롤 정지 시 중앙에 맞춤 */
+  flex-shrink: 0; /*  필수: 공간이 부족해도 아이템이 줄어들지 않도록 */
+  scroll-snap-align: center; /*  필수: 스크롤 정지 시 중앙에 맞춤 */
   background-color: #ffffff; /* 기본 배경색 (선택되지 않았을 때) */
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 } 
@@ -448,8 +448,8 @@
 }
 .wrap-bestToday .bestToday-list {
   display: flex;
-  overflow-x: scroll; /* ⭐ 필수: 가로 스크롤 가능 */
-  scroll-snap-type: x mandatory; /* ⭐ 필수: 스냅 동작 활성화 */
+  overflow-x: scroll; /*  필수: 가로 스크롤 가능 */
+  scroll-snap-type: x mandatory; /*  필수: 스냅 동작 활성화 */
   -webkit-overflow-scrolling: touch; /* iOS 부드러운 스크롤 */
   scroll-behavior: smooth; /* 부드러운 스크롤 애니메이션 */
   width: 100%; /* 부모 컨테이너의 너비는 100%여야 함 */
@@ -475,8 +475,8 @@
   box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
   border: 1px solid #eee;
   cursor: pointer;
-  flex-shrink: 0; /* ⭐ 필수: 공간이 부족해도 아이템이 줄어들지 않도록 */
-  scroll-snap-align: center; /* ⭐ 필수: 스크롤 정지 시 중앙에 맞춤 */
+  flex-shrink: 0; /*  필수: 공간이 부족해도 아이템이 줄어들지 않도록 */
+  scroll-snap-align: center; /*  필수: 스크롤 정지 시 중앙에 맞춤 */
 } 
 .bestToday-list .best-list-img {
   border-radius: 8px;

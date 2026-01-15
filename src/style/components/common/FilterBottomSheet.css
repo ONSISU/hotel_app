@@ -1,5 +1,3 @@
-/* src/components/BottomSheet.module.css */
-
 .overlay {
   position: fixed;
   top: 0;
@@ -7,11 +5,9 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999; /* 바텀시트보다 아래에 있어야 함 */
+  z-index: 999; 
   opacity: 1;
-  transition: opacity 0.3s ease-out;
 }
-
 .bottomSheet {
   position: fixed;
   bottom: 0;
@@ -24,15 +20,13 @@
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  /* transform: translateY(100%); 기본적으로 화면 아래로 숨김 */
-  /* transition: transform 0.8s ease-out; 열림/닫힘 애니메이션 */
+  transform: translateY(100%);
+  transition: transform 0.3s ease-out;
   z-index: 1000;
-  touch-action: none; /* iOS Safari에서 스크롤 버그 방지 */
-  -webkit-overflow-scrolling: touch; /* 부드러운 스크롤 */
-  overflow: hidden; /* 내용이 넘치면 숨김 */
+  touch-action: none; 
+  -webkit-overflow-scrolling: touch;
+  overflow: hidden; 
 }
-
-/* 드래그 중에는 transition을 없애 부드럽게 따라오게 함 */
 .bottomSheet.dragging {
   transition: none !important; 
 }
@@ -44,21 +38,246 @@
   justify-content: center;
   align-items: center;
   cursor: grab;
-  /* background-color: #f0f0f0;  핸들을 눈에 띄게 하고 싶다면 */
 }
-
 .handleBar {
   width: 40px;
   height: 4px;
   background-color: #ccc;
   border-radius: 2px;
 }
-
 .content {
-  flex-grow: 1; /* 남은 공간을 차지 */
-  overflow-y: auto; /* 내용이 길면 스크롤 가능하게 */
-  padding: 10px 15px; /* 내용 패딩 */
+  flex-grow: 1;
+  overflow-y: auto; 
+  padding: 10px 15px;
 }
-
-/* 바텀 시트 열렸을 때 오버레이가 사라지게 하려면 (선택 사항) */
-/* .bottomSheet.open + .overlay { opacity: 0; pointer-events: none; } */ 
+.filterWrap {
+  margin-bottom: 100px;
+}
+.filterWrap .title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+.filterContainer {
+  margin: 20px 0;
+}
+.filterContainer .reversePossibility label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding: 0 6px 20px 6px;
+}
+.reversePossibility label .txt {
+  font-size: 16px;
+  font-weight: bold;
+}
+.reversePossibility label [type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+.price-range-container {
+  padding: 20px 0;
+  max-width: 400px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+.price-display {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+.slider-wrapper {
+  position: relative;
+  height: 20px;
+  touch-action: none;
+  margin: 0 auto 16px auto; 
+  width: 94%; 
+}
+.slider-track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 3px; 
+  background: #e0e0e0;
+  border-radius: 3px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.slider-fill {
+  position: absolute;
+  top: 50%;
+  height: 3px; 
+  background: #2853AF; 
+  border-radius: 3px;
+  transform: translateY(-50%);
+}
+.slider-handle {
+  position: absolute;
+  top: 50%;
+  width: 12px; 
+  height: 12px;
+  background: #ffffff; 
+  border: 4px solid #2853AF;
+  border-radius: 50%;
+  transform: translate(-50%, -50%); 
+  cursor: grab;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+.slider-handle.dragging {
+  cursor: grabbing;
+}
+.range-buttons {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+}
+.range-buttons button {
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  white-space: nowrap; 
+  transition: all 0.2s ease;
+  margin: 4px 10px;
+}
+.range-buttons button:hover {
+  background: #e0e0e0;
+}
+.range-buttons button.active {
+  background: #2853AF;
+  color: #ffffff;
+  border-color: #2853AF;
+  font-weight: bold;
+}
+.hotelGrade {
+  margin-bottom: 20px;
+}
+.hotelGrade .hotelGradeTit {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.hotelGrade button {
+  padding: 8px 12px;
+  margin: 4px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  min-width: 70px;
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+.hotelGrade button.active {
+  background-color: #2853AF;
+  color: white;
+  font-weight: bold;
+}
+.roomType .roomTypeTit {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.roomType button {
+  padding: 8px 12px;
+  margin: 4px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  min-width: 70px;
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+.roomType button.active {
+  background-color: #2853AF;
+  color: white;
+  font-weight: bold;
+}
+.score {
+  margin: 20px 0;
+  width: 100%;
+}
+.score .scoreTit {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.score .scoreContainer {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 6px 10px;
+  margin-right: 12px;
+  width: 30px;
+  display: inline-flex;
+  align-items: center;
+}
+.scoreContainer.active {
+  background-color: #2853AF; 
+  border-color: #2853AF;
+  color: #ffffff; 
+}
+.scoreContainer.active .scoreTxt {
+  color: #ffffff;
+}
+.score .scoreTxt {
+  display: inline;
+}
+.serviceType {
+  margin: 20px 0;
+}
+.serviceType .serviceTypeTit {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.serviceType label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+.serviceType label [type=checkbox] {
+  width: 20px;
+  height: 20px;
+}
+.filterBtn {
+  display: flex;
+  align-items: center;
+  position: relative; 
+  width: 100%; 
+  justify-content: space-between;
+}
+.filterBtn .filterReset {
+  display: flex;
+  align-items: center;
+  margin-left: 6px;
+}
+.filterReset .resetTxt {
+  margin: 0 0 3px 3px;
+  color: #333333; 
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 16px;
+}
+.filterReset.disabled-state .resetTxt {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.filterReset.disabled-state .img { 
+  filter: grayscale(100%); 
+  opacity: 0.4; 
+}
+.filterReset .img {
+  filter: grayscale(0%); 
+  opacity: 1; 
+}
+.filterBtn .filterApply {
+  width: 65%;
+  text-align: center;
+  padding: 12px 20px;
+  background-color: #2853AF;
+  color: #ffffff;
+  border-radius: 12px;
+  font-size: 16px;
+}
