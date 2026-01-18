@@ -4,6 +4,7 @@ import Image from 'next/image';
 import React, { useState, useEffect, useCallback, useRef  } from 'react';
 import { useRouter } from 'next/navigation';
 import BottomSheet from '@/components/common/HotelInfoBottomSheet';
+import PaymentWidget from "@/components/payment/PaymentWidget";
 
 function Reserve() {
   const [isChecked, setIsChecked] = useState(true);
@@ -25,7 +26,9 @@ function Reserve() {
   const closeSheetTerms01 = () => setIsSheetOpenTerms01(false);
   const closeSheetTerms02 = () => setIsSheetOpenTerms02(false);
   const router = useRouter();
-  const accessToken = localStorage.getItem("accessToken");
+
+  // 미사용으로 보여 주석
+  // const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
     setAllChecked(termsChecked && refundChecked);
@@ -52,23 +55,24 @@ function Reserve() {
   const backPage=  () =>  {
     router.back(); 
   }
-  const payBtn = async () => {
-    const res = await fetch(`http://tomhoon.my:33000/api/v1/reservation/room`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": accessToken || ""
-      },
-      body: JSON.stringify({
-        "userId" : 3,
-        "ownHotelId" : 2,
-        "startDate" : "2025-12-15",
-        "endDate" : "2025-12-15" 
-      }),
-    });
 
-    const json = await res.json();
-    console.log(json);
+  const payBtn = async () => {
+    // const res = await fetch(`http://tomhoon.my:33000/api/v1/reservation/room`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Authorization": accessToken || ""
+    //   },
+    //   body: JSON.stringify({
+    //     "userId" : 3,
+    //     "ownHotelId" : 2,
+    //     "startDate" : "2025-12-15",
+    //     "endDate" : "2025-12-15" 
+    //   }),
+    // });
+
+    // const json = await res.json();
+    // console.log(json);
   }
   return (
     <div className={styles.roomWrap}>
@@ -151,7 +155,9 @@ function Reserve() {
           </div>
         </div>
         <div className={styles.paymentContainer}>
-          <div className={styles.title}>결제 수단</div>
+
+          {/* ✅ ASIS */}
+          {/* <div className={styles.title}>결제 수단</div>
           <div className={styles.paymentList}>
             <label htmlFor="card">
               <input type="radio" name="payment" id="card"/>
@@ -176,7 +182,14 @@ function Reserve() {
               <input type="radio" name="payment" id="phone"/>
               <div className={styles.txt}>휴대폰결제</div>
             </label>
-          </div>
+          </div> */}
+
+          {/* ✅ TOBE */}
+          {<PaymentWidget/>}
+
+
+
+
         </div>
         <div className={styles.paymentTerms}>
           <div className={styles.allTerms}>
@@ -259,6 +272,7 @@ function Reserve() {
           </div>
         </>
       </BottomSheet>
+
     </div>
   )
 }
