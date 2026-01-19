@@ -399,7 +399,8 @@
     padding: 12px;
     font-weight: bold;
     background-color: #bebcbc;
-    transition: background-color 0.2s ease; /* 부드러운 전환 효과 */
+    width: 100%;
+    border: none;
   }
   .reserveContainer .paymentBtnActive {
     background-color: #2853AF; /* 활성화 배경색 */

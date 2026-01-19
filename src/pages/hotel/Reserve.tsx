@@ -11,6 +11,11 @@ function Reserve() {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked); 
   };
+  //사용자 정보
+  const [isName, setIsName] = useState<string>('');
+  const [isPhone, setIsPhone] = useState<string>('');
+  // 결제 방식
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string | null>(null);
   //약관
   const [allChecked, setAllChecked] = useState(false); // 전체동의
   const [termsChecked, setTermsChecked] = useState(false); // 이용규칙
@@ -40,7 +45,21 @@ function Reserve() {
     setTermsChecked(isChecked); // 모든 필수 항목도 전체동의 상태에 맞춰 업데이트
     setRefundChecked(isChecked);
   };
+  // 이름 입력 변경 핸들러
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsName(e.target.value);
+  };
 
+  // 연락처 입력 변경 핸들러
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // 숫자만 입력받도록 처리 (하이픈 없이)
+    const phoneNumber = e.target.value.replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
+    setIsPhone(phoneNumber);
+  };
+  // 결제방식 선택
+  const handlePaymentChange = (method: string) => {
+    setSelectedPaymentMethod(method);
+  };
   // '이용규칙' 체크박스 변경 핸들러
   const handleTermsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTermsChecked(e.target.checked); // 이용규칙 상태 업데이트
@@ -52,6 +71,12 @@ function Reserve() {
     setRefundChecked(e.target.checked); // 취소 및 환불규칙 상태 업데이트
     // 이펙트에서 allChecked를 동기화해주므로 여기서 추가 로직은 필요 없습니다.
   };
+  const allCheckedToPayment =
+    allChecked &&
+    selectedPaymentMethod !== null && // 결제 수단이 선택되었는지
+    isName.trim() !== '' && // 이름이 비어있지 않은지 (공백만 있는 경우도 제외)
+    isPhone.trim() !== ''; // 연락처가 비어있지 않은지 (공백만 있는 경우도 제외)
+
   const backPage=  () =>  {
     router.back(); 
   }
@@ -122,9 +147,11 @@ function Reserve() {
             </div>
             <div className={styles.info}>
               <div className={styles.subTitle}>이름</div>
-              <input type="text" className={styles.name} placeholder="이용자의 이름을 입력해주세요."/>
+              <input type="text" className={styles.name} value={isName} 
+                onChange={handleNameChange}  placeholder="이용자의 이름을 입력해주세요."/>
               <div className={styles.subTitle}>연락처</div>
-              <input type="text" className={styles.phone} placeholder="이용자의 연락처를 입력해주세요."/>
+              <input type="text" className={styles.phone} value={isPhone}
+                onChange={handlePhoneChange} placeholder="이용자의 연락처를 입력해주세요.(-없이)" maxLength={11}/>
             </div>
           </div>
         </div>
@@ -160,26 +187,36 @@ function Reserve() {
           {/* <div className={styles.title}>결제 수단</div>
           <div className={styles.paymentList}>
             <label htmlFor="card">
-              <input type="radio" name="payment" id="card"/>
+              <input type="radio" name="payment" id="card"
+              checked={selectedPaymentMethod === 'card'}
+              onChange={() => handlePaymentChange('card')} />
               <div className={styles.txt}>신용/체크카드</div>
             </label>
             <label htmlFor="kakaoPay">
-              <input type="radio" name="payment" id="kakaoPay"/>
+              <input type="radio" name="payment" id="kakaoPay"
+              checked={selectedPaymentMethod === 'kakaoPay'}
+              onChange={() => handlePaymentChange('kakaoPay')}/>
               <Image src="/icons/kakaopayment_medium.png" alt='카카오페이' width={20} height={16} className={styles.img}/>
               <div className={styles.txt}>카카오페이</div>
             </label>
             <label htmlFor="tossPay">
-              <input type="radio" name="payment" id="tossPay"/>
+              <input type="radio" name="payment" id="tossPay"
+              checked={selectedPaymentMethod === 'tossPay'}
+              onChange={() => handlePaymentChange('tossPay')}/>
               <Image src="/icons/Toss_payment.png" alt='토스페이' width={20} height={16} className={styles.img}/>
               <div className={styles.txt}>토스페이</div>
             </label>
             <label htmlFor="naverPay">
-              <input type="radio" name="payment" id="naverPay"/>
+              <input type="radio" name="payment" id="naverPay"
+              checked={selectedPaymentMethod === 'naverPay'}
+              onChange={() => handlePaymentChange('naverPay')}/>
               <Image src="/icons/naverPay.svg" alt='네이버페이' width={20} height={16} className={styles.img}/>
               <div className={styles.txt}>네이버페이</div>
             </label>
             <label htmlFor="phone">
-              <input type="radio" name="payment" id="phone"/>
+              <input type="radio" name="payment" id="phone"
+              checked={selectedPaymentMethod === 'phone'}
+              onChange={() => handlePaymentChange('phone')}/>
               <div className={styles.txt}>휴대폰결제</div>
             </label>
           </div> */}
@@ -199,7 +236,7 @@ function Reserve() {
           <div className={styles.role01} >
             <div className={styles.roleLook01}>
               <input type="checkbox" id="role01" checked={termsChecked} // termsChecked 상태와 연결
-            onChange={handleTermsChange}  onClick={(e) => e.stopPropagation()} />
+                onChange={handleTermsChange}  onClick={(e) => e.stopPropagation()} />
               <label className={styles.txt} htmlFor="role01">[필수]이용규칙</label>
             </div>
             <Image src="/icons/notify-arrow.svg" alt='이용규칙' width={16} height={16} className={styles.img} onClick={openSheetTerms01}/>
@@ -213,7 +250,7 @@ function Reserve() {
             <Image src="/icons/notify-arrow.svg" alt='이용규칙' width={16} height={16} className={styles.img} onClick={openSheetTerms02}/>
           </div>
         </div>
-        <div className={`${styles.paymentBtn} ${allChecked ? styles.paymentBtnActive : ''}`} onClick={payBtn}>60,000원 결제하기</div>
+        <button className={`${styles.paymentBtn} ${allCheckedToPayment ? styles.paymentBtnActive : ''}`} disabled={!allCheckedToPayment} onClick={payBtn}>60,000원 결제하기</button>
       </div>
       <BottomSheet isOpen={isSheetOpen} onClose={closeSheet}>
         <>
@@ -232,7 +269,7 @@ function Reserve() {
             <div className={styles.couponApplyList}>
               <input type="radio" name="coupon" id="1"/>
               <div className={styles.couponApplyRadio}>
-                <div>10% 할인</div>
+                <div>10% 할인 (20000원)</div>
                 <div className={styles.couponEndDate}>25.12.31까지</div>
               </div>
             </div>

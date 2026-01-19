@@ -249,7 +249,7 @@ const DetailHotel: FC = () => {
               }
               <div className={styles.scoreInfo}>
                 <Image src="/images/popular-star.png" alt='score' width={16} height={16} priority={true}/>
-                <span className={styles.score}> </span>
+                <span className={styles.score}>5.0</span>
               </div>
             </div>
           </div>

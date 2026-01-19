@@ -2,7 +2,7 @@
 import { useClearUser, useGetUserId, useSetUser } from "@/app/user/signin/store/useSigninStore";
 import { ReactNode, useEffect } from "react";
 import { BaseResponse, UserInfo } from "../../types/user/userType";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 
 export default function AuthProvider({children}:{children: ReactNode}) {
 
@@ -24,7 +24,7 @@ export default function AuthProvider({children}:{children: ReactNode}) {
       if (!res.ok) {
         const json: BaseResponse<UserInfo> = await res.json();
 
-        toast('토큰 만료로 인해 재로그인 필요. zustand 제거함(테스트 토스트)')
+        //toast('토큰 만료로 인해 재로그인 필요. zustand 제거함(테스트 토스트)')
 
         claerUser();
         
