@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 
 import Script from "next/script";
 import AuthProvider from "@/provider/AuthProvider";
-import { Toaster } from "sonner";
+// import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,7 +41,8 @@ export default function RootLayout({
           />
       </head>
       <AuthProvider>
-        <body className={`${geistSans.variable} ${geistMono.variable}`}>{children}<Toaster/></body>
+        {/* <body className={`${geistSans.variable} ${geistMono.variable}`}>{children}<Toaster/></body> */}
+        <body className={`${geistSans.variable} ${geistMono.variable}`}>{children}</body>
       </AuthProvider>
     </html>
   );
