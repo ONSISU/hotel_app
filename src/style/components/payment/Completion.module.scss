@@ -1,0 +1,250 @@
+@media (max-width: 426px) {    
+  .completionWrap {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;  
+  }
+  .titleContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 10px 0;
+  }
+  .back {
+    transform: translateX(20px);
+  }
+  .titleContainer .title01 {
+    font-size: 20px;
+    color: #333333;
+  }
+  .titleContainer .more {
+    margin-right: 10px;
+  }
+  .completionContainer .headerContainer {
+    margin: 64px 0;
+  }
+  .headerContainer .headerTit {
+    text-align: center;
+  }
+  .headerContainer .headerTit div:nth-child(1) {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .headerContainer .headerTit div:nth-child(2) {
+    font-size: 13px;
+    color: #999999;
+  }
+  .completionContainer .mainContainer {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 16px auto;
+    width: 84%;
+    padding: 18px 24px 36px 24px;
+  }
+  .mainContainer .hotelName {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  .mainContainer .hotelSubInfo {
+    display: inline-flex;
+  }
+  .hotelSubInfo .hotelImg {
+    border-radius: 6px;
+    margin-right: 6px;
+  }
+  .mainContainer .hotelInfo {
+    font-size: 13px;
+  }
+  .hotelInfo .roomName {
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+  }
+  .hotelInfo .roomDate span {
+    color: #e5e5e5;
+  }
+  .hotelInfo .roomCheckTime {
+    color: #929292;
+    font-size: 12px;
+  }
+  .hotelInfo .roomCheckTime span {
+    color: #e5e5e5;
+  }
+  .hotelInfo .roomPerson {
+    color: #929292;
+    font-size: 12px;
+  }
+  .mainContainer .userData {
+    margin-top: 24px;
+    padding: 0 8px;
+  }
+  .userData .tit {
+    border-top: 1px solid #ccc;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 16px 0 8px 0;
+  }
+  .userData .name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+  .userData .name div:nth-child(1) {
+    color: #929292;
+    font-size: 13px;
+  }
+  .userData .name div:nth-child(2) {
+    font-weight: 400;
+    font-size: 14px;
+  }
+  .userData .phone {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+  .userData .phone div:nth-child(1) {
+    color: #929292;
+    font-size: 13px;
+  }
+  .userData .phone div:nth-child(2) {
+    font-weight: 400;
+    font-size: 14px;
+  }
+  .mainContainer .reserveData {
+    margin-top: 24px;
+    padding: 0 8px;
+  }
+  .reserveData .tit {
+    border-top: 1px solid #ccc;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 16px 0 8px 0;
+  }
+  .reserveData .reserve {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+  .reserveData .reserve div:nth-child(1) {
+    color: #929292;
+    font-size: 13px;
+  }
+  .reserveData .reserve div:nth-child(2) {
+    font-weight: 400;
+    font-size: 14px;
+  }
+  .reserveData .payment {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+  .reserveData .payment div:nth-child(1) {
+    color: #929292;
+    font-size: 13px;
+  }
+  .reserveData .payment div:nth-child(2) {
+    font-weight: 400;
+    font-size: 14px;
+  }
+  .mainContainer .paymentData {
+    margin-top: 24px;
+    padding: 0 8px;
+  }
+  .paymentData .tit {
+    border-top: 1px solid #ccc;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 16px 0 8px 0;
+  }
+  .paymentData .originalPay {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+  .paymentData .originalPay div:nth-child(1) {
+    color: #929292;
+    font-size: 13px;
+  }
+  .paymentData .originalPay div:nth-child(2) {
+    font-weight: 400;
+    font-size: 14px;
+  }
+  .paymentData .discountPay {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+  .paymentData .discountPay div:nth-child(1) {
+    color: #929292;
+    font-size: 13px;
+  }
+  .paymentData .discountPay div:nth-child(2) {
+    font-weight: 400;
+    font-size: 14px;
+  }
+  .paymentData .totalPay {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+  .paymentData .totalPay div:nth-child(1) {
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .paymentData .totalPay div:nth-child(2) {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .mainContainer .completionBtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 36px;
+  }
+  .completionBtn .detailReserveBtn {
+    border: 1px solid #2853AF;
+    border-radius: 4px;
+    color: #2853AF;
+    width: 40%;
+    height: 36px;
+    line-height: 34px;
+    padding: 4px 12px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .completionBtn .homeBtn {
+    border: 1px solid #2853AF;
+    border-radius: 4px;
+    background-color: #2853AF;
+    color: #ffffff;
+    width: 40%;
+    height: 36px;
+    line-height: 34px;
+    padding: 4px 12px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .headerContainer .completionNotice {
+    font-size: 12px;
+    color: #929292;
+    padding: 0 20px;
+    font-weight: 400;
+  }
+}

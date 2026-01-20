@@ -188,7 +188,8 @@ const DetailHotel: FC = () => {
   const fetchHotelDetails = useCallback(async (id: string) => {
     try {
     setIsLoading(true);
-      const response = await axios.get<HotelDetailApiResponse>(`http://tomhoon.my:33000/api/v1/hotel/detail?hotelId=${id}`);
+      // const response = await axios.get<HotelDetailApiResponse>(`http://tomhoon.my:33000/api/v1/hotel/detail?hotelId=${id}`);
+      const response = await axios.get<HotelDetailApiResponse>(`/api-proxy/api/v1/hotel/detail?hotelId=${id}`);
       const hotelDetailDate: HotelDetail = response.data.data; 
       setHotelDetail(hotelDetailDate); // 성공적으로 가져온 데이터 저장
     } catch {

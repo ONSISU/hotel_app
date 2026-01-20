@@ -86,8 +86,7 @@ export default function usePaymentWidget() {
     }
 
     renderPaymentWidgets();
-  }, [widgets]);
-
+  }, [amount, widgets]);
   const goPayment = async (params: PayParams) => {
 
     /**
@@ -102,12 +101,15 @@ export default function usePaymentWidget() {
       orderName: params.orderName || "토스 티셔츠 외 2건",
       customerName: params.customerName || "김토스",
       customerEmail: params.customerEmail || "customer123@gmail.com",
-      successUrl: window.location.origin + "/sandbox/success" + window.location.search,
+      // successUrl: window.location.origin + "/sandbox/success" + window.location.search,
+      successUrl: 'http://10.119.74.15:3000/payment/Completion',
       failUrl: window.location.origin + "/sandbox/fail" + window.location.search
     });
   }
 
   return {
-    goPayment
+    goPayment,
+    setAmount, 
+    ready
   }
 }

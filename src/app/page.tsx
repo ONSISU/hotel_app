@@ -49,7 +49,7 @@ export default function Home() {
     const favoriteHotel = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get<FavoriteHotelApiResponse>('http://tomhoon.my:33000/api/v1/hotel/popular');
+        const response = await axios.get<FavoriteHotelApiResponse>('/api-proxy/api/v1/hotel/popular');
         const favoriteHotelList: FavoriteHotel[] = response.data.data; 
         setFavoriteHotelData(favoriteHotelList);
         setIsLoading(false);
@@ -61,7 +61,7 @@ export default function Home() {
     const bestHotel = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get<BestHotelApiResponse>('http://tomhoon.my:33000/api/v1/hotel/popular');
+        const response = await axios.get<BestHotelApiResponse>('/api-proxy/api/v1/hotel/popular');
         const bestHotelList: BestHotel[] = response.data.data; 
         setBestHotelData(bestHotelList);
         setIsLoading(false);
@@ -83,7 +83,7 @@ export default function Home() {
         const randomIndex = Math.floor(Math.random() * availableTypes.length);
         type = availableTypes[randomIndex]; // 랜덤으로 타입 선택
       }
-      const response = await axios.get<SearchTypeApiResponse>(`http://tomhoon.my:33000/api/v1/hotel/search`
+      const response = await axios.get<SearchTypeApiResponse>(`/api-proxy/api/v1/hotel/search`
       , {
           params: {
             type: type
@@ -249,7 +249,9 @@ export default function Home() {
             <div className={styles["wrap-map"]}>
               <div className={styles["map-title"]}>
                 <span className={styles["tit"]}>내주변</span>
-                <span className={styles["more"]}>지도보기</span>
+                <Link href="/payment/Completion">
+                  <span className={styles["more"]}>지도보기</span>
+                </Link>
               </div>
               <div className={styles["map"]}>
                 <div>

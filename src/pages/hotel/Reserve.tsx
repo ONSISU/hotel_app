@@ -4,7 +4,8 @@ import Image from 'next/image';
 import React, { useState, useEffect, useCallback, useRef  } from 'react';
 import { useRouter } from 'next/navigation';
 import BottomSheet from '@/components/common/HotelInfoBottomSheet';
-import PaymentWidget from "@/components/payment/PaymentWidget";
+//import PaymentWidget from "@/components/payment/PaymentWidget";
+import usePaymentWidget from "@/components/payment/hooks/usePaymentWidget";
 
 function Reserve() {
   const [isChecked, setIsChecked] = useState(true);
@@ -14,8 +15,6 @@ function Reserve() {
   //사용자 정보
   const [isName, setIsName] = useState<string>('');
   const [isPhone, setIsPhone] = useState<string>('');
-  // 결제 방식
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string | null>(null);
   //약관
   const [allChecked, setAllChecked] = useState(false); // 전체동의
   const [termsChecked, setTermsChecked] = useState(false); // 이용규칙
@@ -56,10 +55,6 @@ function Reserve() {
     const phoneNumber = e.target.value.replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
     setIsPhone(phoneNumber);
   };
-  // 결제방식 선택
-  const handlePaymentChange = (method: string) => {
-    setSelectedPaymentMethod(method);
-  };
   // '이용규칙' 체크박스 변경 핸들러
   const handleTermsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTermsChecked(e.target.checked); // 이용규칙 상태 업데이트
@@ -73,15 +68,16 @@ function Reserve() {
   };
   const allCheckedToPayment =
     allChecked &&
-    selectedPaymentMethod !== null && // 결제 수단이 선택되었는지
     isName.trim() !== '' && // 이름이 비어있지 않은지 (공백만 있는 경우도 제외)
     isPhone.trim() !== ''; // 연락처가 비어있지 않은지 (공백만 있는 경우도 제외)
 
   const backPage=  () =>  {
     router.back(); 
   }
-
-  const payBtn = async () => {
+  const {
+    goPayment
+  } = usePaymentWidget();
+  //const payBtn = async () => {
     // const res = await fetch(`http://tomhoon.my:33000/api/v1/reservation/room`, {
     //   method: "POST",
     //   headers: {
@@ -98,7 +94,7 @@ function Reserve() {
 
     // const json = await res.json();
     // console.log(json);
-  }
+  //}
   return (
     <div className={styles.roomWrap}>
       <div className={styles.titleContainer}>
@@ -222,7 +218,21 @@ function Reserve() {
           </div> */}
 
           {/* ✅ TOBE */}
-          {<PaymentWidget/>}
+          {/* {<PaymentWidget/>} */}
+          <div className="wrapper w-100">
+            <div className="max-w-540 w-100">
+              <div id="payment-method" className="w-100" />
+              <div id="agreement" className="w-100" />
+              <div className="btn-wrapper w-100">
+                {/* <button
+                  className="btn primary w-100"
+                  onClick={() => goPayment({})}
+                >
+                  결제하기
+                </button> */}
+              </div>
+            </div>
+          </div>
 
 
 
@@ -250,7 +260,7 @@ function Reserve() {
             <Image src="/icons/notify-arrow.svg" alt='이용규칙' width={16} height={16} className={styles.img} onClick={openSheetTerms02}/>
           </div>
         </div>
-        <button className={`${styles.paymentBtn} ${allCheckedToPayment ? styles.paymentBtnActive : ''}`} disabled={!allCheckedToPayment} onClick={payBtn}>60,000원 결제하기</button>
+        <button className={`${styles.paymentBtn} ${allCheckedToPayment ? styles.paymentBtnActive : ''}`} disabled={!allCheckedToPayment} onClick={() => goPayment({})}>60,000원 결제하기</button>
       </div>
       <BottomSheet isOpen={isSheetOpen} onClose={closeSheet}>
         <>
