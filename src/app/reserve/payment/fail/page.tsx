@@ -45,7 +45,7 @@ function Completion() {
       <div className={styles.completionContainer}>
         <div className={styles.headerContainer}>
           <div className={styles.headerTit}>
-            <div>예약이 완료되었습니다.</div>
+            <div>[TEST 실패페이지 없음]예약에 실패하였습니다.</div>
             <div>예약일시 : 2026.01.19 (월) 16:30</div>
           </div>
           <div className={styles.mainContainer}>

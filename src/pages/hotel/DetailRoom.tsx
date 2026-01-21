@@ -115,6 +115,7 @@ export default function DetailRoom() {
           <div className={styles.date}>11.11~11.12</div>
           <div className={styles.price}>1,200,000원</div>
         </div>
+        {/* <Link href="/hotel/Reserve" style={{textDecoration: 'none'}}> */}
         <Link href="/hotel/Reserve" style={{textDecoration: 'none'}}>
           <div className={styles.reserveBtn}>예약하기</div>
         </Link>

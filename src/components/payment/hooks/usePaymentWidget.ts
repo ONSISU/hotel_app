@@ -96,15 +96,24 @@ export default function usePaymentWidget() {
     // const selectedPaymentMethod = await paymentMethodWidgetRef.current?.getSelectedPaymentMethod();
     // console.log("selectedPaymentMethod: ", selectedPaymentMethod);
 
-    await widgets?.requestPayment({
-      orderId: params.orderId || 'adsfnwoiqn',
-      orderName: params.orderName || "토스 티셔츠 외 2건",
-      customerName: params.customerName || "김토스",
-      customerEmail: params.customerEmail || "customer123@gmail.com",
-      // successUrl: window.location.origin + "/sandbox/success" + window.location.search,
-      successUrl: 'http://10.119.74.15:3000/payment/Completion',
-      failUrl: window.location.origin + "/sandbox/fail" + window.location.search
-    });
+    try {
+      // ✅ 개발자도구에서 모바일 모드 해제하면 QR코드로 결제진행 가능
+      // ✅ 성공, 실패 모두 server로 전송 후 추가적인 business로직 수행 후 redirect처리 진행
+      // 성공시) /api/payment/reserve/success
+      // 실패시) /api/payment/reserve/fail
+      await widgets?.requestPayment({
+        orderId: params.orderId || 'adsfnwoiqn',
+        orderName: params.orderName || "토스 티셔츠 외 2건",
+        customerName: params.customerName || "김토스",
+        customerEmail: params.customerEmail || "customer123@gmail.com",
+        // successUrl: window.location.origin + "/sandbox/success" + window.location.search,
+        // successUrl: 'http://10.119.74.15:3000/payment/Completion',
+        successUrl: location.origin + '/api/payment/reserve/success',
+        failUrl: location.origin + '/api/payment/reserve/fail',
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   return {
