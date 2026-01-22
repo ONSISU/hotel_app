@@ -2,18 +2,19 @@
 import styles from "@/style/components/payment/Completion.module.scss";
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState, useEffect, useCallback, useRef  } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { useRouter } from 'next/navigation'
 
 
 function Completion() {
-  const [isChecked, setIsChecked] = useState(true);
   const router = useRouter();
-
-  const home = () => {
+  
+  const goHome = () => {
     router.replace('/');
   }
-  
+  const goDetailReserve = () => {
+    router.push('/payment/DetailReserveCompletion');
+  }
 useEffect(() => {
   window.history.replaceState(null, '', '/');
   window.history.pushState(null, '', window.location.pathname);
@@ -93,8 +94,8 @@ useEffect(() => {
               </div>
             </div>
             <div className={styles.completionBtn}>
-              <div className={styles.detailReserveBtn}>상세 예약내역 보기</div>
-              <div className={styles.homeBtn} onClick={home}>홈으로 가기</div>
+              <div className={styles.detailReserveBtn} onClick={goDetailReserve}>상세 예약내역 보기</div>
+              <div className={styles.homeBtn} onClick={goHome}>홈으로 가기</div>
             </div>
           </div>
           <div className={styles.completionNotice}>(주)OOOO은 통신판매 중개자로서 통신판매의 당사자가 아니며 상품의 예약, 이용 및 환불 등과 관련된 의무와 책임은 각 판매자에게 있습니다.</div>

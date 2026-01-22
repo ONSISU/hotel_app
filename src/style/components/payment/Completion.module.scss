@@ -222,30 +222,29 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 36px;
+    height: 44px;
+    line-height: 34px;
+    text-align: center;
+    font-weight: bold;
   }
   .completionBtn .detailReserveBtn {
     border: 1px solid #2853AF;
     border-radius: 4px;
     color: #2853AF;
-    width: 40%;
-    height: 36px;
-    line-height: 34px;
+    width: 44%;
     padding: 4px 12px;
-    text-align: center;
-    font-size: 15px;
-    font-weight: bold;
+    font-size: 14px;
+    white-space: nowrap;
+    margin-left: 12px;
   }
   .completionBtn .homeBtn {
     border: 1px solid #2853AF;
     border-radius: 4px;
     background-color: #2853AF;
     color: #ffffff;
-    width: 40%;
-    height: 36px;
-    line-height: 34px;
+    width: 44%;
     padding: 4px 12px;
-    text-align: center;
-    font-weight: bold;
+    margin-right: 10px;
   }
   .headerContainer .completionNotice {
     font-size: 12px;
