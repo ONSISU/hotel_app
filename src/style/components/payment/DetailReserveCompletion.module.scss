@@ -1,11 +1,11 @@
-@media (max-width: 426px) {    
-  .completionWrap {
+@media (max-width: 426px) {
+  .detailReserveWrap {
     font-family: "Plus Jakarta Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
-    font-style: normal;  
+    font-style: normal;
   }
-  .titleContainer {
+.titleContainer {
     position: fixed;
     top: 0;
     left: 0;
@@ -16,7 +16,7 @@
     align-items: center;
     justify-content: space-between;
     background-color: #ffffff;
-    padding: 10px 0;
+    padding: 8px 0;
   }
   .back {
     transform: translateX(20px);
@@ -28,40 +28,55 @@
   .titleContainer .more {
     margin-right: 10px;
   }
-  .completionContainer .headerContainer {
+  .detailReserveWrap .reserveSelectContainer {
     margin: 64px 0;
   }
-  .headerContainer .headerTit {
-    text-align: center;
+  .reserveSelectContainer .orderContainer {
+    padding: 0 20px;
   }
-  .headerContainer .headerTit div:nth-child(1) {
+  .orderContainer .tit {
     font-weight: bold;
-    font-size: 18px;
   }
-  .headerContainer .headerTit div:nth-child(2) {
+  .orderContainer .date {
     font-size: 13px;
-    color: #999999;
+    color: #929292;
   }
-  .completionContainer .mainContainer {
+  .reserveSelectContainer .productContainer {
+    margin: 16px auto;
+    padding: 12px;
+  }
+  .productContainer .hotelData {
     border: 1px solid #ccc;
     border-radius: 10px;
-    margin: 24px auto;
-    width: 84%;
-    padding: 18px 24px 36px 18px;
+    padding: 8px 12px 18px 12px;
   }
-  .mainContainer .hotelName {
-    font-size: 18px;
+  .hotelData .headerTit {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+  .hotelData .status {
+    display: inline;
+    border: 1px solid #2853AF;
+    border-radius: 4px;
+    padding: 1px 3px;
+    color: #2853AF;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .productContainer .hotelName {
+    font-size: 16px;
     font-weight: bold;
     margin-bottom: 8px;
   }
-  .mainContainer .hotelSubInfo {
+  .productContainer .hotelSubInfo {
     display: inline-flex;
   }
   .hotelSubInfo .hotelImg {
     border-radius: 6px;
     margin-right: 6px;
   }
-  .mainContainer .hotelInfo {
+  .productContainer .hotelInfo {
     font-size: 13px;
   }
   .hotelInfo .roomName {
@@ -83,15 +98,18 @@
     color: #929292;
     font-size: 12px;
   }
-  .mainContainer .userData {
-    margin-top: 24px;
+  .productContainer .infoData {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top: 18px;
+    padding: 12px 12px 18px 12px;
+  }
+  .productContainer .userData {
     padding-left: 2px;
   }
   .userData .tit {
-    border-top: 1px solid #ccc;
     font-weight: bold;
     font-size: 16px;
-    padding: 16px 0 8px 0;
   }
   .userData .name {
     display: flex;
@@ -123,7 +141,7 @@
     font-weight: 400;
     font-size: 14px;
   }
-  .mainContainer .reserveData {
+  .productContainer .reserveData {
     margin-top: 24px;
     padding-left: 4px;
   }
@@ -163,7 +181,7 @@
     font-weight: 400;
     font-size: 14px;
   }
-  .mainContainer .paymentData {
+  .productContainer .paymentData {
     margin-top: 24px;
     padding-left: 4px;
   }
@@ -217,40 +235,120 @@
     font-weight: bold;
     font-size: 18px;
   }
-  .mainContainer .completionBtn {
+  .productContainer .reserveCancel {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top: 18px;
+    padding: 12px 12px 18px 12px;
+  }
+  .reserveCancel .tit {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  .reserveCancel .notice {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 400;
+    margin: 12px 0 ;
+  }
+  .reserveCancel .notice span {
+    font-weight: bold;
+  }
+  .reserveCancel .notice span img {
+    transform: translateY(3px);
+  }
+  .reserveCancel .cancelInfo {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+    font-size: 14px;
+  }
+  .cancelInfo .productName {
+    font-weight: bold;
+  }
+  .cancelInfo .date {
+    font-size: 13px;
+    color: #929292;
+  }
+  .cancelInfo .cancelReason {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+  }
+  .cancelInfo .cancelReason div:nth-child(1) {
+    color: #929292;
+    font-size: 13px;
+  }
+  .cancelInfo .cancelReason div:nth-child(2) {
+    font-weight: 400;
+    font-size: 14px;
+    padding-left: 4px;
+    font-weight: bold;
+  }
+  .reserveCancel .cancelTit {
+    font-weight: bold;
+    font-size: 16px;
+    padding: 8px 0;
+  }
+  .reserveCancel .originalPay {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 36px;
   }
-  .completionBtn .detailReserveBtn {
-    border: 1px solid #2853AF;
-    border-radius: 4px;
-    color: #2853AF;
-    width: 40%;
-    height: 36px;
-    line-height: 34px;
-    padding: 4px 12px;
-    text-align: center;
+  .reserveCancel .originalPay div:nth-child(1) {
+    color: #929292;
+    font-size: 13px;
+  }
+  .reserveCancel .originalPay div:nth-child(2) {
+    font-weight: 400;
+    font-size: 14px;
+  }
+  .reserveCancel .discountPay {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+  .reserveCancel .discountPay div:nth-child(1) {
+    color: #929292;
+    font-size: 13px;
+  }
+  .reserveCancel .discountPay div:nth-child(2) {
+    font-weight: 400;
+    font-size: 14px;
+  }
+  .reserveCancel .commissionPay {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+  .reserveCancel .commissionPay div:nth-child(1) {
+    display: flex;
+    align-items: center;
+    color: #929292;
+    font-size: 13px;
+  }
+  .commissionPay div:nth-child(1) span {
+    padding-bottom: 2px;
+  }
+  .reserveCancel .commissionPay div:nth-child(2) {
+    font-weight: 400;
+    font-size: 14px;
+  }
+  .reserveCancel .cancelPay {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+  .reserveCancel .cancelPay div:nth-child(1) {
     font-size: 15px;
     font-weight: bold;
   }
-  .completionBtn .homeBtn {
-    border: 1px solid #2853AF;
-    border-radius: 4px;
-    background-color: #2853AF;
-    color: #ffffff;
-    width: 40%;
-    height: 36px;
-    line-height: 34px;
-    padding: 4px 12px;
-    text-align: center;
+  .reserveCancel .cancelPay div:nth-child(2) {
     font-weight: bold;
-  }
-  .headerContainer .completionNotice {
-    font-size: 12px;
-    color: #929292;
-    padding: 0 20px;
-    font-weight: 400;
+    font-size: 18px;
   }
 }
