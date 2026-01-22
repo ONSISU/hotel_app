@@ -3,9 +3,25 @@ import styles from "@/style/components/payment/DetailReserveCompletion.module.sc
 import Image from 'next/image';
 import React, { useState, useEffect, useCallback, useRef  } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'
+import BottomSheet from '@/components/common/HotelInfoBottomSheet';
 
 export default function DetailReserveCompletion() {
-  
+  const router = useRouter();
+  const [isCancelActive, setIsCancelActive] = useState<boolean>(false); // 예약완료일시 true
+  // 수수료 말풍선
+  const [showCommissionBubble, setShowCommissionBubble] = useState<boolean>(false);
+  // 바텀시트
+  const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false); // 바텀 시트 열림/닫힘 상태
+  const openSheet = () => setIsSheetOpen(true);
+  const closeSheet = () => setIsSheetOpen(false);
+
+  const goHome = () => {
+    router.replace('/');
+  }
+  const toggleCommissionBubble = () => {
+    setShowCommissionBubble(prev => !prev);
+  };
   return (
     <div className={styles.detailReserveWrap}>
       <div className={styles.titleContainer}>
@@ -21,7 +37,7 @@ export default function DetailReserveCompletion() {
         <div className={styles.productContainer}>
           <div className={styles.hotelData}>
             <div className={styles.headerTit}>상품 및 이용 정보</div>
-            <div className={styles.status}>예약완료</div>
+            <div className={styles.status}>예약완료</div> {/*예약상태에 따라 변경 */}
             <div className={styles.hotelName}>그랜드 하얏트 호텔</div>
             <div className={styles.hotelSubInfo}>
               <Image src="/images/popularImg01.jpg" alt='호텔사진' width={72} height={72} className={styles.hotelImg}/>
@@ -76,9 +92,11 @@ export default function DetailReserveCompletion() {
           <div className={styles.reserveCancel}>
             <div className={styles.tit}>취소 및 환불 정보</div>
             <div className={styles.notice}>
-              <div className={styles.txt}>환불은 영업일 기준 최대 <span>7</span>일이 걸립니다. 자세한 내용은 <span>환불정책
-                <Image src="/icons/question.svg" alt='수수료' width={16} height={16} />
-                </span>을 참고해 주세요.</div>
+              <div className={styles.txt}>환불은 영업일 기준 최대 <span>7일</span>이 걸립니다. 자세한 내용은 
+                <span> 환불정책
+                <Image src="/icons/question.svg" alt='환불정책' width={16} height={16} onClick={openSheet}/>
+                </span>을 참고해 주세요.
+              </div>
             </div>
             <div className={styles.cancelInfo}>
               <div className={styles.productName}>그랜드 하얏트 호텔</div>
@@ -100,19 +118,65 @@ export default function DetailReserveCompletion() {
             <div className={styles.commissionPay}>
               <div>
                 <span>수수료</span>
-                <Image src="/icons/question.svg" alt='수수료' width={16} height={16} />
+                <Image src="/icons/question.svg" alt='수수료' width={16} height={16} onClick={toggleCommissionBubble} />
               </div>
               <div>0원</div>
             </div>
+            {showCommissionBubble && (
+              <div className={styles.commissionBubble}>
+                취소 수수료는 판매금액을 기준으로 계산됩니다. 자세한 사항은 취소 규정을 참고해주세요
+              </div>
+            )}
             <div className={styles.cancelPay}>
               <div>예상 환불 금액</div>
               <div>60,000원</div>
             </div>
           </div>
           {/* --------------------- 예약 취소인 경우에만 생성 --------------------- */}
+          <div className={styles.detailReserveBtn}>
+            <button className={styles.homeBtn} onClick={goHome}>홈으로</button>
+            <button className={`${styles.cancelBtn} ${isCancelActive ? styles.cancelBtnActive : ''}`} disabled={true}>예약 취소</button>
+          </div>
         </div>
       </div>
-
+      <BottomSheet isOpen={isSheetOpen} onClose={closeSheet}>
+        <>
+          <div className="bottomSheetHeader">
+            <h3>환불 정책</h3>
+            <button className="closeButton" onClick={closeSheet}>×</button>
+          </div>
+          <div className={styles.content01}>
+            <div className={styles.tit}>결제수단 별 환불 정책</div>
+            <div className={styles.line}>
+              <div>-</div>
+              <div>취소완료 후 원결제수단으로 취소되는 시점은 영업일 기준 3~7일이 소요됩니다.</div>
+            </div>
+            <div className={styles.line}>
+              <div>-</div>
+              <div>예약 시 선택하신 결제수단에 따라 환불이 불가능한 경우, 고객센터를 통해 계좌환불로 대체 처리 될 수 있습니다.</div>
+            </div>
+            <div className={styles.line}>
+              <div>-</div>
+              <div>계좌환불 진행 시, 고객님의 계좌로 환불금액이 완료까지 영업일 기준 2~3일이 소요될 수 있습니다.</div>
+            </div>
+            <div className={styles.line}>
+              <div>-</div>
+              <div>&lsquo;휴대폰 결제&rsquo; 예약 건은 결제 당월에 한해 원 거래 취소 및 환불 처리가 가능합니다. 익월 이후 취소 시, 계좌를 통한 현금 또는 포인트로 환불됩니다.</div>
+            </div>
+          </div>
+          <div className={styles.content02}>
+            <div className={styles.tit}>사용한 쿠폰의 반환</div>
+            <div className={styles.line}>
+              <div>-</div>
+              <div>고객 소유의 쿠폰을 사용하신 경우, 취소수수료 발생 여부와 무관하게 예약취소 시점에 고객님 게정으로 반환됩니다.</div>
+            </div>
+            <div className={styles.line}>
+              <div>-</div>
+              <div>단, &lsquo;즉시 할인쿠폰(선착순 쿠폰)&rsquo;의 경우, 회원이 소유한 형태의 쿠폰이 아니므로, 반환 대상에서 제외됩니다.</div>
+            </div>
+          </div>
+        </>
+      </BottomSheet>
     </div>
   );
 }                                                                                

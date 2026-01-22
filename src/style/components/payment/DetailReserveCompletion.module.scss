@@ -330,12 +330,21 @@
     color: #929292;
     font-size: 13px;
   }
-  .commissionPay div:nth-child(1) span {
-    padding-bottom: 2px;
-  }
   .reserveCancel .commissionPay div:nth-child(2) {
     font-weight: 400;
     font-size: 14px;
+  }
+  .productContainer .commissionBubble {
+    position: absolute;
+    padding: 8px 12px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 12px;
+    background-color: #313030;
+    opacity: 0.85;
+    color: #ffffff;
+    width: 70%;
   }
   .reserveCancel .cancelPay {
     display: flex;
@@ -350,5 +359,74 @@
   .reserveCancel .cancelPay div:nth-child(2) {
     font-weight: bold;
     font-size: 18px;
+  }
+  .productContainer .detailReserveBtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 36px auto 0 auto;
+    width: 96%;
+  }
+  .detailReserveBtn .homeBtn {
+    border: 1px solid #2853AF;
+    border-radius: 4px;
+    color: #2853AF;
+    width: 44%;
+    height: 44px;
+    line-height: 30px;
+    padding: 4px 12px;
+    font-size: 14px;
+    white-space: nowrap;
+    margin-left: 12px;
+    background-color: #ffffff;
+    font-weight: bold;
+  }
+  .detailReserveBtn .cancelBtn {
+    border: 1px solid #bebcbc;
+    border-radius: 4px;
+    background-color: #bebcbc;
+    color: #ffffff;
+    width: 44%;
+    height: 44px;
+    line-height: 30px;
+    padding: 4px 12px;
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  .detailReserveBtn .cancelBtnActive {
+    border: 1px solid #2853AF;
+    background-color: #2853AF;
+  }
+  .content01 {
+    font-size: 12px;
+    padding: 16px 6px;
+  }
+  .content01 .line {
+    display: flex;
+    margin-bottom: 5px;
+  }
+  .content01 .line div:nth-child(1) {
+    margin-right: 4px;
+  }
+  .content01 .tit {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 24px;
+  }
+  .content02 {
+    font-size: 12px;
+    padding: 16px 6px;
+  }
+  .content02 .line {
+    display: flex;
+    margin-bottom: 5px;
+  }
+  .content02 .line div:nth-child(1) {
+    margin-right: 4px;
+  }
+  .content02 .tit {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 16px;
   }
 }

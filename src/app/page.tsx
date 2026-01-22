@@ -249,9 +249,7 @@ export default function Home() {
             <div className={styles["wrap-map"]}>
               <div className={styles["map-title"]}>
                 <span className={styles["tit"]}>내주변</span>
-                <Link href="/payment/Completion">
-                  <span className={styles["more"]}>지도보기</span>
-                </Link>
+                <span className={styles["more"]}>지도보기</span>
               </div>
               <div className={styles["map"]}>
                 <div>
