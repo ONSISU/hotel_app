@@ -2,11 +2,11 @@
 import styles from "@/style/page/hotel/Reserve.module.scss";
 import Image from 'next/image';
 import React, { useState, useEffect, useCallback, useRef  } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import BottomSheet from '@/components/common/HotelInfoBottomSheet';
 //import PaymentWidget from "@/components/payment/PaymentWidget";
 import usePaymentWidget from "@/components/payment/hooks/usePaymentWidget";
-import { randomUUID } from "crypto";
+// import { randomUUID } from "crypto";
 
 function Reserve() {
   const [isChecked, setIsChecked] = useState(true);
@@ -32,6 +32,9 @@ function Reserve() {
   const closeSheetTerms02 = () => setIsSheetOpenTerms02(false);
   const router = useRouter();
 
+  //orderKey 값
+  const searchParams = useSearchParams();
+  const orderKey = searchParams?.get('orderKey') ?? "";
   // 미사용으로 보여 주석
   // const accessToken = localStorage.getItem("accessToken");
 
@@ -75,27 +78,11 @@ function Reserve() {
   const backPage=  () =>  {
     router.back(); 
   }
+
   const {
     goPayment
   } = usePaymentWidget();
-  //const payBtn = async () => {
-    // const res = await fetch(`http://tomhoon.my:33000/api/v1/reservation/room`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Authorization": accessToken || ""
-    //   },
-    //   body: JSON.stringify({
-    //     "userId" : 3,
-    //     "ownHotelId" : 2,
-    //     "startDate" : "2025-12-15",
-    //     "endDate" : "2025-12-15" 
-    //   }),
-    // });
-
-    // const json = await res.json();
-    // console.log(json);
-  //}
+  
   return (
     <div className={styles.roomWrap}>
       <div className={styles.titleContainer}>
@@ -261,7 +248,7 @@ function Reserve() {
             <Image src="/icons/notify-arrow.svg" alt='이용규칙' width={16} height={16} className={styles.img} onClick={openSheetTerms02}/>
           </div>
         </div>
-        <button className={`${styles.paymentBtn} ${allCheckedToPayment ? styles.paymentBtnActive : ''}`} disabled={!allCheckedToPayment} onClick={() => goPayment({orderId: crypto.randomUUID()})}>60,000원 결제하기</button>
+        <button className={`${styles.paymentBtn} ${allCheckedToPayment ? styles.paymentBtnActive : ''}`} disabled={!allCheckedToPayment} onClick={() => goPayment({orderId: crypto.randomUUID(), orderKey: orderKey})}>60,000원 결제하기</button>
       </div>
       <BottomSheet isOpen={isSheetOpen} onClose={closeSheet}>
         <>
