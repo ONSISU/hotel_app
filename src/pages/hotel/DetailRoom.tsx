@@ -5,6 +5,7 @@ import React, { useState, useEffect, useCallback, useRef  } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Loading from "@/components/Loading";
+import { randomUUID } from "crypto";
 
 export default function DetailRoom() {
   
@@ -22,6 +23,30 @@ export default function DetailRoom() {
   //     </>
   //   );
   // }
+  const checkYn = async () => {
+    const res = await fetch(`http://tomhoon.my:33000/api/v1/payment/saveTempReservation`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "paymentTempId" : randomUUID,
+        "userId" : 3,
+        "ownHotelId" : "1",
+        "startDate" : "2026-01-27",
+        "endDate" : "2026-01-28",
+        "reserveName" : "사우스페리",
+        "reservePhone" : "010-1111-2222",
+        "status" : "PENDING",
+        "amt" : "50000",
+        "expireAt" : "2026-01-29"
+      }),
+    });
+
+    const json = await res.json();
+    const orderKey = json.data.orderKey
+    router.push(`/hotel/Reserve?orderKey=${orderKey}`);
+  }
   return (
     <div className={styles.roomWrap}>
         <div className={styles.titleContainer}>
@@ -116,9 +141,10 @@ export default function DetailRoom() {
           <div className={styles.price}>1,200,000원</div>
         </div>
         {/* <Link href="/hotel/Reserve" style={{textDecoration: 'none'}}> */}
-        <Link href="/hotel/Reserve" style={{textDecoration: 'none'}}>
+        {/* <Link href="/hotel/Reserve" style={{textDecoration: 'none'}}>
           <div className={styles.reserveBtn}>예약하기</div>
-        </Link>
+        </Link> */}
+        <div className={styles.reserveBtn} onClick={checkYn}>예약하기</div>
       </div>
     </div>
   );

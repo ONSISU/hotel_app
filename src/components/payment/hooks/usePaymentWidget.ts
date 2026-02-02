@@ -1,6 +1,8 @@
+'use client'; // 클라이언트 컴포넌트로 선언해야 useRouter 또는 useSearchParams를 사용할 수 있습니다.
 import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
+import { randomUUID } from "crypto";
 import { useState, useRef, useEffect } from "react";
-
+import { useSearchParams } from 'next/navigation';
 interface PayParams {
   orderId?: string;
   orderName?: string;
@@ -8,6 +10,7 @@ interface PayParams {
   customerEmail?: string;
   successUrl?: string;
   failUrl?: string;
+  orderKey: string;
 }
 
 export default function usePaymentWidget() {
@@ -102,7 +105,7 @@ export default function usePaymentWidget() {
       // 성공시) /api/payment/reserve/success
       // 실패시) /api/payment/reserve/fail
       await widgets?.requestPayment({
-        orderId: params.orderId || 'adsfnwoiqn',
+        orderId: params.orderId,
         orderName: params.orderName || "토스 티셔츠 외 2건",
         customerName: params.customerName || "김토스",
         customerEmail: params.customerEmail || "customer123@gmail.com",
@@ -122,3 +125,4 @@ export default function usePaymentWidget() {
     ready
   }
 }
+// export default usePaymentWidget;

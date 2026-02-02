@@ -8,6 +8,7 @@ import {PopularHotel, PopularHotelApiResponse, FavoriteHotel, FavoriteHotelApiRe
 import {SearchType, SearchTypeApiResponse} from '../app/type/searchType';
 import UserStates from '@/states/UserStates'; 
 import Loading from "@/components/Loading";
+import Map from "@/components/common/Map";
 
 export default function Home() {
   const [isRecommend, setIsRecommend] = useState('ALL');
@@ -249,11 +250,15 @@ export default function Home() {
             <div className={styles["wrap-map"]}>
               <div className={styles["map-title"]}>
                 <span className={styles["tit"]}>내주변</span>
-                <span className={styles["more"]}>지도보기</span>
+                <Link href={'/map'}>
+                  <span className={styles["more"]}>지도보기</span>
+                </Link>
               </div>
               <div className={styles["map"]}>
                 <div>
-                  네이버지도 예정
+                  <Link href={'/map'}>
+                    <Map />
+                  </Link>
                 </div>
               </div>
             </div>
