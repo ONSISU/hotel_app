@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 
 type hotelType = {
   hotelId: number;
@@ -8,16 +8,27 @@ type hotelType = {
   latitude: number;
   longitude: number;
 };
-
 export default function Map() {
   const mapContainer = useRef<HTMLDivElement>(null);
   const markersRef = useRef<any[]>([]);
   const mapRef = useRef<any>(null);
-
+  // 현위치 조회
+  const [myLocation, setMyLocation] = useState<{ latitude: number; longitude: number }>({ latitude: 37.4979, longitude: 127.0276 });
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setMyLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+    }
+  }, []);
+  
   useEffect(() => {
     if (mapContainer.current) {
       const map = new window.naver.maps.Map(mapContainer.current, {
-        center: new window.naver.maps.LatLng(37.4979, 127.0276),
+        center: new window.naver.maps.LatLng(myLocation.latitude, myLocation.longitude),
         zoom: 17,
       });
       mapRef.current = map;
@@ -46,7 +57,7 @@ export default function Map() {
         searchHotels(startLat, startLng, endLat, endLng, zoomLevel);
       });
     }
-  }, []);
+  }, [myLocation.latitude, myLocation.longitude]);
 
   const searchHotels = async (
     startLat: number,

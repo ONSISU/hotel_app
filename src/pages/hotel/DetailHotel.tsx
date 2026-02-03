@@ -10,7 +10,8 @@ import { useRouter } from 'next/router';
 import {HotelDetail, HotelDetailApiResponse} from '@/app/type/hotelDetail';
 import axios from "axios";
 import Loading from "@/components/Loading";
-  
+// import Map from "@/components/common/Map";
+
 const getFormattedDateRange = (startDate: Date, endDate: Date): string => {
   const formatSingleDate = (date: Date): string => {
     let formatted = date.toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit' });
@@ -389,11 +390,13 @@ const DetailHotel: FC = () => {
           <div className={styles.info05}>
             <div className={styles.title}>
               <span className={styles.subTitle}>위치정보</span>
-              <span className={styles.more}>지도보기</span>
+              <Link href={'/map'} className={styles.link}>
+                <span className={styles.more}>지도보기</span>
+              </Link>
             </div>
             <div className={styles.map}>
               <div>
-                네이버지도 예정
+                {/* <Map /> */}
               </div>
             </div>
           </div>

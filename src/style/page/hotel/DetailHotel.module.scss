@@ -316,14 +316,21 @@
     font-weight: bold;
     font-size: 16px;
   }
+  .info05 .title .link {
+    text-decoration: none;
+  }
   .info05 .more {
     color: #2853AF;
     font-size: 12px;
     font-weight: bold;
   }
   .info05 .map {
-    border: 1px solid gray;
-    height: 10em;
+    border: 1px solid rgb(231, 231, 231);
+    height: 152px;
+    border-radius: 8px;
+  }
+  .info05 .map div:nth-child(1) {
+    height: 150px !important;
     border-radius: 8px;
   }
   .info06 .title {
