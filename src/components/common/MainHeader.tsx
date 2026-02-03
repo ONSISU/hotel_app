@@ -1,6 +1,8 @@
+'use client'
 import styles from "@/style/components/common/MainHeader.module.scss";
 import Image from "next/image";
 import {useMemo} from "react";
+import { useRouter } from 'next/navigation';
 
 type propsHeader = {
   backType?: number;
@@ -22,7 +24,11 @@ export default function MainHeader({backType = 1, title, subIconType}: propsHead
     if (!subIconType) return;
     return subIconImage[(subIconType >= 3 ? 1 : subIconType) - 1];
   }, [subIconType]);
-
+  const router = useRouter();
+  
+  const backPage=  () =>  {
+    router.back(); 
+  }
   return (
     <>
       <div className={styles.container}>
@@ -31,7 +37,7 @@ export default function MainHeader({backType = 1, title, subIconType}: propsHead
             <div
               className={`${styles.backButton} ${backType === 2 && styles.backButtonTransparent}`}
             >
-              <Image src="/icons/header/arrowLeft.png" width={17} height={14} alt="back" />
+              <Image src="/icons/header/arrowLeft.png" width={17} height={14} alt="back" onClick={backPage} />
             </div>
           )}
 
