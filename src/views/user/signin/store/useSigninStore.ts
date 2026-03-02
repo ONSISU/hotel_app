@@ -41,6 +41,6 @@ const useSigninStore = create(
   )
 )
 
-export const useGetUserId = () => useSigninStore(s => s.userId);
+export const useGetUserId = () => useSigninStore(s => s.fullName);
 export const useSetUser = () => useSigninStore(s => s.actions.setUser);
 export const useClearUser = () => useSigninStore(s => s.actions.clearUser);
