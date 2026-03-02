@@ -36,7 +36,7 @@ export default function DetailRoom() {
         "startDate" : "2026-01-27",
         "endDate" : "2026-01-28",
         "reserveName" : "사우스페리",
-        "reservePhone" : "010-1111-2222",
+        "reservePhone" : "01011112222",
         "status" : "PENDING",
         "amt" : "50000",
         "expireAt" : "2026-01-29"

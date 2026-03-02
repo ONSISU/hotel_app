@@ -15,15 +15,24 @@ export default function useSignin() {
   const goLogin = async () => {
     setIsLoading(true);
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/auth/login`, {
+    const [res, err] = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/auth/login`, {
       method: "POST",
       credentials: 'include',
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({...loginInfo}),
-    });
+    })
+    .then(res => [res, null])
+    .catch(err => [null, err]);
 
+    if (err) {
+      setIsLoading(false);
+      console.error(err);
+      alert("로그인에 실패하였습니다.");
+      return;
+    }
+    
     const json = await res.json();
     if (json.statusCode == 200) {
       const userData = {

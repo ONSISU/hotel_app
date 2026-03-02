@@ -1,5 +1,5 @@
 'use client'
-import { useClearUser, useGetUserId, useSetUser } from "@/app/user/signin/store/useSigninStore";
+import { useClearUser, useGetUserId, useSetUser } from "@/views/user/signin/store/useSigninStore";
 import { ReactNode, useEffect } from "react";
 import { BaseResponse, UserInfo } from "../../types/user/userType";
 // import { toast } from "sonner";
