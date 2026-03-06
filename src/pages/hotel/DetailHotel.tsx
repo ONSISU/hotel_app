@@ -1,16 +1,17 @@
 'use client';
 import styles from "@/style/page/hotel/DetailHotel.module.scss";
-import '@/style/components/common/Calendar.css'; // css import
+import '@/style/components/common/Calendar.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import Calendar, {Value} from 'react-calendar'; 
-import React, { useState, useEffect, useRef, useMemo, FC, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import BottomSheet from '@/components/common/HotelInfoBottomSheet';
 import { useRouter } from 'next/router';
 import {HotelDetail, HotelDetailApiResponse} from '@/app/type/hotelDetail';
 import axios from "axios";
 import Loading from "@/components/Loading";
-// import Map from "@/components/common/Map";
+import Map from "@/components/common/Map";
+import Script from 'next/script';
 
 const getFormattedDateRange = (startDate: Date, endDate: Date): string => {
   const formatSingleDate = (date: Date): string => {
@@ -38,7 +39,7 @@ const getDurationString = (startDate: Date, endDate: Date) => {
   return `${nights}박`;
 };
 
-const DetailHotel: FC = () => {
+export default function DetailHotel() {
   const router = useRouter();
   const [showMoreFacilities, setShowMoreFacilities] = useState<boolean>(false); 
   const [isLocation, setIsLocation] = useState<boolean>(false);
@@ -86,7 +87,6 @@ const DetailHotel: FC = () => {
 
   // 로딩
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   useEffect(() => {
     if (isCalendar) {
       document.body.style.overflow = 'hidden'; 
@@ -98,6 +98,13 @@ const DetailHotel: FC = () => {
     };
   }, [isCalendar]); 
 
+  useEffect(() => {
+    <Script
+      src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=6kilhlwyk3"
+      strategy="afterInteractive"
+    />
+
+  }, [])
   useEffect(() => {
     let startDispDate: Date = today;
     let endDispDate: Date = tomorrow;
@@ -183,7 +190,7 @@ const DetailHotel: FC = () => {
     selectedEnd.setHours(0,0,0,0);
     setTempCalendarValue([selectedStart, selectedEnd]);
   };
-  const backPage=  () =>  {
+  const backPage = () =>  {
     router.back(); 
   }
   const fetchHotelDetails = useCallback(async (id: string) => {
@@ -225,6 +232,10 @@ const DetailHotel: FC = () => {
   
   return (
     <div className={styles.detailWrap}>
+      <Script
+      src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=6kilhlwyk3"
+      strategy="afterInteractive"
+    />
       <div className={styles.titleContainer} >
         <Image src="/icons/backBlack.svg" alt='뒤로가기' width={25} height={25} className={styles.back} onClick={backPage} priority={true}/>
         <div className={styles.title01}>{hotelDetail.hotelName}</div>
@@ -390,13 +401,19 @@ const DetailHotel: FC = () => {
           <div className={styles.info05}>
             <div className={styles.title}>
               <span className={styles.subTitle}>위치정보</span>
-              <Link href={'/map'} className={styles.link}>
+              <Link href={`/map?latitude=${hotelDetail.latitude}&longitude=${hotelDetail.longitude}`} className={styles.link}>
                 <span className={styles.more}>지도보기</span>
               </Link>
             </div>
             <div className={styles.map}>
+            <Script
+              src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=6kilhlwyk3"
+              strategy="afterInteractive"
+              />
               <div>
-                {/* <Map /> */}
+                <Link href={`/map?latitude=${hotelDetail.latitude}&longitude=${hotelDetail.longitude}`}>
+                  <Map  />
+                </Link>
               </div>
             </div>
           </div>
@@ -549,4 +566,3 @@ const DetailHotel: FC = () => {
     </div>
   );
 }
-export default DetailHotel;

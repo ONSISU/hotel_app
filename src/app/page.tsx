@@ -21,7 +21,19 @@ export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false); 
   // 로딩
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  //현위치
+  // const [myLocation, setMyLocation] = useState<{ latitude: number; longitude: number }>({ latitude: 37.4945888, longitude: 127.033061 });
+  const [myLocation, setMyLocation] = useState<{ latitude: number; longitude: number }>({ latitude: 0, longitude: 0 });
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setMyLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+    }
+  }, [myLocation.latitude, myLocation.longitude]);
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 70) {
@@ -98,7 +110,6 @@ export default function Home() {
       setTypeList([])
     }
   };
-  
   return (
     <>
       {isScrolled &&
@@ -159,7 +170,7 @@ export default function Home() {
               <div className={styles["container-popular"]}>
                 {favoriteHotelData.map(favorite => ( 
                   // <Link href={`/hotel/DetailHotel`}
-                  <Link href={`/hotel/DetailHotel?hotelId=${favorite.hotelId}`}
+                  <Link href={`/hotel/DetailHotel?hotelId=${favorite.hotelId}&latitude=1&longitude=1`}
                     className={styles["popular-link"]} key={favorite.hotelId}>
                     <div className={styles["popular-img"]}>
                       <div className={styles["popular-heart-radius"]}>
@@ -255,9 +266,9 @@ export default function Home() {
                 </Link>
               </div>
               <div className={styles["map"]}>
-                <div>
-                  <Link href={'/map'}>
-                    <Map />
+                <div className={styles["content"]} >
+                  <Link href={'/map'} title='맵'>
+                    <Map/>
                   </Link>
                 </div>
               </div>

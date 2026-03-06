@@ -425,8 +425,8 @@
   height: 152px;
   border-radius: 8px;
 }
-.wrap-map .map div:nth-child(1) {
-  height: 150px !important;
+.map .content div {
+  height: 150px !important;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
   border-radius: 8px;
 }
 .wrap-bestToday .bestToday-title {
