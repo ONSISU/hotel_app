@@ -95,8 +95,8 @@ export default function Home() {
 							<div className={styles["container-popular"]}>
 								{favoriteHotelData.map(favorite => (
 									// <Link href={`/hotel/DetailHotel`}
-									<Link href={`/hotel/DetailHotel?hotelId=${favorite.hotelId}`}
-									      className={styles["popular-link"]} key={favorite.hotelId}>
+                  <Link href={`/hotel/DetailHotel?hotelId=${favorite.hotelId}&latitude=1&longitude=1`}
+										className={styles["popular-link"]} key={favorite.hotelId}>
 										<div className={styles["popular-img"]}>
 											<div className={styles["popular-heart-radius"]}>
 												<Image src="/icons/popular-fullHeart.png" alt='찜' width={16} height={16} className={styles["heart"]} priority={true} />
