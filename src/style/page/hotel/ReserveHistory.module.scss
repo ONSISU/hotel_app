@@ -1,0 +1,196 @@
+@media (max-width: 426px) {    
+  .reserveHistoryWrap {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  }
+  .titleContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 10px 0;
+    padding-left: 10px; 
+  }
+  .back {
+    position: absolute; 
+    left: 20px;
+    transform: none; 
+  }
+  .titleContainer .title01 {
+    font-size: 20px;
+    color: #333333;
+    text-align: center;
+    width: 100%; 
+  }
+  .reserveHistoryContent {
+    margin-top: 72px;
+    padding: 0 12px;
+  }
+  .dataSetup .dateTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    border: 1px solid #e7e7e7;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  .dataSetup .dateTitle .sort {
+    user-select: none;
+    color: #444;
+  }
+  .dataSetup .dateTitle .choice {
+    transform: rotate(90deg);
+  }
+  .dataSetup .bottomSheetBackDrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 999;
+    transition: 'opacity 0.3s ease-in-out',
+  }
+  .dataSetup .bottomSheetModal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    padding: 8px 24px;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+
+  }
+  .bottomSheetModal .bottomSheetHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .bottomSheetModal .bottomSheetTitle {
+    font-weight: 700;
+    font-size: 18px;
+    flex-grow: 1;
+  }
+  .bottomSheetModal .optionList {
+    padding: 12px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+  }
+  .optionList .check {
+    color: #3366ff;
+    margin-left: 8px;
+  }
+  .bottomSheetModal .close {
+    padding: 8px 0;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #666;
+  }
+  .reserveHistoryContent .reserveHistory {
+    border: 1px solid #e7e7e7;
+    border-radius: 12px;
+    padding: 8px 12px;
+    margin-bottom: 24px;
+  }
+  .reserveHistory .reserveHistoryItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 8px 12px 8px;
+    border-bottom: 1px solid #e7e7e7;
+  }
+  .reserveHistory .reserveHistoryItem div:nth-child(1) {
+    font-weight: bold;
+  }
+  .reserveHistory .reserveHistoryItem div:nth-child(2) {
+    display: flex;
+    align-items: center;
+    color: #8e8e8e;
+    font-size: 14px;
+  }
+  .reserveHistory .reserveHistoryItem div:nth-child(2) .link {
+    text-decoration: none;
+    color: #8e8e8e;
+  }
+  .reserveHistory .reserveHistoryItem div:nth-child(2) .notifyArrow {
+    margin: 3px 0 0 3px;
+  }
+  .reserveHistory .hotelData {
+    padding: 8px 8px 18px 8px;
+  }
+  .hotelData .status {
+    display: inline;
+    border: 1px solid #2853AF;
+    border-radius: 4px;
+    padding: 1px 3px;
+    color: #2853AF;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .hotelData .cancel {
+    display: inline;
+    border: 1px solid #919191;
+    border-radius: 4px;
+    padding: 1px 3px;
+    color: #919191;
+    font-size: 10px;
+    font-weight: 600;
+
+  }
+  .reserveHistory .hotelName {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  .reserveHistory .hotelSubInfo {
+    display: inline-flex;
+  }
+  .hotelSubInfo .hotelImg {
+    border-radius: 6px;
+    margin-right: 6px;
+  }
+  .reserveHistory .hotelInfo {
+    font-size: 13px;
+  }
+  .hotelInfo .roomName {
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+  }
+  .hotelInfo .roomDate span {
+    color: #e5e5e5;
+  }
+  .hotelInfo .roomCheckTime {
+    color: #929292;
+    font-size: 12px;
+  }
+  .hotelInfo .roomCheckTime span {
+    color: #e5e5e5;
+  }
+  .hotelInfo .roomPerson {
+    color: #929292;
+    font-size: 12px;
+  }
+  .reserveHistoryContent .noticeContent {
+    font-size: 12px;
+    color: #929292;
+    padding: 0 8px;
+  }
+  .reserveHistoryContent .noticeContent div:nth-child(1){
+    margin-bottom: 14px;
+  }
+}

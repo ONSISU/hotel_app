@@ -26,19 +26,18 @@ export async function GET(req: NextRequest) {
 	)
 	.then((res) => {
 		if (res.status !== 200) {
-			console.error('결제 결과: [결제실패] ### ', res.statusText);
 			return [null, new Error(res.statusText)];
 		}
 		return [res, null];
 	})
 	.catch((err) => {
-		console.error('결제 결과: [결제실패] ### ', err);
 		return [null, err]
 	});
 	
 	if (err) {
 		const response = NextResponse.redirect(
-			new URL("/reserve/payment/fail", req.nextUrl.origin)
+			// new URL("/reserve/payment/fail", req.nextUrl.origin)
+			new URL("http://10.197.227.15:3000/reserve/payment/fail", req.nextUrl.origin)
 		);
 		
 		return response;
@@ -48,7 +47,8 @@ export async function GET(req: NextRequest) {
 	console.log('결제 결과: [결제성공] ### ', json);
 	
 	const response = NextResponse.redirect(
-		new URL("/reserve/payment/success", req.nextUrl.origin)
+		// new URL("/reserve/payment/success", req.nextUrl.origin)
+		new URL("http://10.197.227.15:3000/reserve/payment/success", req.nextUrl.origin)
 	);
 	
 	// 성공시 사용할 데이터 쿠키에 삽입

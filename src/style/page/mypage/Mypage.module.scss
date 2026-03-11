@@ -1,0 +1,123 @@
+@media (max-width: 426px) {    
+  .myPageWrap {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;  
+  }
+  .titleContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 10px 0;
+    padding-left: 10px; 
+  }
+
+  .back {
+    position: absolute; 
+    left: 20px;
+    transform: none; 
+  }
+
+  .titleContainer .title01 {
+    font-size: 20px;
+    color: #333333;
+    text-align: center;
+    width: 100%; 
+  }
+  .mypageContainer {
+    margin-top: 72px;
+    padding: 0 24px;
+  }
+  .mypageContainer .profile {
+    display: flex;
+    align-items: center;
+  }
+  .mypageContainer .profileInfo {
+  }
+  .profileInfo .name {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 22px;
+    margin-left: 6px;
+  }
+  .profile .notifyArrow {
+    margin-left: auto;
+  }
+  .mypageContainer .info01 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 18px auto;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    height: 44px;
+    padding: 0 72px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .info01 .myReview {
+    
+  }
+  .info01 .line {
+    color: #ccc;
+  }
+  .info01 .myCoupon {
+    display: flex;
+    align-items: center;
+  }
+  .info01 .myCoupon div:nth-child(1){
+    margin-right: 3px;
+  }
+  .info01 .myCoupon div:nth-child(2){
+    color: #5A7BC1;
+  }
+  .mypageContainer .reverseContent {
+    background-color: #fafafa;
+    border-radius: 10px;
+    padding: 6px 8px;
+    font-size: 15px;
+  }
+  .reverseContent .reverseHistory {
+    padding: 8px;
+    color: #292929;
+  }
+  .mypageContainer .noticeContent {
+    background-color: #fafafa;
+    border-radius: 10px;
+    padding: 6px 8px;
+    margin-top: 16px;
+    font-size: 15px;
+  }
+  .noticeContent .notice {
+    padding: 8px;
+    color: #292929;    
+  }
+  .mypageContainer .setupContent {
+    background-color: #fafafa;
+    border-radius: 10px;
+    padding: 6px 8px;
+    margin-top: 16px;
+    font-size: 15px;
+  }
+  .setupContent .setup {
+    padding: 8px;
+    color: #292929;    
+  }
+  .setupContent .version {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .setupContent .version .setup:nth-child(2) {
+    font-size: 14px;
+    color: #7b7b7b;
+  }
+}

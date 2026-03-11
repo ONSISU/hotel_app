@@ -255,7 +255,7 @@ export default function Home() {
 						</Link>
 					</div>
 					<div className={styles.item01}>
-						<Link href={!userId ? '/user/signin' : ''} className={styles["link"]}>
+						<Link href={!userId ? '/user/signin' : '/user/mypage'} className={styles["link"]}>
 							<Image src="/icons/binPeople.svg" alt='내정보' width={20} height={20} title='내정보' priority={true}/>
 							<div className={styles.title}>
 								{userId ?'내정보' : '로그인'}

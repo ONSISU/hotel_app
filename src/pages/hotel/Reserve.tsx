@@ -6,7 +6,8 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import BottomSheet from '@/components/common/HotelInfoBottomSheet';
 //import PaymentWidget from "@/components/payment/PaymentWidget";
 import usePaymentWidget from "@/components/payment/hooks/usePaymentWidget";
-// import { randomUUID } from "crypto";
+import { randomUUID } from "crypto";
+import { v4 as uuidv4 } from 'uuid';
 
 function Reserve() {
   const [isChecked, setIsChecked] = useState(true);
@@ -248,7 +249,8 @@ function Reserve() {
             <Image src="/icons/notify-arrow.svg" alt='이용규칙' width={16} height={16} className={styles.img} onClick={openSheetTerms02}/>
           </div>
         </div>
-        <button className={`${styles.paymentBtn} ${allCheckedToPayment ? styles.paymentBtnActive : ''}`} disabled={!allCheckedToPayment} onClick={() => goPayment({orderId: crypto.randomUUID(), orderKey: orderKey})}>60,000원 결제하기</button>
+        {/* <button className={`${styles.paymentBtn} ${allCheckedToPayment ? styles.paymentBtnActive : ''}`} disabled={!allCheckedToPayment} onClick={() => goPayment({orderId: crypto.randomUUID(), orderKey: orderKey})}>60,000원 결제하기</button> */}
+        <button className={`${styles.paymentBtn} ${allCheckedToPayment ? styles.paymentBtnActive : ''}`} disabled={!allCheckedToPayment} onClick={() => goPayment({orderId: uuidv4(), orderKey: orderKey})}>60,000원 결제하기</button>
       </div>
       <BottomSheet isOpen={isSheetOpen} onClose={closeSheet}>
         <>
